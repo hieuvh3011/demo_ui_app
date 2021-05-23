@@ -30,6 +30,7 @@ const Header = props => {
         </TouchableOpacity>
       );
     }
+    return <View style={styles.emptyIcon} />;
   };
 
   const _renderRight = () => {
@@ -44,6 +45,7 @@ const Header = props => {
         </TouchableOpacity>
       );
     }
+    return <View style={styles.emptyIcon} />;
   };
 
   const _renderBadge = () => {
@@ -104,6 +106,10 @@ const styles = ScaledSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
+  },
+  emptyIcon: {
+    width: '40@ms',
+    height: '40@ms',
   },
   badge: {
     paddingHorizontal: '6.5@ms',

@@ -13,13 +13,18 @@ const AppButton = (props: any): JSX.Element => {
     style,
     textStyle,
     activeOpacity,
+    children,
   } = props;
   return (
     <TouchableOpacity
       style={[styles.container, {backgroundColor}, style]}
       onPress={onPress}
       activeOpacity={activeOpacity}>
-      <Text style={[styles.text, {color: textColor}, textStyle]}>{text}</Text>
+      {children !== null ? (
+        children
+      ) : (
+        <Text style={[styles.text, {color: textColor}, textStyle]}>{text}</Text>
+      )}
     </TouchableOpacity>
   );
 };
@@ -30,7 +35,8 @@ const styles = ScaledSheet.create({
     height: '40@vs',
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: '10@ms',
+    borderRadius: '15@ms',
+    marginVertical: '5@vs',
   },
   text: {
     fontSize: '16@ms',
@@ -46,12 +52,14 @@ AppButton.propTypes = {
   style: PropType.object,
   textStyle: PropType.object,
   activeOpacity: PropType.number,
+  children: PropType.element,
 };
 
 AppButton.defaultProps = {
   backgroundColor: Colors.primary,
   textColor: Colors.white,
   activeOpacity: 0.6,
+  children: null,
 };
 
 export default AppButton;
