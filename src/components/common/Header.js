@@ -5,6 +5,7 @@ import {ScaledSheet, scale} from 'react-native-size-matters';
 import {getStatusBarHeight} from 'react-native-iphone-x-helper';
 import PropType from 'prop-types';
 import Colors from '@app/utils/colors';
+import {goBack} from '@app/navigation/NavigatorHelper';
 
 const {width} = Dimensions.get('window');
 
@@ -25,7 +26,10 @@ const Header = props => {
     }
     if (hasBackLeft) {
       return (
-        <TouchableOpacity style={styles.iconButton} activeOpacity={0.8}>
+        <TouchableOpacity
+          style={styles.iconButton}
+          activeOpacity={0.8}
+          onPress={goBack}>
           <Icon name={'arrow-left'} size={scale(20)} color={Colors.white} />
         </TouchableOpacity>
       );
