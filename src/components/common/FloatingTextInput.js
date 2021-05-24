@@ -39,7 +39,7 @@ const FloatingTextInput = props => {
 
 const container = {
   width: '100%',
-  height: '50@vs',
+  height: '45@vs',
   borderWidth: '1@ms',
   borderRadius: '5@ms',
   borderColor: 'rgba(160, 140, 107, 1)',

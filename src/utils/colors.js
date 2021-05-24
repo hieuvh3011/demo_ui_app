@@ -3,6 +3,7 @@ const Colors = {
   background: 'rgba(255, 255, 255, 1)',
   white: '#FFF',
   primary: 'rgba(255, 149, 0, 1)',
+  primary400: 'rgba(255, 164, 37, 1)',
   inactive: '#dddddd',
   borderBottom: 'rgba(196, 196, 196, 1)',
   headerTitle: '#FF9500',
@@ -15,6 +16,8 @@ const Colors = {
   borderTextInput: 'rgba(160, 140, 107, 1)',
   errorText: 'rgba(183, 28, 28, 1)',
   errorBadge: 'rgba(229, 57, 53, 1)',
+  disableButton: 'rgba(255, 243, 224, 1)',
+  success: 'rgba(0, 233, 37, 1)',
 };
 
 export default Colors;

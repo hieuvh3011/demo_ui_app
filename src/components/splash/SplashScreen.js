@@ -13,7 +13,9 @@ const SplashScreen = (): JSX.Element => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.teachingKid}>{I18n.t('splash.teaching_kid')}</Text>
+      <Text style={styles.teachingKid}>
+        {'育兒' /*I18n.t('splash.teaching_kid')*/}
+      </Text>
       <Text style={styles.text365}>365</Text>
     </View>
   );

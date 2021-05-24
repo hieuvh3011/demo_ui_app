@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, TouchableOpacity} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import PropType from 'prop-types';
 import Colors from '@app/utils/colors';
@@ -14,17 +14,42 @@ const AppButton = (props: any): JSX.Element => {
     textStyle,
     activeOpacity,
     children,
+    disabled,
+    disabledStyle,
+    disabledTextStyle,
+    ...rest
   } = props;
-  return (
+
+  const _renderChildren = () => {
+    if (children !== null) {
+      return children;
+    }
+    return (
+      <Text
+        style={[
+          styles.text,
+          {color: textColor},
+          disabled ? disabledTextStyle : textStyle,
+        ]}>
+        {text}
+      </Text>
+    );
+  };
+
+  return disabled === true ? (
+    <View
+      style={[styles.container, {backgroundColor}, disabledStyle]}
+      activeOpacity={activeOpacity}
+      {...rest}>
+      {_renderChildren()}
+    </View>
+  ) : (
     <TouchableOpacity
       style={[styles.container, {backgroundColor}, style]}
       onPress={onPress}
-      activeOpacity={activeOpacity}>
-      {children !== null ? (
-        children
-      ) : (
-        <Text style={[styles.text, {color: textColor}, textStyle]}>{text}</Text>
-      )}
+      activeOpacity={activeOpacity}
+      {...rest}>
+      {_renderChildren()}
     </TouchableOpacity>
   );
 };
@@ -39,7 +64,7 @@ const styles = ScaledSheet.create({
     marginVertical: '5@vs',
   },
   text: {
-    fontSize: '16@ms',
+    fontSize: '14@ms',
     fontWeight: 'bold',
   },
 });
@@ -53,12 +78,16 @@ AppButton.propTypes = {
   textStyle: PropType.object,
   activeOpacity: PropType.number,
   children: PropType.element,
+  disabled: PropType.bool,
+  disabledStyle: PropType.object,
+  disabledTextStyle: PropType.object,
 };
 
 AppButton.defaultProps = {
   backgroundColor: Colors.primary,
   textColor: Colors.white,
   activeOpacity: 0.6,
+  disabled: false,
   children: null,
 };
 

@@ -1,21 +1,26 @@
-import React, {createRef, forwardRef, useRef, useState} from 'react';
-import {View, Text, TouchableOpacity, ScrollView, Image} from 'react-native';
-import {ScaledSheet, moderateScale} from 'react-native-size-matters';
-import {navigateToScreenAndReplace} from '@app/navigation/NavigatorHelper';
-import {TAB_NAVIGATOR} from '@app/navigation/ScreenName';
+import React, {useState} from 'react';
+import {View, Text, ScrollView, Image} from 'react-native';
+import {ScaledSheet} from 'react-native-size-matters';
+import {
+  navigateToScreen,
+  navigateToScreenAndReplace,
+} from '@app/navigation/NavigatorHelper';
+import {SIGN_UP_SCREEN, TAB_NAVIGATOR} from '@app/navigation/ScreenName';
 import Header from '@app/components/common/Header';
 import FloatingTextInput from '../common/FloatingTextInput';
-import {FloatingLabelInput} from 'react-native-floating-label-input';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Colors from '@app/utils/colors';
-import AppTextInput from '@app/components/common/AppTextInput';
 import AppButton from '@app/components/common/AppButton';
 import {googleLogo} from '@app/assets/images';
+import I18n from '@app/i18n/i18n';
 
-const fakeError = ['Email is incorrect format', 'Password is weak '];
+const fakeError = [
+  I18n.t('error.email_is_incorrect_format'),
+  I18n.t('error.email_password_not_match'),
+];
 
 const LoginScreen = () => {
   const goToHomeScreen = () => navigateToScreenAndReplace(TAB_NAVIGATOR);
+  const goToSignUp = () => navigateToScreen(SIGN_UP_SCREEN);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
@@ -30,13 +35,20 @@ const LoginScreen = () => {
   const _renderInput = () => {
     return (
       <>
-        <FloatingTextInput value={email} onChange={onChangeEmail} />
+        <FloatingTextInput
+          iconName={'email'}
+          value={email}
+          onChange={onChangeEmail}
+          label={I18n.t('login.email')}
+          style={styles.input}
+        />
         <FloatingTextInput
           value={password}
           onChange={onChangePassword}
           isPassword={true}
           iconName={'key'}
-          label={'Password'}
+          label={I18n.t('login.password')}
+          style={styles.input}
         />
       </>
     );
@@ -45,7 +57,9 @@ const LoginScreen = () => {
   const _renderForgotPassword = () => {
     return (
       <View style={styles.forgotPassword}>
-        <Text style={styles.forgotPasswordText}>Forgot password</Text>
+        <Text style={styles.forgotPasswordText}>
+          {I18n.t('login.reset_password')}
+        </Text>
       </View>
     );
   };
@@ -71,17 +85,18 @@ const LoginScreen = () => {
     return (
       <>
         {_buttonLoginGoogle()}
-        <AppButton text={'Sign in'} />
+        <AppButton text={I18n.t('login.sign_in')} />
         <View style={styles.divide}>
           <View style={styles.divideLine} />
-          <Text style={styles.or}>or</Text>
+          <Text style={styles.or}>{I18n.t('login.or')}</Text>
           <View style={styles.divideLine} />
         </View>
         <AppButton
           backgroundColor={Colors.white}
-          text={'Sign Up'}
+          text={I18n.t('login.sign_up')}
           textColor={Colors.primary}
           style={styles.signUp}
+          onPress={goToSignUp}
         />
       </>
     );
@@ -89,8 +104,12 @@ const LoginScreen = () => {
 
   const _buttonLoginGoogle = () => (
     <AppButton style={styles.loginGoogle}>
-      <Image source={googleLogo} style={styles.logoGoogle} />
-      <Text style={styles.signInWithGoogle}>Sign in with Google</Text>
+      <>
+        <Image source={googleLogo} style={styles.logoGoogle} />
+        <Text style={styles.signInWithGoogle}>
+          {I18n.t('login.sign_in_with_google')}
+        </Text>
+      </>
     </AppButton>
   );
 
@@ -115,7 +134,10 @@ const styles = ScaledSheet.create({
     backgroundColor: Colors.background,
   },
   top: {
-    height: '100@vs',
+    height: '80@vs',
+  },
+  input: {
+    marginVertical: '5@vs',
   },
   button: {
     marginVertical: '30@vs',
@@ -160,12 +182,12 @@ const styles = ScaledSheet.create({
   errorSymbol: {
     fontWeight: 'bold',
     color: Colors.white,
-    fontSize: '14@ms',
+    fontSize: '13@ms',
   },
   errorText: {
     fontWeight: 'bold',
     color: Colors.errorText,
-    fontSize: '14@ms',
+    fontSize: '12@ms',
     paddingLeft: '10@ms',
   },
   error: {
@@ -199,20 +221,20 @@ const styles = ScaledSheet.create({
   },
   divideLine: {
     backgroundColor: Colors.borderBottom,
-    height: '1@vs',
+    height: '2@vs',
     flex: 1,
   },
   divide: {
     flexDirection: 'row',
     width: '100%',
-    paddingVertical: '10@vs',
+    paddingVertical: '8@vs',
     alignItems: 'center',
   },
   or: {
     marginHorizontal: '10@ms',
     color: Colors.labelInput,
     fontWeight: 'bold',
-    fontSize: '14@ms',
+    fontSize: '12@ms',
   },
   signUp: {
     borderWidth: '1@ms',
