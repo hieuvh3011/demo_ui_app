@@ -27,4 +27,8 @@ export default {
     password_need_at_least_14_character:
       'Your password needs to be at least 14 characters long',
   },
+  reset_password: {
+    reset_password: 'Reset Password',
+    what_your_email: "What's your email?",
+  },
 };

@@ -1,11 +1,15 @@
 import React, {useState} from 'react';
-import {View, Text, ScrollView, Image} from 'react-native';
+import {View, Text, ScrollView, Image, TouchableOpacity} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import {
   navigateToScreen,
   navigateToScreenAndReplace,
 } from '@app/navigation/NavigatorHelper';
-import {SIGN_UP_SCREEN, TAB_NAVIGATOR} from '@app/navigation/ScreenName';
+import {
+  RESET_PASSWORD_ENTER_EMAIL_SCREEN,
+  SIGN_UP_SCREEN,
+  TAB_NAVIGATOR,
+} from '@app/navigation/ScreenName';
 import Header from '@app/components/common/Header';
 import FloatingTextInput from '../common/FloatingTextInput';
 import Colors from '@app/utils/colors';
@@ -18,11 +22,16 @@ const fakeError = [
   I18n.t('error.email_password_not_match'),
 ];
 
-const LoginScreen = () => {
-  const goToHomeScreen = () => navigateToScreenAndReplace(TAB_NAVIGATOR);
-  const goToSignUp = () => navigateToScreen(SIGN_UP_SCREEN);
+const LoginScreen = props => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+
+  const goToHomeScreen = () => navigateToScreenAndReplace(TAB_NAVIGATOR);
+
+  const goToSignUp = () => navigateToScreen(SIGN_UP_SCREEN);
+
+  const goToResetPassword = () =>
+    navigateToScreen(RESET_PASSWORD_ENTER_EMAIL_SCREEN);
 
   const onChangeEmail = text => {
     setEmail(text);
@@ -57,9 +66,13 @@ const LoginScreen = () => {
   const _renderForgotPassword = () => {
     return (
       <View style={styles.forgotPassword}>
-        <Text style={styles.forgotPasswordText}>
-          {I18n.t('login.reset_password')}
-        </Text>
+        <TouchableOpacity
+          style={styles.forgotPasswordButton}
+          onPress={goToResetPassword}>
+          <Text style={styles.forgotPasswordText}>
+            {I18n.t('login.reset_password')}
+          </Text>
+        </TouchableOpacity>
       </View>
     );
   };
@@ -158,7 +171,11 @@ const styles = ScaledSheet.create({
   },
   forgotPassword: {
     width: '100%',
+    alignItems: 'flex-end',
+  },
+  forgotPasswordButton: {
     paddingVertical: '5@vs',
+    paddingLeft: '15@ms',
     alignItems: 'flex-end',
   },
   forgotPasswordText: {
