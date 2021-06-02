@@ -7,10 +7,23 @@ import Colors from '@app/utils/colors';
 import {FloatingLabelInput} from 'react-native-floating-label-input/index';
 
 const FloatingTextInput = props => {
-  const {value, onChange, error, label, isPassword, iconName, style, ...rest} =
-    props;
+  const {
+    value,
+    onChange,
+    error,
+    label,
+    isPassword,
+    iconName,
+    style,
+    focusedColor,
+    ...rest
+  } = props;
   const ref = createRef();
   const containerStyle = StyleSheet.flatten([styles.container, style]);
+  const focusedContainerStyle = StyleSheet.flatten([
+    styles.focusedContainer,
+    style,
+  ]);
   return (
     <FloatingLabelInput
       value={value}
@@ -22,12 +35,14 @@ const FloatingTextInput = props => {
       leftComponent={
         <Icon
           name={iconName}
-          color={ref?.current?.isFocused ? Colors.primary : Colors.text}
+          color={ref?.current?.isFocused() ? Colors.primary : Colors.text}
           size={moderateScale(25)}
           style={styles.icon}
         />
       }
-      containerStyles={containerStyle}
+      containerStyles={
+        ref?.current?.isFocused() ? focusedContainerStyle : containerStyle
+      }
       customLabelStyles={customLabelStyles}
       labelStyles={labelText}
       inputStyles={styles.input}
@@ -87,6 +102,7 @@ FloatingTextInput.propTypes = {
   isPassword: PropTypes.bool,
   iconName: PropTypes.string,
   style: PropTypes.object,
+  focusedColor: PropTypes.string,
 };
 
 FloatingTextInput.defaultProps = {

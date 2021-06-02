@@ -17,6 +17,7 @@ const Colors = {
   errorText: 'rgba(183, 28, 28, 1)',
   errorBadge: 'rgba(229, 57, 53, 1)',
   disableButton: 'rgba(255, 243, 224, 1)',
+  disabledButtonText: '#FFCA7F',
   success: 'rgba(0, 233, 37, 1)',
 };
 

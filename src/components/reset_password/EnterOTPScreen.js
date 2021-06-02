@@ -7,17 +7,13 @@ import I18n from '@app/i18n/i18n';
 import FloatingTextInput from '@app/components/common/FloatingTextInput';
 import {textStyle} from '@app/utils/TextStyles';
 import AppButton from '@app/components/common/AppButton';
-import {navigateToScreen} from '@app/navigation/NavigatorHelper';
-import {RESET_PASSWORD_ENTER_OTP_SCREEN} from '@app/navigation/ScreenName';
 
-const EnterEmailScreen = props => {
-  const [email, setEmail] = useState('');
+const EnterOTPScreen = props => {
+  const [otp, setOTP] = useState('');
 
-  const onChangeEmail = text => {
-    setEmail(text);
+  const onChangeOTP = text => {
+    setOTP(text);
   };
-
-  const goToEnterOTP = () => navigateToScreen(RESET_PASSWORD_ENTER_OTP_SCREEN);
 
   return (
     <View style={styles.container}>
@@ -27,18 +23,16 @@ const EnterEmailScreen = props => {
         <Text style={styles.text}>
           {I18n.t('reset_password.what_your_email')}
         </Text>
-        <FloatingTextInput
-          onChange={onChangeEmail}
-          value={email}
-          label={I18n.t('register.enter_your_email')}
-          keyboardType={'email-address'}
-          autoFocus={true}
-        />
+        {/*<FloatingTextInput*/}
+        {/*  onChange={onChangeEmail}*/}
+        {/*  value={email}*/}
+        {/*  label={I18n.t('register.enter_your_email')}*/}
+        {/*  keyboardType={'email-address'}*/}
+        {/*/>*/}
         <View style={styles.blank250} />
         <AppButton
           text={I18n.t('reset_password.continue')}
-          disabled={email === ''}
-          onPress={goToEnterOTP}
+          disabled={otp === ''}
         />
       </ScrollView>
     </View>
@@ -66,4 +60,4 @@ const styles = ScaledSheet.create({
   },
 });
 
-export default EnterEmailScreen;
+export default EnterOTPScreen;

@@ -56,7 +56,7 @@ export const textStyle = {
   h1_primary: {
     ...Fonts.defaultBold,
     color: Colors.primary,
-    fontSize: '30@ms',
+    fontSize: '28@ms',
   },
   h3_primary: {
     ...Fonts.defaultSemiBold,

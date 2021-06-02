@@ -30,5 +30,6 @@ export default {
   reset_password: {
     reset_password: 'Reset Password',
     what_your_email: "What's your email?",
+    continue: 'Continue',
   },
 };

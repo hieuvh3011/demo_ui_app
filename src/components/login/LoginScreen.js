@@ -107,7 +107,7 @@ const LoginScreen = props => {
         <AppButton
           backgroundColor={Colors.white}
           text={I18n.t('login.sign_up')}
-          textColor={Colors.primary}
+          textStyle={styles.signUpText}
           style={styles.signUp}
           onPress={goToSignUp}
         />
@@ -235,6 +235,9 @@ const styles = ScaledSheet.create({
     fontSize: '14@ms',
     fontWeight: 'bold',
     color: Colors.labelInput,
+  },
+  signUpText: {
+    color: Colors.primary,
   },
   divideLine: {
     backgroundColor: Colors.borderBottom,

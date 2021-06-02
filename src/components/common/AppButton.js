@@ -8,7 +8,6 @@ const AppButton = (props: any): JSX.Element => {
   const {
     text,
     backgroundColor,
-    textColor,
     onPress,
     style,
     textStyle,
@@ -27,8 +26,7 @@ const AppButton = (props: any): JSX.Element => {
     return (
       <Text
         style={[
-          styles.text,
-          {color: textColor},
+          disabled ? styles.disabledText : styles.text,
           disabled ? disabledTextStyle : textStyle,
         ]}>
         {text}
@@ -38,7 +36,7 @@ const AppButton = (props: any): JSX.Element => {
 
   return disabled === true ? (
     <View
-      style={[styles.container, {backgroundColor}, disabledStyle]}
+      style={[styles.disabledContainer, disabledStyle]}
       activeOpacity={activeOpacity}
       {...rest}>
       {_renderChildren()}
@@ -54,24 +52,37 @@ const AppButton = (props: any): JSX.Element => {
   );
 };
 
+const container = {
+  width: '100%',
+  height: '40@vs',
+  alignItems: 'center',
+  justifyContent: 'center',
+  borderRadius: '15@ms',
+  marginVertical: '5@vs',
+};
+
 const styles = ScaledSheet.create({
   container: {
-    width: '100%',
-    height: '40@vs',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: '15@ms',
-    marginVertical: '5@vs',
+    ...container,
   },
   text: {
     fontSize: '14@ms',
     fontWeight: 'bold',
+    color: Colors.white,
+  },
+  disabledContainer: {
+    ...container,
+    backgroundColor: Colors.disableButton,
+  },
+  disabledText: {
+    fontSize: '14@ms',
+    fontWeight: 'bold',
+    color: Colors.disabledButtonText,
   },
 });
 
 AppButton.propTypes = {
   text: PropType.string,
-  textColor: PropType.string,
   backgroundColor: PropType.string,
   onPress: PropType.func,
   style: PropType.object,
@@ -85,7 +96,6 @@ AppButton.propTypes = {
 
 AppButton.defaultProps = {
   backgroundColor: Colors.primary,
-  textColor: Colors.white,
   activeOpacity: 0.6,
   disabled: false,
   children: null,

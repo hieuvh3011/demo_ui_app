@@ -3,6 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {
   LOGIN_SCREEN,
   RESET_PASSWORD_ENTER_EMAIL_SCREEN,
+  RESET_PASSWORD_ENTER_OTP_SCREEN,
   SIGN_UP_SCREEN,
   SPLASH_SCREEN,
   TAB_NAVIGATOR,
@@ -14,6 +15,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {navigationRef} from '@app/navigation/NavigatorHelper';
 import SignUpScreen from '@app/components/sign_up/SignUpScreen';
 import EnterEmailScreen from '@app/components/reset_password/EnterEmailScreen';
+import EnterOTPScreen from '@app/components/reset_password/EnterOTPScreen';
 
 const RootNavigator = () => {
   const Stack = createStackNavigator();
@@ -31,6 +33,10 @@ const RootNavigator = () => {
           component={EnterEmailScreen}
         />
         <Stack.Screen name={TAB_NAVIGATOR} component={TabNavigator} />
+        <Stack.Screen
+          name={RESET_PASSWORD_ENTER_OTP_SCREEN}
+          component={EnterOTPScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
