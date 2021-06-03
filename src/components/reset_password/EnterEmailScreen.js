@@ -17,6 +17,8 @@ const EnterEmailScreen = props => {
     setEmail(text);
   };
 
+  const clearEmail = () => setEmail('');
+
   const goToEnterOTP = () => navigateToScreen(RESET_PASSWORD_ENTER_OTP_SCREEN);
 
   return (
@@ -33,6 +35,7 @@ const EnterEmailScreen = props => {
           label={I18n.t('register.enter_your_email')}
           keyboardType={'email-address'}
           autoFocus={true}
+          clearContent={clearEmail}
         />
         <View style={styles.blank250} />
         <AppButton

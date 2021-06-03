@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import {View, Text, ScrollView} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import Colors from '@app/utils/colors';
@@ -7,10 +7,11 @@ import I18n from '@app/i18n/i18n';
 import FloatingTextInput from '@app/components/common/FloatingTextInput';
 import {textStyle} from '@app/utils/TextStyles';
 import AppButton from '@app/components/common/AppButton';
+import {CodeField, Cursor} from 'react-native-confirmation-code-field';
 
 const EnterOTPScreen = props => {
   const [otp, setOTP] = useState('');
-
+  const inputRef = useRef();
   const onChangeOTP = text => {
     setOTP(text);
   };
@@ -21,14 +22,26 @@ const EnterOTPScreen = props => {
       <ScrollView style={styles.scroll}>
         <View style={styles.blank100} />
         <Text style={styles.text}>
-          {I18n.t('reset_password.what_your_email')}
+          {I18n.t('reset_password.enter_6_digits')}
         </Text>
-        {/*<FloatingTextInput*/}
-        {/*  onChange={onChangeEmail}*/}
-        {/*  value={email}*/}
-        {/*  label={I18n.t('register.enter_your_email')}*/}
-        {/*  keyboardType={'email-address'}*/}
-        {/*/>*/}
+        <CodeField
+          ref={ref => (inputRef.current = ref)}
+          autoFocus={true}
+          // Use `caretHidden={false}` when users can't paste a text value, because context menu doesn't appear
+          value={otp}
+          onChangeText={onChangeOTP}
+          cellCount={6}
+          rootStyle={styles.codeFieldRoot}
+          keyboardType="number-pad"
+          textContentType="oneTimeCode"
+          renderCell={({index, symbol, isFocused}) => (
+            <Text
+              key={index}
+              style={[styles.cell, isFocused && styles.focusCell]}>
+              {symbol || (isFocused ? <Cursor /> : null)}
+            </Text>
+          )}
+        />
         <View style={styles.blank250} />
         <AppButton
           text={I18n.t('reset_password.continue')}
@@ -57,6 +70,24 @@ const styles = ScaledSheet.create({
   },
   blank250: {
     height: '250@vs',
+  },
+  codeFieldRoot: {
+    marginTop: '20@vs',
+  },
+  cell: {
+    width: '50@ms',
+    height: '50@ms',
+    borderWidth: '0.6@ms',
+    borderColor: '#A08C6B',
+    textAlign: 'center',
+    borderRadius: '5@ms',
+    ...textStyle.h3_black,
+    lineHeight: '40@ms',
+  },
+  textInCell: {},
+  focusCell: {
+    borderColor: Colors.borderFocused,
+    borderWidth: '1@ms',
   },
 });
 

@@ -19,6 +19,7 @@ const Colors = {
   disableButton: 'rgba(255, 243, 224, 1)',
   disabledButtonText: '#FFCA7F',
   success: 'rgba(0, 233, 37, 1)',
+  borderFocused: '#F26800',
 };
 
 export default Colors;

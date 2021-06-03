@@ -31,5 +31,6 @@ export default {
     reset_password: 'Reset Password',
     what_your_email: "What's your email?",
     continue: 'Continue',
+    enter_6_digits: 'Please enter the 6 digit code that we sent to your email.',
   },
 };

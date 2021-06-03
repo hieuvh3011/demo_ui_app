@@ -37,6 +37,9 @@ const LoginScreen = props => {
     setEmail(text);
   };
 
+  const clearEmail = () => setEmail('');
+  const clearPassword = () => setPassword('');
+
   const onChangePassword = text => {
     setPassword(text);
   };
@@ -50,6 +53,7 @@ const LoginScreen = props => {
           onChange={onChangeEmail}
           label={I18n.t('login.email')}
           style={styles.input}
+          clearContent={clearEmail}
         />
         <FloatingTextInput
           value={password}
@@ -58,6 +62,7 @@ const LoginScreen = props => {
           iconName={'key'}
           label={I18n.t('login.password')}
           style={styles.input}
+          clearContent={clearPassword}
         />
       </>
     );

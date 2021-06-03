@@ -40,7 +40,7 @@ export const textStyle = {
   },
   sm_black: {
     ...Fonts.defaultSemiBold,
-    color: Colors.labelInput,
+    color: Colors.text,
     fontSize: '11@ms',
   },
   md_primary: {
@@ -50,7 +50,7 @@ export const textStyle = {
   },
   md_black: {
     ...Fonts.defaultSemiBold,
-    color: Colors.labelInput,
+    color: Colors.text,
     fontSize: '13@ms',
   },
   h1_primary: {
@@ -61,6 +61,11 @@ export const textStyle = {
   h3_primary: {
     ...Fonts.defaultSemiBold,
     color: Colors.primary,
+    fontSize: '20@ms',
+  },
+  h3_black: {
+    ...Fonts.defaultSemiBold,
+    color: Colors.text,
     fontSize: '20@ms',
   },
 };
