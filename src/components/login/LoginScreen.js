@@ -1,21 +1,14 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {View, Text, ScrollView, Image, TouchableOpacity} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
-import {
-  navigateToScreen,
-  navigateToScreenAndReplace,
-} from '@app/navigation/NavigatorHelper';
-import {
-  RESET_PASSWORD_ENTER_EMAIL_SCREEN,
-  SIGN_UP_SCREEN,
-  TAB_NAVIGATOR,
-} from '@app/navigation/ScreenName';
 import Header from '@app/components/common/Header';
-import FloatingTextInput from '../common/FloatingTextInput';
 import Colors from '@app/utils/colors';
 import AppButton from '@app/components/common/AppButton';
 import {googleLogo} from '@app/assets/images';
 import I18n from '@app/i18n/i18n';
+import AppTextInput from '@app/components/common/AppTextInput';
+import LoginViewModel from '@app/components/login/LoginViewModel';
+import FloatingTextInput from '@app/components/common/FloatingTextInput';
 
 const fakeError = [
   I18n.t('error.email_is_incorrect_format'),
@@ -23,46 +16,34 @@ const fakeError = [
 ];
 
 const LoginScreen = props => {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-
-  const goToHomeScreen = () => navigateToScreenAndReplace(TAB_NAVIGATOR);
-
-  const goToSignUp = () => navigateToScreen(SIGN_UP_SCREEN);
-
-  const goToResetPassword = () =>
-    navigateToScreen(RESET_PASSWORD_ENTER_EMAIL_SCREEN);
-
-  const onChangeEmail = text => {
-    setEmail(text);
-  };
-
-  const clearEmail = () => setEmail('');
-  const clearPassword = () => setPassword('');
-
-  const onChangePassword = text => {
-    setPassword(text);
-  };
+  const {
+    email,
+    password,
+    goToResetPassword,
+    goToSignUp,
+    goToHomeScreen,
+    onChangeEmail,
+    onChangePassword,
+    clearEmail,
+    clearPassword,
+  } = LoginViewModel();
 
   const _renderInput = () => {
     return (
       <>
-        <FloatingTextInput
-          iconName={'email'}
+        <AppTextInput
           value={email}
           onChange={onChangeEmail}
           label={I18n.t('login.email')}
-          style={styles.input}
+          keyboardType={'email-address'}
           clearContent={clearEmail}
         />
-        <FloatingTextInput
+        <AppTextInput
           value={password}
           onChange={onChangePassword}
-          isPassword={true}
-          iconName={'key'}
           label={I18n.t('login.password')}
-          style={styles.input}
           clearContent={clearPassword}
+          secureTextEntry={true}
         />
       </>
     );
@@ -134,7 +115,7 @@ const LoginScreen = props => {
   return (
     <View style={styles.container}>
       <Header centerText={'Login'} hasBackLeft={false} />
-      <ScrollView style={styles.list}>
+      <ScrollView style={styles.list} keyboardShouldPersistTaps={'handled'}>
         <View style={styles.top} />
         {_renderInput()}
         {_renderForgotPassword()}

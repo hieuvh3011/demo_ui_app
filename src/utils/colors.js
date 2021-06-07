@@ -13,6 +13,8 @@ const Colors = {
   text: 'rgba(114, 92, 49, 1)',
   labelInput: 'rgba(114, 92, 49, 1)',
   textInput: 'rgba(78, 56, 26, 1)',
+  textInputErrorBackground: 'rgba(255, 235, 238, 1)',
+  textInputErrorIcon: 'rgba(183, 28, 28, 1)',
   borderTextInput: 'rgba(160, 140, 107, 1)',
   errorText: 'rgba(183, 28, 28, 1)',
   errorBadge: 'rgba(229, 57, 53, 1)',

@@ -1,7 +1,7 @@
 import Colors from '@app/utils/colors';
 import {scale} from 'react-native-size-matters';
 
-const Fonts = {
+export const Fonts = {
   defaultRegular: {
     fontFamily: 'NotoSansHKRounded-Regular',
   },
@@ -50,6 +50,11 @@ export const textStyle = {
   },
   md_black: {
     ...Fonts.defaultSemiBold,
+    color: Colors.text,
+    fontSize: '13@ms',
+  },
+  md_bold: {
+    ...Fonts.defaultBold,
     color: Colors.text,
     fontSize: '13@ms',
   },
