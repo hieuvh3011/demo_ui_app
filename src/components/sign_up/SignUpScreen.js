@@ -1,13 +1,13 @@
 import React from 'react';
-import {View, Text, ScrollView, Modal, TouchableOpacity} from 'react-native';
-import {ScaledSheet, scale} from 'react-native-size-matters';
+import {View, ScrollView} from 'react-native';
+import {ScaledSheet} from 'react-native-size-matters';
 import Header from '@app/components/common/Header';
 import Colors from '@app/utils/colors';
 import I18n from '@app/i18n/i18n';
-import FloatingTextInput from '@app/components/common/FloatingTextInput';
 import SignUpViewModel from '@app/components/sign_up/SignUpViewModel';
 import AppButton from '@app/components/common/AppButton';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import AppTextInput from '@app/components/common/AppTextInput';
+import ModalSuccess from '@app/components/common/ModalSuccess';
 
 const SignUpScreen = props => {
   const {
@@ -21,32 +21,38 @@ const SignUpScreen = props => {
     isSuccess,
     onPressCloseModal,
     onPressRegister,
+    clearConfirm,
+    clearPassword,
+    clearEmail,
   } = SignUpViewModel(props);
 
   const _renderInput = () => {
     return (
       <>
-        <FloatingTextInput
+        <AppTextInput
           value={email}
           onChange={onChangeEmail}
           label={I18n.t('register.enter_your_email')}
-          style={styles.input}
+          containerStyle={styles.input}
+          clearContent={clearEmail}
         />
-        <FloatingTextInput
+        <AppTextInput
           value={password}
           onChange={onChangePassword}
           label={I18n.t('register.enter_your_password')}
-          style={styles.input}
+          containerStyle={styles.input}
           iconName={'key'}
           isPassword={true}
+          clearContent={clearPassword}
         />
-        <FloatingTextInput
+        <AppTextInput
           value={confirmPassword}
           onChange={onChangeConfirm}
           label={I18n.t('register.confirm_your_password')}
-          style={styles.input}
+          containerStyle={styles.input}
           iconName={'key'}
           isPassword={true}
+          clearContent={clearConfirm}
         />
       </>
     );
@@ -65,52 +71,21 @@ const SignUpScreen = props => {
     );
   };
 
-  const _renderModalSuccess = () => {
-    return (
-      <Modal visible={isSuccess} transparent={true} animationType="slide">
-        <View style={styles.modalContainer}>
-          <View style={styles.modalView}>
-            <View style={styles.messageContainer}>
-              <View style={styles.successBadge}>
-                <Icon
-                  name={'check-bold'}
-                  size={scale(30)}
-                  color={Colors.white}
-                  style={styles.iconCheck}
-                />
-              </View>
-              <Text style={styles.text}>
-                {I18n.t('register.success_message')}
-              </Text>
-            </View>
-            <View style={styles.buttonContainer}>
-              <AppButton
-                text={'Okay'}
-                style={styles.button}
-                onPress={onPressCloseModal}
-              />
-            </View>
-            <TouchableOpacity
-              style={styles.closeModal}
-              onPress={onPressCloseModal}>
-              <Icon name={'close'} color={Colors.primary} size={scale(22)} />
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
-    );
-  };
-
   return (
     <View style={styles.container}>
       <Header centerText={I18n.t('register.create_account')} />
-      <ScrollView style={styles.scroll}>
+      <ScrollView style={styles.scroll} keyboardShouldPersistTaps={'handled'}>
         <View style={styles.top} />
         {_renderInput()}
         <View style={styles.padding} />
         {_renderButton()}
       </ScrollView>
-      {_renderModalSuccess()}
+      {isSuccess && (
+        <ModalSuccess
+          successMessage={I18n.t('register.success_message')}
+          onPressCloseModal={onPressCloseModal}
+        />
+      )}
     </View>
   );
 };
@@ -138,64 +113,6 @@ const styles = ScaledSheet.create({
   },
   disableButtonText: {
     color: Colors.primary,
-  },
-  modalContainer: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.6)',
-    justifyContent: 'flex-end',
-  },
-  modalView: {
-    height: '95%',
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: Colors.background,
-    borderRadius: '25@ms',
-  },
-  buttonContainer: {
-    width: '100%',
-    paddingVertical: '20@vs',
-    paddingHorizontal: '15@ms',
-  },
-  button: {
-    shadowColor: Colors.shadow,
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-    elevation: 3,
-    backgroundColor: Colors.primary400,
-  },
-  messageContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: '10@ms',
-  },
-  text: {
-    color: Colors.labelInput,
-    fontWeight: 'bold',
-    fontSize: '16@ms',
-  },
-  successBadge: {
-    width: '50@ms',
-    height: '50@ms',
-    marginVertical: '10@vs',
-    backgroundColor: Colors.success,
-    borderRadius: '25@ms',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  iconCheck: {
-    fontWeight: 'bold',
-  },
-  closeModal: {
-    position: 'absolute',
-    top: '10@ms',
-    right: '10@ms',
-    padding: '10@ms',
   },
 });
 

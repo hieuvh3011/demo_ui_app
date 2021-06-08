@@ -40,6 +40,10 @@ const SignUpViewModel = props => {
     }
   };
 
+  const clearEmail = () => onChangeEmail('');
+  const clearPassword = () => onChangePassword('');
+  const clearConfirm = () => onChangeConfirm('');
+
   return {
     email,
     password,
@@ -52,6 +56,9 @@ const SignUpViewModel = props => {
     isSuccess,
     onPressRegister,
     onPressCloseModal,
+    clearEmail,
+    clearPassword,
+    clearConfirm,
   };
 };
 

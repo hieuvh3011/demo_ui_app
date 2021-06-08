@@ -6,6 +6,7 @@ import {getStatusBarHeight} from 'react-native-iphone-x-helper';
 import PropType from 'prop-types';
 import Colors from '@app/utils/colors';
 import {goBack} from '@app/navigation/NavigatorHelper';
+import {textStyle} from '@app/utils/TextStyles';
 
 const {width} = Dimensions.get('window');
 
@@ -93,7 +94,8 @@ const styles = ScaledSheet.create({
     borderBottomColor: Colors.borderBottom,
   },
   text: {
-    ...defaultCenterTextStyle,
+    ...textStyle.h1_primary,
+    color: Colors.headerTitle,
   },
   iconButton: {
     width: '40@ms',
@@ -148,6 +150,7 @@ Header.propTypes = {
   right: PropType.element,
   hasBackLeft: PropType.bool,
   hasRight: PropType.bool,
+  badgeNumber: PropType.number,
 };
 
 Header.defaultProps = {
@@ -156,7 +159,7 @@ Header.defaultProps = {
   hasBackLeft: true,
   hasRight: true,
   right: null,
-  badgeNumber: 1,
+  badgeNumber: 0,
 };
 
 export default Header;

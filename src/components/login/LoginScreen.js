@@ -1,54 +1,50 @@
-import React, {useState} from 'react';
-import {View, Text, ScrollView, Image} from 'react-native';
+import React from 'react';
+import {View, Text, ScrollView, Image, TouchableOpacity} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
-import {
-  navigateToScreen,
-  navigateToScreenAndReplace,
-} from '@app/navigation/NavigatorHelper';
-import {SIGN_UP_SCREEN, TAB_NAVIGATOR} from '@app/navigation/ScreenName';
 import Header from '@app/components/common/Header';
-import FloatingTextInput from '../common/FloatingTextInput';
 import Colors from '@app/utils/colors';
 import AppButton from '@app/components/common/AppButton';
 import {googleLogo} from '@app/assets/images';
 import I18n from '@app/i18n/i18n';
+import AppTextInput from '@app/components/common/AppTextInput';
+import LoginViewModel from '@app/components/login/LoginViewModel';
+import Loading from '@app/components/common/Loading';
 
-const fakeError = [
-  I18n.t('error.email_is_incorrect_format'),
-  I18n.t('error.email_password_not_match'),
-];
-
-const LoginScreen = () => {
-  const goToHomeScreen = () => navigateToScreenAndReplace(TAB_NAVIGATOR);
-  const goToSignUp = () => navigateToScreen(SIGN_UP_SCREEN);
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-
-  const onChangeEmail = text => {
-    setEmail(text);
-  };
-
-  const onChangePassword = text => {
-    setPassword(text);
-  };
+const LoginScreen = props => {
+  const {
+    email,
+    password,
+    emailError,
+    passwordError,
+    errorList,
+    isLoading,
+    goToResetPassword,
+    goToSignUp,
+    onChangeEmail,
+    onChangePassword,
+    clearEmail,
+    clearPassword,
+    onPressLogin,
+  } = LoginViewModel();
 
   const _renderInput = () => {
     return (
       <>
-        <FloatingTextInput
-          iconName={'email'}
+        <AppTextInput
           value={email}
           onChange={onChangeEmail}
           label={I18n.t('login.email')}
-          style={styles.input}
+          keyboardType={'email-address'}
+          clearContent={clearEmail}
+          errorText={emailError}
         />
-        <FloatingTextInput
+        <AppTextInput
           value={password}
           onChange={onChangePassword}
-          isPassword={true}
-          iconName={'key'}
           label={I18n.t('login.password')}
-          style={styles.input}
+          clearContent={clearPassword}
+          secureTextEntry={true}
+          errorText={passwordError}
         />
       </>
     );
@@ -57,9 +53,13 @@ const LoginScreen = () => {
   const _renderForgotPassword = () => {
     return (
       <View style={styles.forgotPassword}>
-        <Text style={styles.forgotPasswordText}>
-          {I18n.t('login.reset_password')}
-        </Text>
+        <TouchableOpacity
+          style={styles.forgotPasswordButton}
+          onPress={goToResetPassword}>
+          <Text style={styles.forgotPasswordText}>
+            {I18n.t('login.reset_password')}
+          </Text>
+        </TouchableOpacity>
       </View>
     );
   };
@@ -67,13 +67,13 @@ const LoginScreen = () => {
   const _renderError = () => {
     return (
       <View style={styles.errorArea}>
-        {fakeError.map((item, index) => {
+        {errorList.map((item, index) => {
           return (
             <View key={index.toString()} style={styles.error}>
               <View style={styles.badge}>
                 <Text style={styles.errorSymbol}>!</Text>
               </View>
-              <Text style={styles.errorText}>{item}</Text>
+              <Text style={styles.errorText}>{item.text}</Text>
             </View>
           );
         })}
@@ -85,7 +85,7 @@ const LoginScreen = () => {
     return (
       <>
         {_buttonLoginGoogle()}
-        <AppButton text={I18n.t('login.sign_in')} />
+        <AppButton text={I18n.t('login.sign_in')} onPress={onPressLogin} />
         <View style={styles.divide}>
           <View style={styles.divideLine} />
           <Text style={styles.or}>{I18n.t('login.or')}</Text>
@@ -94,7 +94,7 @@ const LoginScreen = () => {
         <AppButton
           backgroundColor={Colors.white}
           text={I18n.t('login.sign_up')}
-          textColor={Colors.primary}
+          textStyle={styles.signUpText}
           style={styles.signUp}
           onPress={goToSignUp}
         />
@@ -116,13 +116,14 @@ const LoginScreen = () => {
   return (
     <View style={styles.container}>
       <Header centerText={'Login'} hasBackLeft={false} />
-      <ScrollView style={styles.list}>
+      <ScrollView style={styles.list} keyboardShouldPersistTaps={'handled'}>
         <View style={styles.top} />
         {_renderInput()}
         {_renderForgotPassword()}
         {_renderError()}
         {_renderButton()}
       </ScrollView>
+      <Loading isLoading={isLoading} loadingText={I18n.t('login.logging_in')} />
     </View>
   );
 };
@@ -139,16 +140,6 @@ const styles = ScaledSheet.create({
   input: {
     marginVertical: '5@vs',
   },
-  button: {
-    marginVertical: '30@vs',
-    padding: '10@ms',
-    backgroundColor: '#0077CC',
-    borderRadius: '10@ms',
-  },
-  textButton: {
-    color: '#FFF',
-    fontSize: '14@ms',
-  },
   list: {
     width: '100%',
     paddingHorizontal: '15@ms',
@@ -158,7 +149,11 @@ const styles = ScaledSheet.create({
   },
   forgotPassword: {
     width: '100%',
+    alignItems: 'flex-end',
+  },
+  forgotPasswordButton: {
     paddingVertical: '5@vs',
+    paddingLeft: '15@ms',
     alignItems: 'flex-end',
   },
   forgotPasswordText: {
@@ -218,6 +213,9 @@ const styles = ScaledSheet.create({
     fontSize: '14@ms',
     fontWeight: 'bold',
     color: Colors.labelInput,
+  },
+  signUpText: {
+    color: Colors.primary,
   },
   divideLine: {
     backgroundColor: Colors.borderBottom,
