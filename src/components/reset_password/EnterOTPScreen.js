@@ -8,12 +8,28 @@ import FloatingTextInput from '@app/components/common/FloatingTextInput';
 import {textStyle} from '@app/utils/TextStyles';
 import AppButton from '@app/components/common/AppButton';
 import {CodeField, Cursor} from 'react-native-confirmation-code-field';
+import Loading from '@app/components/common/Loading';
+import {navigateToScreen} from '@app/navigation/NavigatorHelper';
+import {RESET_PASSWORD_ENTER_NEW_PASSWORD_SCREEN} from '@app/navigation/ScreenName';
 
 const EnterOTPScreen = props => {
   const [otp, setOTP] = useState('');
+  const [isLoading, setLoading] = useState(false);
   const inputRef = useRef();
+
   const onChangeOTP = text => {
     setOTP(text);
+    if (text.length === 6) {
+      onPressContinue();
+    }
+  };
+
+  const onPressContinue = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      navigateToScreen(RESET_PASSWORD_ENTER_NEW_PASSWORD_SCREEN);
+    }, 2000);
   };
 
   return (
@@ -45,9 +61,13 @@ const EnterOTPScreen = props => {
         <View style={styles.blank250} />
         <AppButton
           text={I18n.t('reset_password.continue')}
-          disabled={otp === ''}
+          disabled={otp?.length !== 6}
+          onPress={onPressContinue}
         />
       </ScrollView>
+      {isLoading && (
+        <Loading loadingText={I18n.t('reset_password.confirm_otp')} />
+      )}
     </View>
   );
 };

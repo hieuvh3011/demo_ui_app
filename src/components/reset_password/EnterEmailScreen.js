@@ -9,6 +9,7 @@ import {textStyle} from '@app/utils/TextStyles';
 import AppButton from '@app/components/common/AppButton';
 import {navigateToScreen} from '@app/navigation/NavigatorHelper';
 import {RESET_PASSWORD_ENTER_OTP_SCREEN} from '@app/navigation/ScreenName';
+import AppTextInput from "@app/components/common/AppTextInput";
 
 const EnterEmailScreen = props => {
   const [email, setEmail] = useState('');
@@ -29,7 +30,7 @@ const EnterEmailScreen = props => {
         <Text style={styles.text}>
           {I18n.t('reset_password.what_your_email')}
         </Text>
-        <FloatingTextInput
+        <AppTextInput
           onChange={onChangeEmail}
           value={email}
           label={I18n.t('register.enter_your_email')}

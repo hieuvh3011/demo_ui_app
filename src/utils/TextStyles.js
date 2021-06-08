@@ -58,6 +58,11 @@ export const textStyle = {
     color: Colors.text,
     fontSize: '13@ms',
   },
+  md_bold_italic: {
+    ...Fonts.defaultBoldItalic,
+    color: Colors.text,
+    fontSize: '13@ms',
+  },
   h1_primary: {
     ...Fonts.defaultBold,
     color: Colors.primary,
@@ -72,5 +77,10 @@ export const textStyle = {
     ...Fonts.defaultSemiBold,
     color: Colors.text,
     fontSize: '20@ms',
+  },
+  h5_black: {
+    ...Fonts.defaultBold,
+    color: Colors.text,
+    fontSize: '15@ms',
   },
 };

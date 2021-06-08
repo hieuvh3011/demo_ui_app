@@ -8,24 +8,23 @@ import {googleLogo} from '@app/assets/images';
 import I18n from '@app/i18n/i18n';
 import AppTextInput from '@app/components/common/AppTextInput';
 import LoginViewModel from '@app/components/login/LoginViewModel';
-import FloatingTextInput from '@app/components/common/FloatingTextInput';
-
-const fakeError = [
-  I18n.t('error.email_is_incorrect_format'),
-  I18n.t('error.email_password_not_match'),
-];
+import Loading from '@app/components/common/Loading';
 
 const LoginScreen = props => {
   const {
     email,
     password,
+    emailError,
+    passwordError,
+    errorList,
+    isLoading,
     goToResetPassword,
     goToSignUp,
-    goToHomeScreen,
     onChangeEmail,
     onChangePassword,
     clearEmail,
     clearPassword,
+    onPressLogin,
   } = LoginViewModel();
 
   const _renderInput = () => {
@@ -37,6 +36,7 @@ const LoginScreen = props => {
           label={I18n.t('login.email')}
           keyboardType={'email-address'}
           clearContent={clearEmail}
+          errorText={emailError}
         />
         <AppTextInput
           value={password}
@@ -44,6 +44,7 @@ const LoginScreen = props => {
           label={I18n.t('login.password')}
           clearContent={clearPassword}
           secureTextEntry={true}
+          errorText={passwordError}
         />
       </>
     );
@@ -66,13 +67,13 @@ const LoginScreen = props => {
   const _renderError = () => {
     return (
       <View style={styles.errorArea}>
-        {fakeError.map((item, index) => {
+        {errorList.map((item, index) => {
           return (
             <View key={index.toString()} style={styles.error}>
               <View style={styles.badge}>
                 <Text style={styles.errorSymbol}>!</Text>
               </View>
-              <Text style={styles.errorText}>{item}</Text>
+              <Text style={styles.errorText}>{item.text}</Text>
             </View>
           );
         })}
@@ -84,7 +85,7 @@ const LoginScreen = props => {
     return (
       <>
         {_buttonLoginGoogle()}
-        <AppButton text={I18n.t('login.sign_in')} />
+        <AppButton text={I18n.t('login.sign_in')} onPress={onPressLogin} />
         <View style={styles.divide}>
           <View style={styles.divideLine} />
           <Text style={styles.or}>{I18n.t('login.or')}</Text>
@@ -122,6 +123,7 @@ const LoginScreen = props => {
         {_renderError()}
         {_renderButton()}
       </ScrollView>
+      <Loading isLoading={isLoading} loadingText={I18n.t('login.logging_in')} />
     </View>
   );
 };
@@ -137,16 +139,6 @@ const styles = ScaledSheet.create({
   },
   input: {
     marginVertical: '5@vs',
-  },
-  button: {
-    marginVertical: '30@vs',
-    padding: '10@ms',
-    backgroundColor: '#0077CC',
-    borderRadius: '10@ms',
-  },
-  textButton: {
-    color: '#FFF',
-    fontSize: '14@ms',
   },
   list: {
     width: '100%',

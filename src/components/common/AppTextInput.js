@@ -5,6 +5,7 @@ import {
   Easing,
   Animated,
   TouchableOpacity,
+  Text,
 } from 'react-native';
 import {
   ScaledSheet,
@@ -83,8 +84,8 @@ class AppTextInput extends Component {
 
   _getIconColor = () => {
     const {isFocused} = this.state;
-    const {hasError} = this.props;
-    if (hasError) {
+    const {errorText} = this.props;
+    if (errorText !== '') {
       return Colors.textInputErrorIcon;
     }
     if (isFocused) {
@@ -95,8 +96,8 @@ class AppTextInput extends Component {
 
   _getContainerStyle = () => {
     const {isFocused} = this.state;
-    const {hasError} = this.props;
-    if (hasError) {
+    const {errorText} = this.props;
+    if (errorText !== '') {
       return styles.errorContainer;
     }
     if (isFocused) {
@@ -135,43 +136,53 @@ class AppTextInput extends Component {
       hasError,
       iconName,
       style,
+      containerStyle,
       secureTextEntry,
+      errorText,
       ...rest
     } = this.props;
     return (
-      <View style={this._getContainerStyle()}>
-        <Icon
-          name={iconName}
-          color={this._getIconColor()}
-          size={scale(22)}
-          style={styles.icon}
-        />
-        <TouchableOpacity
-          activeOpacity={1}
-          style={styles.inputAndLabel}
-          onPress={this._focus}>
-          <Animated.Text
-            style={[
-              labelTextStyle,
-              {color: hasError ? Colors.textInputErrorIcon : Colors.labelInput},
-            ]}>
-            {label}
-          </Animated.Text>
-          <TextInput
-            ref={ref => (this.inputRef = ref)}
-            onFocus={this._handleFocus}
-            onBlur={this._handleBlur}
-            secureTextEntry={secureTextEntry}
-            onChangeText={onChange}
-            textAlignVertical={'bottom'}
-            style={[
-              !secureTextEntry ? styles.input : styles.inputSecured,
-              style,
-            ]}
-            {...rest}
+      <View style={[styles.wrapperContainer, containerStyle]}>
+        <View style={this._getContainerStyle()}>
+          <Icon
+            name={iconName}
+            color={this._getIconColor()}
+            size={scale(22)}
+            style={styles.icon}
           />
-        </TouchableOpacity>
-        {this._renderClearButton()}
+          <TouchableOpacity
+            activeOpacity={1}
+            style={styles.inputAndLabel}
+            onPress={this._focus}>
+            <Animated.Text
+              style={[
+                labelTextStyle,
+                {
+                  color:
+                    errorText !== ''
+                      ? Colors.textInputErrorIcon
+                      : Colors.labelInput,
+                },
+              ]}>
+              {label}
+            </Animated.Text>
+            <TextInput
+              ref={ref => (this.inputRef = ref)}
+              onFocus={this._handleFocus}
+              onBlur={this._handleBlur}
+              secureTextEntry={secureTextEntry}
+              onChangeText={onChange}
+              textAlignVertical={'bottom'}
+              style={[
+                !secureTextEntry ? styles.input : styles.inputSecured,
+                style,
+              ]}
+              {...rest}
+            />
+          </TouchableOpacity>
+          {this._renderClearButton()}
+        </View>
+        {errorText !== '' && <Text style={styles.errorText}>{errorText}</Text>}
       </View>
     );
   }
@@ -183,12 +194,15 @@ const container = {
   borderRadius: '5@ms',
   borderColor: Colors.borderTextInput,
   borderWidth: '1@ms',
-  marginVertical: '10@vs',
   flexDirection: 'row',
   alignItems: 'center',
 };
 
 const styles = ScaledSheet.create({
+  wrapperContainer: {
+    width: '100%',
+    marginVertical: '10@vs',
+  },
   container: {
     ...container,
   },
@@ -228,6 +242,11 @@ const styles = ScaledSheet.create({
     fontSize: '13@ms',
     paddingLeft: 0,
   },
+  errorText: {
+    ...textStyle.md_bold_italic,
+    fontSize: '12@ms',
+    color: Colors.errorText,
+  },
 });
 
 AppTextInput.propTypes = {
@@ -237,10 +256,12 @@ AppTextInput.propTypes = {
   isPassword: PropTypes.bool,
   iconName: PropTypes.string,
   style: PropTypes.object,
+  containerStyle: PropTypes.object,
   focusedColor: PropTypes.string,
   clearContent: PropTypes.func.isRequired,
   autoCapitalize: PropTypes.string,
   hasError: PropTypes.bool,
+  errorText: PropTypes.string,
   secureTextEntry: PropTypes.bool,
 };
 
@@ -249,9 +270,11 @@ AppTextInput.defaultProps = {
   label: 'Email',
   iconName: 'email',
   style: {},
+  containerStyle: {},
   autoCapitalize: 'none',
   hasError: false,
   secureTextEntry: false,
+  errorText: '',
 };
 
 export default forwardRef((props, ref) => (

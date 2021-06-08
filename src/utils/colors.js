@@ -1,6 +1,7 @@
 const Colors = {
   splash_background: 'rgba(245, 121, 2, 1)',
   background: 'rgba(255, 255, 255, 1)',
+  backgroundGreyTransparent: 'rgba(0,0,0,0.2)',
   white: '#FFF',
   primary: 'rgba(255, 149, 0, 1)',
   primary400: 'rgba(255, 164, 37, 1)',
