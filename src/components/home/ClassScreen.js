@@ -1,5 +1,13 @@
-import React from 'react';
-import {View, Text, ScrollView, Image} from 'react-native';
+import React, {useRef, useState} from 'react';
+import {
+  View,
+  Text,
+  ScrollView,
+  Image,
+  RefreshControl,
+  Animated,
+  StyleSheet,
+} from 'react-native';
 import {ScaledSheet, verticalScale, scale} from 'react-native-size-matters';
 import Header from '@app/components/common/Header';
 import I18n from '@app/i18n/i18n';
@@ -8,8 +16,11 @@ import Colors from '@app/utils/colors';
 import {defaultProfilePicture} from '@app/assets/images';
 import {textStyle} from '@app/utils/TextStyles';
 import {Bar} from 'react-native-progress';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const ClassScreen = (): JSX.Element => {
+  const [refreshing, setRefreshing] = useState(false);
+  const fadeAnimation = useRef(new Animated.Value(0.99)).current;
   const list = [
     {
       title: 'Week 1',
@@ -30,18 +41,18 @@ const ClassScreen = (): JSX.Element => {
       topicName: '[Test topic name]',
       color: Colors.errorBadge,
       percent: 30,
-      status: 'locked',
-      daysToUnlock: 3,
-      weeksToUnlock: 8,
+      // status: 'locked',
+      // daysToUnlock: 3,
+      // weeksToUnlock: 8,
     },
     {
       title: 'Week 4',
       topicName: '[Test topic name]',
       color: Colors.labelInput,
       percent: 40,
-      status: 'locked',
-      daysToUnlock: 2,
-      weeksToUnlock: 1,
+      // status: 'locked',
+      // daysToUnlock: 2,
+      // weeksToUnlock: 1,
     },
     {
       title: 'Week 5',
@@ -138,6 +149,47 @@ const ClassScreen = (): JSX.Element => {
     return Colors.topic.locked;
   };
 
+  const _renderScrollRecommend = () => {
+    const animatedViewStyle = StyleSheet.flatten([
+      styles.moreClassBelowContainer,
+      {
+        opacity: fadeAnimation,
+      },
+    ]);
+    return (
+      <Animated.View style={animatedViewStyle}>
+        <View style={styles.moreClassBelow}>
+          <Text style={styles.moreClassBelowText}>More classes below</Text>
+        </View>
+        <Icon
+          name={'chevron-double-down'}
+          color={Colors.primary}
+          size={scale(22)}
+        />
+      </Animated.View>
+    );
+  };
+
+  const _onScroll = () => {
+    Animated.timing(fadeAnimation, {
+      toValue: 0.01,
+      duration: 1000,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const _onRefresh = () => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+      // Animated.timing(fadeAnimation, {
+      //   toValue: 1,
+      //   duration: 20,
+      //   useNativeDriver: true,
+      // }).start();
+    }, 2000);
+  };
+
   return (
     <View style={styles.container}>
       <Header
@@ -145,11 +197,19 @@ const ClassScreen = (): JSX.Element => {
         hasBackLeft={false}
       />
       {_renderRank()}
-      <ScrollView style={styles.scroll}>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={_onRefresh} />
+        }
+        style={styles.scroll}
+        fadingEdgeLength={10}
+        showsVerticalScrollIndicator={false}
+        onScroll={_onScroll}>
         {list.map((item, index) => {
           return _renderItem(item, index);
         })}
       </ScrollView>
+      {_renderScrollRecommend()}
     </View>
   );
 };
@@ -222,6 +282,24 @@ const styles = ScaledSheet.create({
   },
   marginTop: {
     marginTop: '10@vs',
+  },
+  moreClassBelowText: {
+    ...textStyle.md_primary,
+  },
+  moreClassBelowContainer: {
+    position: 'absolute',
+    bottom: '0@ms',
+    right: '15@ms',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  moreClassBelow: {
+    backgroundColor: Colors.topic.background,
+    paddingHorizontal: '5@ms',
+    paddingVertical: '5@vs',
+    borderColor: Colors.primary,
+    borderRadius: '8@ms',
+    borderWidth: '4@ms',
   },
 });
 

@@ -9,7 +9,7 @@ import {textStyle} from '@app/utils/TextStyles';
 import AppButton from '@app/components/common/AppButton';
 import {navigateToScreen} from '@app/navigation/NavigatorHelper';
 import {RESET_PASSWORD_ENTER_OTP_SCREEN} from '@app/navigation/ScreenName';
-import AppTextInput from "@app/components/common/AppTextInput";
+import AppTextInput from '@app/components/common/AppTextInput';
 
 const EnterEmailScreen = props => {
   const [email, setEmail] = useState('');
@@ -25,7 +25,7 @@ const EnterEmailScreen = props => {
   return (
     <View style={styles.container}>
       <Header centerText={I18n.t('reset_password.reset_password')} />
-      <ScrollView style={styles.scroll}>
+      <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
         <View style={styles.blank100} />
         <Text style={styles.text}>
           {I18n.t('reset_password.what_your_email')}

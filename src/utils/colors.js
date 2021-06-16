@@ -34,6 +34,7 @@ const Colors = {
     complete: '#11D900',
     updateContent: '#E53935',
     unlockText: '#F26800',
+    lockedText: 'rgba(146, 146, 146, 1)',
   },
 };
 

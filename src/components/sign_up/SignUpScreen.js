@@ -74,7 +74,10 @@ const SignUpScreen = props => {
   return (
     <View style={styles.container}>
       <Header centerText={I18n.t('register.create_account')} />
-      <ScrollView style={styles.scroll} keyboardShouldPersistTaps={'handled'}>
+      <ScrollView
+        style={styles.scroll}
+        keyboardShouldPersistTaps={'handled'}
+        showsVerticalScrollIndicator={false}>
         <View style={styles.top} />
         {_renderInput()}
         <View style={styles.padding} />
