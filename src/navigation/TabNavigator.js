@@ -1,13 +1,13 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {
-  HOME_SCREEN,
   ACCOUNT_SCREEN,
   FORUM_SCREEN,
   PHOTO_ALBUM_SCREEN,
   CALENDAR_SCREEN,
+  CLASS_SCREEN,
 } from './ScreenName';
-import HomeScreen from '@app/components/home/HomeScreen';
+import ClassScreen from '@app/components/home/ClassScreen';
 import ProfileScreen from '@app/components/profile/ProfileScreen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Colors from '@app/utils/colors';
@@ -15,6 +15,7 @@ import ForumScreen from '@app/components/forum/ForumScreen';
 import PhotoAlbumScreen from '@app/components/photo_album/PhotoAlbumScreen';
 import CalendarScreen from '@app/components/calendar/CalendarScreen';
 import {scale} from 'react-native-size-matters';
+import I18n from 'react-native-i18n';
 
 const TabNavigator = () => {
   const Tab = createBottomTabNavigator();
@@ -22,8 +23,8 @@ const TabNavigator = () => {
   const getIconTab = (route: any, color: string) => {
     let iconName = '';
     switch (route?.name) {
-      case HOME_SCREEN:
-        iconName = 'home';
+      case CLASS_SCREEN:
+        iconName = 'school';
         break;
       case FORUM_SCREEN:
         iconName = 'forum';
@@ -50,34 +51,34 @@ const TabNavigator = () => {
         inactiveTintColor: Colors.inactive,
         activeTintColor: Colors.primary,
         labelStyle: {
-          fontSize: scale(9),
+          fontSize: scale(10),
           fontWeight: 'bold',
         },
       }}>
       <Tab.Screen
-        name={HOME_SCREEN}
-        component={HomeScreen}
-        options={{tabBarLabel: 'Home'}}
+        name={CLASS_SCREEN}
+        component={ClassScreen}
+        options={{tabBarLabel: I18n.t('bottom_tab_bar.classes')}}
       />
       <Tab.Screen
         name={FORUM_SCREEN}
         component={ForumScreen}
-        options={{tabBarLabel: 'Forum'}}
+        options={{tabBarLabel: I18n.t('bottom_tab_bar.hot_topic')}}
       />
       <Tab.Screen
         name={PHOTO_ALBUM_SCREEN}
         component={PhotoAlbumScreen}
-        options={{tabBarLabel: 'Photo Album'}}
+        options={{tabBarLabel: I18n.t('bottom_tab_bar.photo_album')}}
       />
       <Tab.Screen
         name={CALENDAR_SCREEN}
         component={CalendarScreen}
-        options={{tabBarLabel: 'Calendar'}}
+        options={{tabBarLabel: I18n.t('bottom_tab_bar.calendar')}}
       />
       <Tab.Screen
         name={ACCOUNT_SCREEN}
         component={ProfileScreen}
-        options={{tabBarLabel: 'Profile'}}
+        options={{tabBarLabel: I18n.t('bottom_tab_bar.profile')}}
       />
     </Tab.Navigator>
   );
