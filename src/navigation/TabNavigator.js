@@ -6,8 +6,10 @@ import {
   PHOTO_ALBUM_SCREEN,
   CALENDAR_SCREEN,
   CLASS_SCREEN,
+  CLASS_PREVIEW_SCREEN,
+  CLASS_STACK,
 } from './ScreenName';
-import ClassScreen from '@app/components/home/ClassScreen';
+import ClassScreen from '@app/components/classes/ClassScreen';
 import ProfileScreen from '@app/components/profile/ProfileScreen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Colors from '@app/utils/colors';
@@ -16,14 +18,18 @@ import PhotoAlbumScreen from '@app/components/photo_album/PhotoAlbumScreen';
 import CalendarScreen from '@app/components/calendar/CalendarScreen';
 import {scale} from 'react-native-size-matters';
 import I18n from 'react-native-i18n';
+import {createStackNavigator} from '@react-navigation/stack';
+import ClassPreview from '@app/components/classes/ClassPreview';
+import StackClasses from '@app/navigation/StackClasses';
 
 const TabNavigator = () => {
   const Tab = createBottomTabNavigator();
+  const Stack = createStackNavigator();
 
   const getIconTab = (route: any, color: string) => {
     let iconName = '';
     switch (route?.name) {
-      case CLASS_SCREEN:
+      case CLASS_STACK:
         iconName = 'school';
         break;
       case FORUM_SCREEN:
@@ -56,8 +62,8 @@ const TabNavigator = () => {
         },
       }}>
       <Tab.Screen
-        name={CLASS_SCREEN}
-        component={ClassScreen}
+        name={CLASS_STACK}
+        component={StackClasses}
         options={{tabBarLabel: I18n.t('bottom_tab_bar.classes')}}
       />
       <Tab.Screen

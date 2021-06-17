@@ -17,81 +17,18 @@ import {defaultProfilePicture} from '@app/assets/images';
 import {textStyle} from '@app/utils/TextStyles';
 import {Bar} from 'react-native-progress';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {navigateToScreen} from '@app/navigation/NavigatorHelper';
+import {CLASS_PREVIEW_SCREEN} from '@app/navigation/ScreenName';
+import {useSelector, useDispatch} from 'react-redux';
+import {selectClass} from '@app/redux/classes/classes.action';
+import {SELECT_CLASS} from '@app/redux/classes/classes.type';
 
 const ClassScreen = (): JSX.Element => {
   const [refreshing, setRefreshing] = useState(false);
   const fadeAnimation = useRef(new Animated.Value(0.99)).current;
-  const list = [
-    {
-      title: 'Week 1',
-      topicName: '[Test topic name]',
-      color: Colors.primary,
-      percent: 100,
-      status: 'complete',
-    },
-    {
-      title: 'Week 2',
-      topicName: '[Test topic name]',
-      color: 'rgba(55, 202, 237, 1)',
-      percent: 100,
-      status: 'update-content',
-    },
-    {
-      title: 'Week 3',
-      topicName: '[Test topic name]',
-      color: Colors.errorBadge,
-      percent: 30,
-      // status: 'locked',
-      // daysToUnlock: 3,
-      // weeksToUnlock: 8,
-    },
-    {
-      title: 'Week 4',
-      topicName: '[Test topic name]',
-      color: Colors.labelInput,
-      percent: 40,
-      // status: 'locked',
-      // daysToUnlock: 2,
-      // weeksToUnlock: 1,
-    },
-    {
-      title: 'Week 5',
-      topicName: '[Test topic name]',
-      color: Colors.borderFocused,
-      percent: 50,
-    },
-    {
-      title: 'Week 6',
-      topicName: '[Test topic name]',
-      color: Colors.rank.filled,
-      percent: 60,
-    },
-    {
-      title: 'Week 7',
-      topicName: '[Test topic name]',
-      color: Colors.primary,
-      percent: 70,
-    },
-    {
-      title: 'Week 8',
-      topicName: '[Test topic name]',
-      color: Colors.primary,
-      percent: 80,
-    },
-    {
-      title: 'Week 9',
-      topicName: '[Test topic name]',
-      color: 'rgba(159, 37, 255, 1)',
-      percent: 90,
-    },
-    {
-      title: 'Week 10',
-      topicName: '[Test topic name]',
-      color: 'rgba(255, 102, 37, 1)',
-      percent: 100,
-    },
-  ];
-
+  const classReducer = useSelector(state => state.classes);
+  const list = classReducer.listClasses;
+  const dispatch = useDispatch();
   const _renderRank = () => {
     return (
       <View style={styles.rankContainer}>
@@ -137,6 +74,7 @@ const ClassScreen = (): JSX.Element => {
           status={item.status}
           daysToUnlock={item.daysToUnlock}
           weeksToUnlock={item.weeksToUnlock}
+          onPress={() => _onPressClassroom(item.id)}
         />
       </View>
     );
@@ -188,6 +126,12 @@ const ClassScreen = (): JSX.Element => {
       //   useNativeDriver: true,
       // }).start();
     }, 2000);
+  };
+
+  const _onPressClassroom = classID => {
+    const selectedClass = list.find(item => item.id === classID);
+    dispatch(selectClass(selectedClass));
+    navigateToScreen(CLASS_PREVIEW_SCREEN);
   };
 
   return (

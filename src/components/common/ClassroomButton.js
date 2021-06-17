@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Dimensions, StyleSheet, Platform} from 'react-native';
+import {View, Text, StyleSheet, Platform, TouchableOpacity} from 'react-native';
 import {
   ScaledSheet,
   scale,
@@ -8,7 +8,6 @@ import {
 } from 'react-native-size-matters';
 import PropTypes from 'prop-types';
 import Colors from '@app/utils/colors';
-import * as Progress from 'react-native-progress';
 import {AnimatedCircularProgress} from 'react-native-circular-progress';
 import {textStyle} from '@app/utils/TextStyles';
 import LinearGradient from 'react-native-linear-gradient';
@@ -27,6 +26,7 @@ const ClassroomButton = props => {
     nextColor,
     daysToUnlock,
     weeksToUnlock,
+    onPress,
   } = props;
 
   const isIOS = () => Platform.OS === 'ios';
@@ -129,8 +129,20 @@ const ClassroomButton = props => {
     },
   ]);
 
+  const _renderConnector = () => {
+    if (index < 9) {
+      return (
+        <LinearGradient
+          colors={[color, nextColor]}
+          style={isOdd ? styles.oddConnector : styles.connector}
+        />
+      );
+    }
+    return <View />;
+  };
+
   return (
-    <View>
+    <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
       <View style={styles.borderOutside}>
         <AnimatedCircularProgress
           size={scale(130)}
@@ -151,15 +163,10 @@ const ClassroomButton = props => {
           )}
         </AnimatedCircularProgress>
       </View>
-      {index < 9 && (
-        <LinearGradient
-          colors={[color, nextColor]}
-          style={isOdd ? styles.oddConnector : styles.connector}
-        />
-      )}
+      {_renderConnector()}
       {_renderBadge()}
       {_renderLockIcon()}
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -239,12 +246,13 @@ ClassroomButton.propTypes = {
   daysToUnlock: PropTypes.number,
   weeksToUnlock: PropTypes.number,
   index: PropTypes.number,
+  onPress: PropTypes.func.isRequired,
 };
 
 ClassroomButton.defaultProps = {
   percent: 0,
-  color: Colors.primary,
-  nextColor: 'grey',
+  color: Colors.topic.lockedText,
+  nextColor: Colors.topic.lockedText,
   status: 'unlocked',
   containerStyle: {},
   title: 'Week default',
