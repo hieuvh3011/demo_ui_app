@@ -1,30 +1,46 @@
 import React from 'react';
-import {View, Text, ScrollView} from 'react-native';
+import {View, Text, ScrollView, FlatList} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import Colors from '@app/utils/colors';
 import Header from '@app/components/common/Header';
 import {textStyle} from '@app/utils/TextStyles';
+import AppButton from '@app/components/common/AppButton';
 
 const QuizScreen = props => {
+  const answer = [
+    {id: 1, content: 'My real Dad'},
+    {id: 2, content: 'Not you'},
+    {id: 3, content: 'My boyfriend'},
+    {id: 4, content: 'Hieu dep trai'},
+  ];
+
+  const _renderAnswer = ({item, index}) => {
+    return (
+      <AppButton
+        style={styles.answer}
+        text={item.content}
+        textStyle={styles.answerText}
+      />
+    );
+  };
+
+  const _renderQuestion = () => (
+    <>
+      <Text style={styles.title}>Question 1</Text>
+      <Text style={styles.question}>Who is your daddy?</Text>
+    </>
+  );
+
   return (
     <View style={styles.container}>
-      <Header hasBackLeft={true} hasRight={true} centerText={'Quiz'} />
-      <ScrollView style={styles.scroll}>
-        <Text style={styles.title}>Example Title</Text>
-        <Text style={styles.content}>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet
-          libero maxime modi. Ab debitis ex odio quis ratione sit. A beatae
-          blanditiis consequuntur deleniti dolore earum eos error et harum hic
-          illum labore laudantium, maiores obcaecati optio pariatur quas
-          voluptatem. A assumenda blanditiis commodi consectetur consequuntur
-          culpa cupiditate deleniti dolores ducimus earum explicabo, illum
-          impedit incidunt ipsam ipsum itaque laborum magnam magni molestias
-          odio odit perspiciatis placeat quaerat quasi quia quidem quis quisquam
-          ratione repellat rerum, sint soluta unde voluptatum! Culpa est ipsa
-          repudiandae sequi ut? A adipisci atque aut corporis dolores laudantium
-          libero nemo neque quia, rerum similique temporibus?
-        </Text>
-      </ScrollView>
+      <Header hasBackLeft={true} hasRight={true} centerText={'Article Quiz'} />
+      <FlatList
+        style={styles.scroll}
+        data={answer}
+        keyExtractor={item => item.id.toString()}
+        ListHeaderComponent={_renderQuestion()}
+        renderItem={_renderAnswer}
+      />
     </View>
   );
 };
@@ -41,13 +57,21 @@ const styles = ScaledSheet.create({
     paddingVertical: '10@vs',
   },
   title: {
-    ...textStyle.h3_primary,
+    ...textStyle.h2_primary,
     textAlign: 'justify',
   },
-  content: {
-    marginTop: '10@vs',
+  question: {
+    marginVertical: '10@vs',
     ...textStyle.md_black,
     textAlign: 'justify',
+  },
+  answer: {
+    backgroundColor: Colors.background,
+    borderWidth: '1@ms',
+    borderColor: Colors.primary,
+  },
+  answerText: {
+    ...textStyle.md_primary,
   },
 });
 

@@ -68,6 +68,16 @@ export const textStyle = {
     color: Colors.primary,
     fontSize: '28@ms',
   },
+  h2_primary: {
+    ...Fonts.defaultBold,
+    color: Colors.primary,
+    fontSize: '24@ms',
+  },
+  h2_black: {
+    ...Fonts.defaultBold,
+    color: Colors.text,
+    fontSize: '24@ms',
+  },
   h3_primary: {
     ...Fonts.defaultSemiBold,
     color: Colors.primary,
