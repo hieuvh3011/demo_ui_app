@@ -13,17 +13,55 @@ import {
   quickReplyIcon,
   videoGameIcon,
 } from '@app/assets/images';
+import {navigateToScreen} from '@app/navigation/NavigatorHelper';
+import {
+  ANIMATION_SCREEN,
+  ARTICLE_SCREEN,
+  PRACTICE_ROOM_SCREEN,
+  QUIZ_SCREEN,
+  VIDEO_SCREEN,
+} from '@app/navigation/ScreenName';
 
-const ClassPreview = () => {
+const ClassPreviewScreen = () => {
   const classesReducer = useSelector(state => state.classes);
   const currentClass = classesReducer.selectedClass;
 
   const statusList = [
-    {id: 1, name: 'Article', iconSource: menuBookIcon, isDone: true},
-    {id: 2, name: 'Animation', iconSource: petsIcon, isDone: true},
-    {id: 3, name: 'Video', iconSource: liveTvIcon, isDone: true},
-    {id: 4, name: 'Quiz', iconSource: quickReplyIcon, isDone: false},
-    {id: 5, name: 'Practice Room', iconSource: videoGameIcon, isDone: false},
+    {
+      id: 1,
+      name: 'Article',
+      iconSource: menuBookIcon,
+      isDone: true,
+      onPress: () => navigateToScreen(ARTICLE_SCREEN),
+    },
+    {
+      id: 2,
+      name: 'Animation',
+      iconSource: petsIcon,
+      isDone: true,
+      onPress: () => navigateToScreen(ANIMATION_SCREEN),
+    },
+    {
+      id: 3,
+      name: 'Video',
+      iconSource: liveTvIcon,
+      isDone: true,
+      onPress: () => navigateToScreen(VIDEO_SCREEN),
+    },
+    {
+      id: 4,
+      name: 'Quiz',
+      iconSource: quickReplyIcon,
+      isDone: false,
+      onPress: () => navigateToScreen(QUIZ_SCREEN),
+    },
+    {
+      id: 5,
+      name: 'Practice Room',
+      iconSource: videoGameIcon,
+      isDone: false,
+      onPress: () => navigateToScreen(PRACTICE_ROOM_SCREEN),
+    },
   ];
 
   const _renderItem = ({item, index}) => {
@@ -32,6 +70,7 @@ const ClassPreview = () => {
         iconSource={item.iconSource}
         text={item.name}
         isDone={item.isDone}
+        onPress={item.onPress}
       />
     );
   };
@@ -66,4 +105,4 @@ const styles = ScaledSheet.create({
   },
 });
 
-export default ClassPreview;
+export default ClassPreviewScreen;

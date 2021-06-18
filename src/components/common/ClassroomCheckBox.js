@@ -94,7 +94,7 @@ ClassroomCheckBox.propTypes = {
   onPress: PropType.func,
   containerStyle: PropType.object,
   children: PropType.element,
-  iconSource: PropType.string,
+  iconSource: PropType.number,
 };
 
 ClassroomCheckBox.defaultProps = {

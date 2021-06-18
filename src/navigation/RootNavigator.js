@@ -19,7 +19,7 @@ import SignUpScreen from '@app/components/sign_up/SignUpScreen';
 import EnterEmailScreen from '@app/components/reset_password/EnterEmailScreen';
 import EnterOTPScreen from '@app/components/reset_password/EnterOTPScreen';
 import EnterNewPasswordScreen from '@app/components/reset_password/EnterNewPasswordScreen';
-import ClassPreview from '@app/components/classes/ClassPreview';
+import ClassPreviewScreen from '@app/components/classes/ClassPreviewScreen';
 
 const RootNavigator = () => {
   const Stack = createStackNavigator();
@@ -45,7 +45,6 @@ const RootNavigator = () => {
           name={RESET_PASSWORD_ENTER_NEW_PASSWORD_SCREEN}
           component={EnterNewPasswordScreen}
         />
-        <Stack.Screen name={CLASS_PREVIEW_SCREEN} component={ClassPreview} />
       </Stack.Navigator>
     </NavigationContainer>
   );

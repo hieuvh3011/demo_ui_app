@@ -19,7 +19,7 @@ import CalendarScreen from '@app/components/calendar/CalendarScreen';
 import {scale} from 'react-native-size-matters';
 import I18n from 'react-native-i18n';
 import {createStackNavigator} from '@react-navigation/stack';
-import ClassPreview from '@app/components/classes/ClassPreview';
+import ClassPreviewScreen from '@app/components/classes/ClassPreviewScreen';
 import StackClasses from '@app/navigation/StackClasses';
 
 const TabNavigator = () => {
