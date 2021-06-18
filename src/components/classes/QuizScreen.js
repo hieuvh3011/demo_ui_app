@@ -1,12 +1,16 @@
 import React from 'react';
-import {View, Text, ScrollView, FlatList} from 'react-native';
+import {View, Text, ScrollView, FlatList, StyleSheet} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import Colors from '@app/utils/colors';
 import Header from '@app/components/common/Header';
 import {textStyle} from '@app/utils/TextStyles';
 import AppButton from '@app/components/common/AppButton';
+import {useSelector} from 'react-redux';
 
 const QuizScreen = props => {
+  const currentClass = useSelector(state => state?.classes?.selectedClass);
+  const color = currentClass.color;
+
   const answer = [
     {id: 1, content: 'My real Dad'},
     {id: 2, content: 'Not you'},
@@ -15,25 +19,41 @@ const QuizScreen = props => {
   ];
 
   const _renderAnswer = ({item, index}) => {
+    const answerStyle = StyleSheet.flatten([
+      styles.answer,
+      {borderColor: color},
+    ]);
+    const answerTextStyle = StyleSheet.flatten([
+      styles.answerText,
+      {color: color},
+    ]);
     return (
       <AppButton
-        style={styles.answer}
+        style={answerStyle}
         text={item.content}
-        textStyle={styles.answerText}
+        textStyle={answerTextStyle}
       />
     );
   };
 
-  const _renderQuestion = () => (
-    <>
-      <Text style={styles.title}>Question 1</Text>
-      <Text style={styles.question}>Who is your daddy?</Text>
-    </>
-  );
+  const _renderQuestion = () => {
+    const titleStyle = StyleSheet.flatten([styles.title, {color}]);
+    return (
+      <>
+        <Text style={titleStyle}>Question 1</Text>
+        <Text style={styles.question}>Who is your daddy?</Text>
+      </>
+    );
+  };
 
   return (
     <View style={styles.container}>
-      <Header hasBackLeft={true} hasRight={true} centerText={'Article Quiz'} />
+      <Header
+        hasBackLeft={true}
+        hasRight={true}
+        centerText={'Article Quiz'}
+        textColor={color}
+      />
       <FlatList
         style={styles.scroll}
         data={answer}

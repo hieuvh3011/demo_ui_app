@@ -8,7 +8,7 @@ import {textStyle} from '@app/utils/TextStyles';
 import {liveTvIcon} from '@app/assets/images';
 
 const ClassroomCheckBox = props => {
-  const {iconSource, text, isDone, onPress, containerStyle} = props;
+  const {iconSource, text, isDone, onPress, containerStyle, color} = props;
 
   const _renderCheckbox = () => {
     const notDoneCheckboxContainer = StyleSheet.flatten([
@@ -29,11 +29,14 @@ const ClassroomCheckBox = props => {
     );
   };
 
+  const container = StyleSheet.flatten([
+    styles.container,
+    {backgroundColor: color},
+    containerStyle,
+  ]);
+
   return (
-    <TouchableOpacity
-      activeOpacity={0.8}
-      onPress={onPress}
-      style={[styles.container, containerStyle]}>
+    <TouchableOpacity activeOpacity={0.8} onPress={onPress} style={container}>
       <View style={styles.row}>
         <Image source={iconSource} style={styles.icon} />
         <Text style={styles.text}>{text}</Text>
@@ -47,7 +50,6 @@ const styles = ScaledSheet.create({
   container: {
     width: '100%',
     height: '50@vs',
-    backgroundColor: Colors.primary400,
     alignItems: 'center',
     borderRadius: '15@ms',
     flexDirection: 'row',
@@ -95,6 +97,7 @@ ClassroomCheckBox.propTypes = {
   containerStyle: PropType.object,
   children: PropType.element,
   iconSource: PropType.number,
+  color: PropType.string,
 };
 
 ClassroomCheckBox.defaultProps = {
@@ -104,6 +107,7 @@ ClassroomCheckBox.defaultProps = {
   onPress: () => {},
   children: null,
   iconSource: liveTvIcon,
+  color: Colors.primary400,
 };
 
 export default ClassroomCheckBox;

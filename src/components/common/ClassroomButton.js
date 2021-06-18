@@ -141,6 +141,36 @@ const ClassroomButton = props => {
     return <View />;
   };
 
+  if (isLocked()) {
+    return (
+      <View>
+        <View style={styles.borderOutside}>
+          <AnimatedCircularProgress
+            size={scale(130)}
+            width={scale(10)}
+            fill={isLocked() ? 0 : percent}
+            tintColor={color}
+            style={containerStyle}
+            rotation={0}
+            // onAnimationComplete={() => console.log('onAnimationComplete')}
+            backgroundColor={
+              isLocked() ? Colors.topic.locked : Colors.topic.background
+            }>
+            {percent => (
+              <View style={flattenContainerStyle}>
+                <Text style={titleStyle}>{title}</Text>
+                <Text style={contentStyle}>{content}</Text>
+              </View>
+            )}
+          </AnimatedCircularProgress>
+        </View>
+        {_renderConnector()}
+        {_renderBadge()}
+        {_renderLockIcon()}
+      </View>
+    );
+  }
+
   return (
     <TouchableOpacity activeOpacity={0.8} onPress={onPress}>
       <View style={styles.borderOutside}>

@@ -1,7 +1,6 @@
 import React from 'react';
-import {View, Text, ScrollView, FlatList} from 'react-native';
+import {View, Text, StyleSheet, FlatList} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Colors from '@app/utils/colors';
 import Header from '@app/components/common/Header';
 import {useSelector} from 'react-redux';
@@ -21,10 +20,12 @@ import {
   QUIZ_SCREEN,
   VIDEO_SCREEN,
 } from '@app/navigation/ScreenName';
+import {textStyle} from '@app/utils/TextStyles';
 
 const ClassPreviewScreen = () => {
   const classesReducer = useSelector(state => state.classes);
   const currentClass = classesReducer.selectedClass;
+  const color = currentClass.color;
 
   const statusList = [
     {
@@ -71,7 +72,22 @@ const ClassPreviewScreen = () => {
         text={item.name}
         isDone={item.isDone}
         onPress={item.onPress}
+        color={currentClass.color}
       />
+    );
+  };
+
+  const _renderHeaderCenter = () => {
+    const weekTitleStyle = StyleSheet.flatten([
+      styles.weekTitle,
+      {color: color},
+    ]);
+    const weekNameStyle = StyleSheet.flatten([styles.weekName, {color: color}]);
+    return (
+      <View style={styles.headerCenter}>
+        <Text style={weekTitleStyle}>{currentClass.title}</Text>
+        <Text style={weekNameStyle}>{currentClass.topicName}</Text>
+      </View>
     );
   };
 
@@ -79,8 +95,9 @@ const ClassPreviewScreen = () => {
     <View style={styles.container}>
       <Header
         hasBackLeft={true}
-        centerText={currentClass?.title}
         hasRight={true}
+        textColor={currentClass.color}
+        centerComponent={_renderHeaderCenter()}
       />
       <FlatList
         style={styles.scroll}
@@ -102,6 +119,18 @@ const styles = ScaledSheet.create({
     width: '100%',
     paddingHorizontal: '15@ms',
     paddingTop: '5@vs',
+  },
+  headerCenter: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100%',
+  },
+  weekTitle: {
+    ...textStyle.md_primary,
+  },
+  weekName: {
+    ...textStyle.h3_primary,
   },
 });
 

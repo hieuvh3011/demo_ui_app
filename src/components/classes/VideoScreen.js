@@ -5,18 +5,22 @@ import {
   ScrollView,
   Dimensions,
   ActivityIndicator,
+  StyleSheet,
 } from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import Colors from '@app/utils/colors';
 import Header from '@app/components/common/Header';
 import {textStyle} from '@app/utils/TextStyles';
 import Video from 'react-native-video';
+import {useSelector} from 'react-redux';
 
 const {width} = Dimensions.get('window');
 
 const VideoScreen = props => {
   const videoRef = useRef(null);
   const [isLoadVideo, setLoadVideo] = useState(true);
+  const currentClass = useSelector(state => state?.classes?.selectedClass);
+  const color = currentClass.color;
 
   const onBuffer = buffer => {
     console.log('onBuffer = ', buffer);
@@ -34,7 +38,7 @@ const VideoScreen = props => {
     if (isLoadVideo) {
       return (
         <View style={styles.placeholderBackground}>
-          <ActivityIndicator size={'large'} color={Colors.primary} />
+          <ActivityIndicator size={'large'} color={color} />
         </View>
       );
     }
@@ -62,15 +66,21 @@ const VideoScreen = props => {
     );
   };
 
+  const titleStyle = StyleSheet.flatten([styles.title, {color}]);
   return (
     <View style={styles.container}>
-      <Header hasBackLeft={true} hasRight={true} centerText={'Video'} />
+      <Header
+        hasBackLeft={true}
+        hasRight={true}
+        centerText={'Video'}
+        textColor={color}
+      />
       <ScrollView style={styles.scroll}>
         <View style={styles.backgroundVideo}>
           {_renderPreVideo()}
           {_renderVideo()}
         </View>
-        <Text style={styles.title}>Example Title</Text>
+        <Text style={titleStyle}>Example Title</Text>
         <Text style={styles.content}>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet
           libero maxime modi. Ab debitis ex odio quis ratione sit. A beatae

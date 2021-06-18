@@ -1,5 +1,11 @@
 import React from 'react';
-import {View, Text, Dimensions, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  Dimensions,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {ScaledSheet, scale} from 'react-native-size-matters';
 import {getStatusBarHeight} from 'react-native-iphone-x-helper';
@@ -19,6 +25,8 @@ const Header = props => {
     right,
     hasRight,
     badgeNumber,
+    textColor,
+    centerComponent,
   } = props;
 
   const _renderLeft = () => {
@@ -66,19 +74,23 @@ const Header = props => {
     return <View />;
   };
 
+  const titleStyle = StyleSheet.flatten([
+    styles.text,
+    {color: textColor},
+    centerTextStyle,
+  ]);
+
   return (
     <View style={styles.container}>
       {_renderLeft()}
-      <Text style={[styles.text, centerTextStyle]}>{centerText}</Text>
+      {centerComponent !== null ? (
+        centerComponent
+      ) : (
+        <Text style={titleStyle}>{centerText}</Text>
+      )}
       {_renderRight()}
     </View>
   );
-};
-
-const defaultCenterTextStyle = {
-  color: Colors.headerTitle,
-  fontSize: '25@ms',
-  fontWeight: 'bold',
 };
 
 const styles = ScaledSheet.create({
@@ -151,6 +163,8 @@ Header.propTypes = {
   hasBackLeft: PropType.bool,
   hasRight: PropType.bool,
   badgeNumber: PropType.number,
+  textColor: PropType.string,
+  centerComponent: PropType.element,
 };
 
 Header.defaultProps = {
@@ -160,6 +174,8 @@ Header.defaultProps = {
   hasRight: true,
   right: null,
   badgeNumber: 0,
+  textColor: Colors.primary,
+  centerComponent: null,
 };
 
 export default Header;

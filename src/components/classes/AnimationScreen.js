@@ -1,16 +1,21 @@
 import React from 'react';
-import {View, Text, ScrollView} from 'react-native';
+import { View, Text, ScrollView, StyleSheet } from "react-native";
 import {ScaledSheet} from 'react-native-size-matters';
 import Colors from '@app/utils/colors';
 import Header from '@app/components/common/Header';
 import {textStyle} from '@app/utils/TextStyles';
+import { useSelector } from "react-redux";
 
 const AnimationScreen = props => {
+  const currentClass = useSelector(state => state?.classes?.selectedClass);
+  const color = currentClass.color;
+
+  const titleStyle = StyleSheet.flatten([styles.title, {color}]);
   return (
     <View style={styles.container}>
       <Header hasBackLeft={true} hasRight={true} centerText={'Animation'} />
       <ScrollView style={styles.scroll}>
-        <Text style={styles.title}>Example Title</Text>
+        <Text style={titleStyle}>Example Title</Text>
         <Text style={styles.content}>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet
           libero maxime modi. Ab debitis ex odio quis ratione sit. A beatae
