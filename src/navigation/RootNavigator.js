@@ -1,6 +1,7 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {
+  CLASS_PREVIEW_SCREEN,
   LOGIN_SCREEN,
   RESET_PASSWORD_ENTER_EMAIL_SCREEN,
   RESET_PASSWORD_ENTER_NEW_PASSWORD_SCREEN,
@@ -18,6 +19,7 @@ import SignUpScreen from '@app/components/sign_up/SignUpScreen';
 import EnterEmailScreen from '@app/components/reset_password/EnterEmailScreen';
 import EnterOTPScreen from '@app/components/reset_password/EnterOTPScreen';
 import EnterNewPasswordScreen from '@app/components/reset_password/EnterNewPasswordScreen';
+import ClassPreviewScreen from '@app/components/classes/ClassPreviewScreen';
 
 const RootNavigator = () => {
   const Stack = createStackNavigator();
@@ -26,7 +28,7 @@ const RootNavigator = () => {
     <NavigationContainer ref={navigationRef}>
       <Stack.Navigator
         screenOptions={{headerShown: false}}
-        initialRouteName={SPLASH_SCREEN}>
+        initialRouteName={TAB_NAVIGATOR}>
         <Stack.Screen name={SPLASH_SCREEN} component={SplashScreen} />
         <Stack.Screen name={LOGIN_SCREEN} component={LoginScreen} />
         <Stack.Screen name={SIGN_UP_SCREEN} component={SignUpScreen} />

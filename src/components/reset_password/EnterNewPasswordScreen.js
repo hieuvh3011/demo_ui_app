@@ -62,7 +62,10 @@ const EnterNewPasswordScreen = props => {
         hasBackLeft={true}
         centerText={I18n.t('reset_password.reset_password')}
       />
-      <ScrollView style={styles.scroll} keyboardShouldPersistTaps={'handled'}>
+      <ScrollView
+        style={styles.scroll}
+        keyboardShouldPersistTaps={'handled'}
+        showsVerticalScrollIndicator={false}>
         <View style={styles.blank100} />
         <Text style={styles.text}>
           {I18n.t('reset_password.enter_new_password')}

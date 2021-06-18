@@ -46,4 +46,14 @@ export default {
     confirm_your_password: 'Confirm your password',
     change_password: 'Change password',
   },
+  bottom_tab_bar: {
+    classes: 'Classes',
+    hot_topic: 'Hot Topics',
+    photo_album: 'Photo Album',
+    calendar: 'Calendar',
+    profile: 'Profile',
+  },
+  classes: {
+    parenting_365: 'Parenting 365',
+  },
 };

@@ -116,7 +116,10 @@ const LoginScreen = props => {
   return (
     <View style={styles.container}>
       <Header centerText={'Login'} hasBackLeft={false} />
-      <ScrollView style={styles.list} keyboardShouldPersistTaps={'handled'}>
+      <ScrollView
+        style={styles.list}
+        keyboardShouldPersistTaps={'handled'}
+        showsVerticalScrollIndicator={false}>
         <View style={styles.top} />
         {_renderInput()}
         {_renderForgotPassword()}

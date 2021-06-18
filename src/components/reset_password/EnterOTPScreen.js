@@ -35,7 +35,7 @@ const EnterOTPScreen = props => {
   return (
     <View style={styles.container}>
       <Header centerText={I18n.t('reset_password.reset_password')} />
-      <ScrollView style={styles.scroll}>
+      <ScrollView style={styles.scroll} showsVerticalScrollIndicator={false}>
         <View style={styles.blank100} />
         <Text style={styles.text}>
           {I18n.t('reset_password.enter_6_digits')}

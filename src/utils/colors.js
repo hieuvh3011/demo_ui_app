@@ -23,6 +23,19 @@ const Colors = {
   disabledButtonText: '#FFCA7F',
   success: 'rgba(0, 233, 37, 1)',
   borderFocused: '#F26800',
+  topicBackground: 'rgba(255, 243, 224, 1)',
+  rank: {
+    filled: 'rgba(0, 178, 255, 1)',
+    unfilled: 'rgba(196, 196, 196, 1)',
+  },
+  topic: {
+    background: 'rgba(255, 243, 224, 1)',
+    locked: 'rgba(240, 240, 240, 1)',
+    complete: '#11D900',
+    updateContent: '#E53935',
+    unlockText: '#F26800',
+    lockedText: 'rgba(146, 146, 146, 1)',
+  },
 };
 
 export default Colors;
