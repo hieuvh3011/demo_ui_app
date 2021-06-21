@@ -1,6 +1,6 @@
 import * as types from './HotTopic.type';
 
-const initialState = {
+export const initialState = {
   topicList: [
     {id: 1, text: 'Topic 1', isUpdated: true},
     {id: 2, text: 'Topic 2', isUpdated: true},
@@ -147,6 +147,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         selectedArticle: payload.data,
+      };
+    case types.CHANGE_LIST_ARTICLE:
+      return {
+        ...state,
+        articleList: payload.data,
       };
     default:
       return state;

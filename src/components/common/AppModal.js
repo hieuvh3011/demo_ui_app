@@ -13,7 +13,7 @@ const AppModal = props => {
 
   const _renderModalContent = () => {
     if (children !== null) {
-      return children;
+      return <>{children}</>;
     }
     return (
       <View style={styles.modalView}>

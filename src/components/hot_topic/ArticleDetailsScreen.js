@@ -11,7 +11,7 @@ import {
 import {ScaledSheet, scale} from 'react-native-size-matters';
 import Colors from '@app/utils/colors';
 import Header from '@app/components/common/Header';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   chatIcon,
   defaultArticleImage,
@@ -23,6 +23,8 @@ import {textStyle} from '@app/utils/TextStyles';
 import AppModal from '@app/components/common/AppModal';
 import AppButton from '@app/components/common/AppButton';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Share from 'react-native-share';
+import {pressLikeArticle} from '@app/redux/hot_topic/HotTopic.action';
 
 const ArticleDetailsScreen = props => {
   const hotTopicReducer = useSelector(state => state?.hotTopic);
@@ -31,15 +33,24 @@ const ArticleDetailsScreen = props => {
   const {selectedArticle} = hotTopicReducer;
   const [isShowShareModal, setShowShareModal] = useState(false);
   const contactFormRef = useRef(null);
+  const dispatch = useDispatch();
 
   const onPressChat = () => {
     setShowShareModal(true);
   };
 
-  const onPressShare = () => {};
+  const onPressShare = () => {
+    const shareOption = {
+      message: 'Test share function',
+      title: 'Share this article',
+    };
+    Share.open(shareOption)
+      .then(res => console.log('share res = ', res))
+      .catch(error => console.log('share error = ', error));
+  };
 
   const onPressLike = () => {
-    console.log('pressed');
+    dispatch(pressLikeArticle(selectedArticle));
   };
 
   const _onPressCloseModal = () => {
