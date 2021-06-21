@@ -7,8 +7,9 @@ import Colors from '@app/utils/colors';
 import AppButton from '@app/components/common/AppButton';
 import I18n from '@app/i18n/i18n';
 
-const ModalSuccess = props => {
-  const {visible, onPressCloseModal, children, successMessage} = props;
+const AppModal = props => {
+  const {visible, onPressCloseModal, children, successMessage, animationType} =
+    props;
 
   const _renderModalContent = () => {
     if (children !== null) {
@@ -42,7 +43,7 @@ const ModalSuccess = props => {
   };
 
   return (
-    <Modal visible={visible} transparent={true} animationType="slide">
+    <Modal visible={visible} transparent={true} animationType={animationType}>
       <View style={styles.modalContainer}>{_renderModalContent()}</View>
     </Modal>
   );
@@ -109,17 +110,19 @@ const styles = ScaledSheet.create({
   },
 });
 
-ModalSuccess.propTypes = {
+AppModal.propTypes = {
   visible: PropTypes.bool,
   onPressCloseModal: PropTypes.func,
   children: PropTypes.element,
   successMessage: PropTypes.string,
+  animationType: PropTypes.oneOf(['none', 'slide', 'fade']),
 };
 
-ModalSuccess.defaultProps = {
+AppModal.defaultProps = {
   children: null,
   visible: true,
   successMessage: '',
+  animationType: 'slide',
 };
 
-export default ModalSuccess;
+export default AppModal;

@@ -36,6 +36,11 @@ const Colors = {
     unlockText: '#F26800',
     lockedText: 'rgba(146, 146, 146, 1)',
   },
+  secondary: 'rgba(226, 247, 254, 1)',
+  secondary900: 'rgba(2, 101, 114, 1)',
+  secondary500: 'rgba(41, 192, 231, 1)',
+  secondary400: 'rgba(55, 202, 237, 1)',
+  hotTopic: 'rgba(35, 211, 53, 1)',
 };
 
 export default Colors;

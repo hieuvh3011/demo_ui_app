@@ -46,22 +46,22 @@ export const textStyle = {
   md_primary: {
     ...Fonts.defaultSemiBold,
     color: Colors.primary,
-    fontSize: '13@ms',
+    fontSize: '14@ms',
   },
   md_black: {
     ...Fonts.defaultSemiBold,
     color: Colors.text,
-    fontSize: '13@ms',
+    fontSize: '14@ms',
   },
   md_bold: {
     ...Fonts.defaultBold,
     color: Colors.text,
-    fontSize: '13@ms',
+    fontSize: '14@ms',
   },
   md_bold_italic: {
     ...Fonts.defaultBoldItalic,
     color: Colors.text,
-    fontSize: '13@ms',
+    fontSize: '14@ms',
   },
   h1_primary: {
     ...Fonts.defaultBold,

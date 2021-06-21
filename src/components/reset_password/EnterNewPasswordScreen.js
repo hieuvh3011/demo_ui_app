@@ -8,7 +8,7 @@ import {textStyle} from '@app/utils/TextStyles';
 import AppTextInput from '@app/components/common/AppTextInput';
 import AppButton from '@app/components/common/AppButton';
 import Loading from '@app/components/common/Loading';
-import ModalSuccess from '@app/components/common/ModalSuccess';
+import AppModal from '@app/components/common/AppModal';
 import {navigateToScreenAndReplace} from '@app/navigation/NavigatorHelper';
 import {LOGIN_SCREEN} from '@app/navigation/ScreenName';
 
@@ -99,7 +99,7 @@ const EnterNewPasswordScreen = props => {
         <Loading loadingText={I18n.t('reset_password.change_password')} />
       )}
       {isSuccess === true && (
-        <ModalSuccess
+        <AppModal
           visible={true}
           successMessage={I18n.t('reset_password.success_message')}
           onPressCloseModal={closeModal}

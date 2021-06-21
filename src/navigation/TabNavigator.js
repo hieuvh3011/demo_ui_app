@@ -2,18 +2,19 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {
   ACCOUNT_SCREEN,
-  FORUM_SCREEN,
+  HOT_TOPIC_SCREEN,
   PHOTO_ALBUM_SCREEN,
   CALENDAR_SCREEN,
   CLASS_SCREEN,
   CLASS_PREVIEW_SCREEN,
   CLASS_STACK,
+  HOT_TOPIC_STACK,
 } from './ScreenName';
 import ClassScreen from '@app/components/classes/ClassScreen';
 import ProfileScreen from '@app/components/profile/ProfileScreen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Colors from '@app/utils/colors';
-import ForumScreen from '@app/components/forum/ForumScreen';
+import HotTopicScreen from '@app/components/hot_topic/HotTopicScreen';
 import PhotoAlbumScreen from '@app/components/photo_album/PhotoAlbumScreen';
 import CalendarScreen from '@app/components/calendar/CalendarScreen';
 import {scale} from 'react-native-size-matters';
@@ -21,6 +22,7 @@ import I18n from 'react-native-i18n';
 import {createStackNavigator} from '@react-navigation/stack';
 import ClassPreviewScreen from '@app/components/classes/ClassPreviewScreen';
 import StackClasses from '@app/navigation/StackClasses';
+import StackHotTopic from './StackHotTopics';
 
 const TabNavigator = () => {
   const Tab = createBottomTabNavigator();
@@ -32,7 +34,7 @@ const TabNavigator = () => {
       case CLASS_STACK:
         iconName = 'school';
         break;
-      case FORUM_SCREEN:
+      case HOT_TOPIC_STACK:
         iconName = 'forum';
         break;
       case PHOTO_ALBUM_SCREEN:
@@ -60,6 +62,11 @@ const TabNavigator = () => {
           fontSize: scale(10),
           fontWeight: 'bold',
         },
+        style: {
+          height: scale(80),
+          borderTopColor: Colors.borderBottom,
+          borderTopWidth: scale(1),
+        },
       }}>
       <Tab.Screen
         name={CLASS_STACK}
@@ -67,8 +74,8 @@ const TabNavigator = () => {
         options={{tabBarLabel: I18n.t('bottom_tab_bar.classes')}}
       />
       <Tab.Screen
-        name={FORUM_SCREEN}
-        component={ForumScreen}
+        name={HOT_TOPIC_STACK}
+        component={StackHotTopic}
         options={{tabBarLabel: I18n.t('bottom_tab_bar.hot_topic')}}
       />
       <Tab.Screen
