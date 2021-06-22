@@ -8,7 +8,13 @@ import {
 
 function* likeArticle(action) {
   const selectedArticle = action.payload.data;
-  const changedArticle = {...selectedArticle, isLike: !selectedArticle.isLike};
+
+  let changedArticle = {...selectedArticle, isLike: !selectedArticle.isLike};
+  if (selectedArticle.isLike === true) {
+    changedArticle.likes = changedArticle.likes - 1;
+  } else {
+    changedArticle.likes = changedArticle.likes + 1;
+  }
   const changedList = [];
   initialState.articleList.map((item, index) => {
     if (item.id === selectedArticle.id) {
