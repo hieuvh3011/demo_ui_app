@@ -7,7 +7,7 @@ import I18n from '@app/i18n/i18n';
 import SignUpViewModel from '@app/components/sign_up/SignUpViewModel';
 import AppButton from '@app/components/common/AppButton';
 import AppTextInput from '@app/components/common/AppTextInput';
-import ModalSuccess from '@app/components/common/ModalSuccess';
+import AppModal from '@app/components/common/AppModal';
 
 const SignUpScreen = props => {
   const {
@@ -84,7 +84,7 @@ const SignUpScreen = props => {
         {_renderButton()}
       </ScrollView>
       {isSuccess && (
-        <ModalSuccess
+        <AppModal
           successMessage={I18n.t('register.success_message')}
           onPressCloseModal={onPressCloseModal}
         />

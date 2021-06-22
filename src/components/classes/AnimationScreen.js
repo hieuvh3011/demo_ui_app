@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Text, ScrollView, StyleSheet } from "react-native";
+import {View, Text, ScrollView, StyleSheet} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import Colors from '@app/utils/colors';
 import Header from '@app/components/common/Header';
 import {textStyle} from '@app/utils/TextStyles';
-import { useSelector } from "react-redux";
+import {useSelector} from 'react-redux';
 
 const AnimationScreen = props => {
   const currentClass = useSelector(state => state?.classes?.selectedClass);

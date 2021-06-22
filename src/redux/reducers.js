@@ -1,10 +1,12 @@
 import {combineReducers} from 'redux';
 import userReducer from './user/user.reducer';
 import classesReducer from './classes/classes.reducer';
+import hotTopicReducer from './hot_topic/HotTopic.reducer';
 
 const appReducers = combineReducers({
   user: userReducer,
   classes: classesReducer,
+  hotTopic: hotTopicReducer,
 });
 
 const rootReducers = (state, action) => {

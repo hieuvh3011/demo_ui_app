@@ -21,12 +21,11 @@ import {navigateToScreen} from '@app/navigation/NavigatorHelper';
 import {CLASS_PREVIEW_SCREEN} from '@app/navigation/ScreenName';
 import {useSelector, useDispatch} from 'react-redux';
 import {selectClass} from '@app/redux/classes/classes.action';
-import {SELECT_CLASS} from '@app/redux/classes/classes.type';
 
 const ClassScreen = (): JSX.Element => {
   const [refreshing, setRefreshing] = useState(false);
   const fadeAnimation = useRef(new Animated.Value(0.99)).current;
-  const classReducer = useSelector(state => state.classes);
+  const classReducer = useSelector(state => state?.classes);
   const list = classReducer.listClasses;
   const dispatch = useDispatch();
   const _renderRank = () => {
@@ -110,7 +109,7 @@ const ClassScreen = (): JSX.Element => {
 
   const _onScroll = () => {
     Animated.timing(fadeAnimation, {
-      toValue: 0.01,
+      toValue: 0,
       duration: 1000,
       useNativeDriver: true,
     }).start();
@@ -120,11 +119,6 @@ const ClassScreen = (): JSX.Element => {
     setRefreshing(true);
     setTimeout(() => {
       setRefreshing(false);
-      // Animated.timing(fadeAnimation, {
-      //   toValue: 1,
-      //   duration: 20,
-      //   useNativeDriver: true,
-      // }).start();
     }, 2000);
   };
 
@@ -142,6 +136,7 @@ const ClassScreen = (): JSX.Element => {
       />
       {_renderRank()}
       <ScrollView
+        scrollEventThrottle={0}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={_onRefresh} />
         }

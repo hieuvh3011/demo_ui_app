@@ -23,7 +23,7 @@ import {
 import {textStyle} from '@app/utils/TextStyles';
 
 const ClassPreviewScreen = () => {
-  const classesReducer = useSelector(state => state.classes);
+  const classesReducer = useSelector(state => state?.classes);
   const currentClass = classesReducer.selectedClass;
   const color = currentClass.color;
 

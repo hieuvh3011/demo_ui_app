@@ -12,10 +12,10 @@ const QuizScreen = props => {
   const color = currentClass.color;
 
   const answer = [
-    {id: 1, content: 'My real Dad'},
-    {id: 2, content: 'Not you'},
-    {id: 3, content: 'My boyfriend'},
-    {id: 4, content: 'Hieu dep trai'},
+    {id: 1, content: 'Hieu dep trai'},
+    {id: 2, content: 'Hieu dep trai 2'},
+    {id: 3, content: 'Hieu dep trai 3'},
+    {id: 4, content: 'Hieu dep trai 4'},
   ];
 
   const _renderAnswer = ({item, index}) => {
@@ -41,7 +41,7 @@ const QuizScreen = props => {
     return (
       <>
         <Text style={titleStyle}>Question 1</Text>
-        <Text style={styles.question}>Who is your daddy?</Text>
+        <Text style={styles.question}>What's your name</Text>
       </>
     );
   };

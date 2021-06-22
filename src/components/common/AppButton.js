@@ -16,6 +16,7 @@ const AppButton = (props: any): JSX.Element => {
     disabled,
     disabledStyle,
     disabledTextStyle,
+    badgeComponent,
     ...rest
   } = props;
 
@@ -24,13 +25,16 @@ const AppButton = (props: any): JSX.Element => {
       return children;
     }
     return (
-      <Text
-        style={[
-          disabled ? styles.disabledText : styles.text,
-          disabled ? disabledTextStyle : textStyle,
-        ]}>
-        {text}
-      </Text>
+      <>
+        <Text
+          style={[
+            disabled ? styles.disabledText : styles.text,
+            disabled ? disabledTextStyle : textStyle,
+          ]}>
+          {text}
+        </Text>
+        {badgeComponent}
+      </>
     );
   };
 
@@ -92,6 +96,7 @@ AppButton.propTypes = {
   disabled: PropType.bool,
   disabledStyle: PropType.object,
   disabledTextStyle: PropType.object,
+  badgeComponent: PropType.element,
 };
 
 AppButton.defaultProps = {
