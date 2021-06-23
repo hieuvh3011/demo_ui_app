@@ -26,18 +26,21 @@ import AppButton from '@app/components/common/AppButton';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Share from 'react-native-share';
 import {pressLikeArticle} from '@app/redux/hot_topic/HotTopic.action';
+import Loading from '@app/components/common/Loading';
+import Toast from 'react-native-toast-message';
 
 const ArticleDetailsScreen = props => {
   const hotTopicReducer = useSelector(state => state?.hotTopic);
   const articleTitle = hotTopicReducer?.selectedArticle?.title;
   const topicName = hotTopicReducer?.selectedTopic?.text;
   const {selectedArticle} = hotTopicReducer;
-  const [isShowShareModal, setShowShareModal] = useState(false);
+  const [isShowContactModal, setShowContactModal] = useState(false);
   const contactFormRef = useRef(null);
   const dispatch = useDispatch();
+  const [isLoadingSendComment, setLoadingSendComment] = useState(false);
 
   const onPressChat = () => {
-    setShowShareModal(true);
+    setShowContactModal(true);
   };
 
   const onPressShare = () => {
@@ -55,13 +58,30 @@ const ArticleDetailsScreen = props => {
   };
 
   const _onPressCloseModal = () => {
-    setShowShareModal(false);
+    setShowContactModal(false);
   };
 
   const focusOnContactForm = () => contactFormRef.current.focus();
 
-  const _renderShareModal = () => {
-    if (isShowShareModal) {
+  const _onPressSendComment = () => {
+    setLoadingSendComment(true);
+    setTimeout(() => {
+      setLoadingSendComment(false);
+    }, 2000);
+    setTimeout(() => {
+      setShowContactModal(false);
+    }, 2100);
+    Toast.show({
+      type: 'success',
+      position: 'bottom',
+      text1: 'Sent',
+      visibilityTime: 4000,
+      bottomOffset: 100,
+    });
+  };
+
+  const _renderContactModal = () => {
+    if (isShowContactModal) {
       return (
         <AppModal animationType={'fade'}>
           <View style={styles.chatModal}>
@@ -85,7 +105,9 @@ const ArticleDetailsScreen = props => {
                   style={styles.topicName}
                 />
               </Pressable>
-              <AppButton style={styles.sendMessageButton}>
+              <AppButton
+                style={styles.sendMessageButton}
+                onPress={_onPressSendComment}>
                 <Icon name={'send'} size={scale(20)} color={Colors.white} />
                 <Text style={styles.sendMessageText}>Send Message</Text>
               </AppButton>
@@ -109,6 +131,7 @@ const ArticleDetailsScreen = props => {
               <Icon name={'close'} size={scale(25)} color={Colors.primary} />
             </TouchableOpacity>
           </View>
+          {isLoadingSendComment && <Loading loadingText={'Sending message'} />}
         </AppModal>
       );
     }
@@ -284,7 +307,7 @@ const ArticleDetailsScreen = props => {
         </Text>
       </ScrollView>
       {_renderInteract()}
-      {_renderShareModal()}
+      {_renderContactModal()}
     </View>
   );
 };
@@ -317,7 +340,7 @@ const styles = ScaledSheet.create({
   image: {
     width: '100%',
     height: '160@vs',
-    backgroundColor: 'tomato',
+    backgroundColor: Colors.topic.background,
     borderRadius: '20@ms',
   },
   title: {
