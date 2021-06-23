@@ -13,7 +13,7 @@ import {textStyle} from '@app/utils/TextStyles';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-const ClassroomButton = props => {
+const ClassroomButton = React.memo(function ClassroomButton(props) {
   const {
     percent,
     color,
@@ -198,7 +198,7 @@ const ClassroomButton = props => {
       {_renderLockIcon()}
     </TouchableOpacity>
   );
-};
+});
 
 const connector = {
   position: 'absolute',
@@ -292,4 +292,4 @@ ClassroomButton.defaultProps = {
   weeksToUnlock: null,
 };
 
-export default ClassroomButton;
+export default React.memo(ClassroomButton);

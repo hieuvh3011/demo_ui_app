@@ -8,6 +8,7 @@ import SignUpViewModel from '@app/components/sign_up/SignUpViewModel';
 import AppButton from '@app/components/common/AppButton';
 import AppTextInput from '@app/components/common/AppTextInput';
 import AppModal from '@app/components/common/AppModal';
+import Loading from '@app/components/common/Loading';
 
 const SignUpScreen = props => {
   const {
@@ -17,13 +18,17 @@ const SignUpScreen = props => {
     onChangeEmail,
     onChangePassword,
     onChangeConfirm,
-    isReady,
+    checkReady,
     isSuccess,
     onPressCloseModal,
     onPressRegister,
     clearConfirm,
     clearPassword,
     clearEmail,
+    emailError,
+    passwordError,
+    confirmError,
+    isLoading,
   } = SignUpViewModel(props);
 
   const _renderInput = () => {
@@ -35,6 +40,7 @@ const SignUpScreen = props => {
           label={I18n.t('register.enter_your_email')}
           containerStyle={styles.input}
           clearContent={clearEmail}
+          errorText={emailError}
         />
         <AppTextInput
           value={password}
@@ -42,8 +48,9 @@ const SignUpScreen = props => {
           label={I18n.t('register.enter_your_password')}
           containerStyle={styles.input}
           iconName={'key'}
-          isPassword={true}
+          secureTextEntry={true}
           clearContent={clearPassword}
+          errorText={passwordError}
         />
         <AppTextInput
           value={confirmPassword}
@@ -51,8 +58,9 @@ const SignUpScreen = props => {
           label={I18n.t('register.confirm_your_password')}
           containerStyle={styles.input}
           iconName={'key'}
-          isPassword={true}
+          secureTextEntry={true}
           clearContent={clearConfirm}
+          errorText={confirmError}
         />
       </>
     );
@@ -62,8 +70,8 @@ const SignUpScreen = props => {
     return (
       <AppButton
         text={I18n.t('register.next')}
-        disabled={!isReady}
-        textColor={isReady ? Colors.white : '#FFCA7F'}
+        disabled={!checkReady()}
+        textColor={checkReady() ? Colors.white : '#FFCA7F'}
         disabledStyle={styles.disableButton}
         onPress={onPressRegister}
         // disabledTextStyle={styles.disableButtonText}
@@ -88,6 +96,9 @@ const SignUpScreen = props => {
           successMessage={I18n.t('register.success_message')}
           onPressCloseModal={onPressCloseModal}
         />
+      )}
+      {isLoading && (
+        <Loading loadingText={I18n.t('register.creating_your_account')} />
       )}
     </View>
   );

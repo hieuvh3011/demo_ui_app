@@ -7,7 +7,7 @@ import Colors from '@app/utils/colors';
 import {textStyle} from '@app/utils/TextStyles';
 import {liveTvIcon} from '@app/assets/images';
 
-const ClassroomCheckBox = props => {
+const ClassroomCheckBox = React.memo(function ClassroomCheckBox(props) {
   const {iconSource, text, isDone, onPress, containerStyle, color} = props;
 
   const _renderCheckbox = () => {
@@ -44,7 +44,7 @@ const ClassroomCheckBox = props => {
       {_renderCheckbox()}
     </TouchableOpacity>
   );
-};
+});
 
 const styles = ScaledSheet.create({
   container: {
@@ -110,4 +110,4 @@ ClassroomCheckBox.defaultProps = {
   color: Colors.primary400,
 };
 
-export default ClassroomCheckBox;
+export default React.memo(ClassroomCheckBox);

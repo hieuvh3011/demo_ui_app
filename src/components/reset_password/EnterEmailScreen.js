@@ -4,21 +4,43 @@ import {ScaledSheet} from 'react-native-size-matters';
 import Colors from '@app/utils/colors';
 import Header from '@app/components/common/Header';
 import I18n from '@app/i18n/i18n';
-import FloatingTextInput from '@app/components/common/FloatingTextInput';
 import {textStyle} from '@app/utils/TextStyles';
 import AppButton from '@app/components/common/AppButton';
 import {navigateToScreen} from '@app/navigation/NavigatorHelper';
 import {RESET_PASSWORD_ENTER_OTP_SCREEN} from '@app/navigation/ScreenName';
 import AppTextInput from '@app/components/common/AppTextInput';
+import {isEmail} from '@app/utils/validator';
+import Loading from '@app/components/common/Loading';
 
 const EnterEmailScreen = props => {
   const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [isLoading, setLoading] = useState(false);
 
   const onChangeEmail = text => {
     setEmail(text);
+    if (text === '') {
+      setEmailError(I18n.t('error.please_type_your_email'));
+    } else if (!isEmail(text)) {
+      setEmailError(I18n.t('error.email_is_incorrect_format'));
+    } else {
+      setEmailError('');
+    }
   };
 
   const clearEmail = () => setEmail('');
+
+  const _onPressContinue = () => {
+    if (email === '') {
+      setEmailError(I18n.t('error.please_type_your_email'));
+    } else {
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+        goToEnterOTP();
+      }, 2000);
+    }
+  };
 
   const goToEnterOTP = () => navigateToScreen(RESET_PASSWORD_ENTER_OTP_SCREEN);
 
@@ -37,14 +59,18 @@ const EnterEmailScreen = props => {
           keyboardType={'email-address'}
           autoFocus={true}
           clearContent={clearEmail}
+          errorText={emailError}
         />
         <View style={styles.blank250} />
         <AppButton
           text={I18n.t('reset_password.continue')}
           disabled={email === ''}
-          onPress={goToEnterOTP}
+          onPress={_onPressContinue}
         />
       </ScrollView>
+      {isLoading && (
+        <Loading loadingText={I18n.t('reset_password.sending_otp')} />
+      )}
     </View>
   );
 };

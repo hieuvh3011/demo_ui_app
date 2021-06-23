@@ -16,7 +16,7 @@ import {textStyle} from '@app/utils/TextStyles';
 
 const {width} = Dimensions.get('window');
 
-const Header = props => {
+const Header = React.memo(function Header(props) {
   const {
     hasBackLeft,
     left,
@@ -91,7 +91,7 @@ const Header = props => {
       {_renderRight()}
     </View>
   );
-};
+});
 
 const styles = ScaledSheet.create({
   container: {
@@ -178,4 +178,4 @@ Header.defaultProps = {
   centerComponent: null,
 };
 
-export default Header;
+export default React.memo(Header);

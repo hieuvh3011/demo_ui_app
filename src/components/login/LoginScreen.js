@@ -16,7 +16,6 @@ const LoginScreen = props => {
     password,
     emailError,
     passwordError,
-    errorList,
     isLoading,
     goToResetPassword,
     goToSignUp,
@@ -64,23 +63,6 @@ const LoginScreen = props => {
     );
   };
 
-  const _renderError = () => {
-    return (
-      <View style={styles.errorArea}>
-        {errorList.map((item, index) => {
-          return (
-            <View key={index.toString()} style={styles.error}>
-              <View style={styles.badge}>
-                <Text style={styles.errorSymbol}>!</Text>
-              </View>
-              <Text style={styles.errorText}>{item.text}</Text>
-            </View>
-          );
-        })}
-      </View>
-    );
-  };
-
   const _renderButton = () => {
     return (
       <>
@@ -123,7 +105,6 @@ const LoginScreen = props => {
         <View style={styles.top} />
         {_renderInput()}
         {_renderForgotPassword()}
-        {_renderError()}
         {_renderButton()}
       </ScrollView>
       <Loading isLoading={isLoading} loadingText={I18n.t('login.logging_in')} />
@@ -242,5 +223,7 @@ const styles = ScaledSheet.create({
     borderColor: Colors.primary,
   },
 });
+
+LoginScreen.whyDidYouRender = false;
 
 export default LoginScreen;

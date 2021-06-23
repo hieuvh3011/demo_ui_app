@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Colors from '@app/utils/colors';
 import {Fonts, textStyle} from '@app/utils/TextStyles';
 
-const Loading = props => {
+const Loading = React.memo(function Loading(props) {
   const {isLoading, onRequestClose, loadingText, noLoadingText} = props;
 
   const _renderLoading = () => {
@@ -38,7 +38,7 @@ const Loading = props => {
       </Modal>
     </View>
   );
-};
+});
 
 const container = {
   flex: 1,
@@ -90,4 +90,4 @@ Loading.defaultProps = {
   loadingText: '',
 };
 
-export default Loading;
+export default React.memo(Loading);

@@ -4,7 +4,7 @@ import {ScaledSheet} from 'react-native-size-matters';
 import PropType from 'prop-types';
 import Colors from '@app/utils/colors';
 
-const AppButton = (props: any): JSX.Element => {
+const AppButton = React.memo(function AppButton(props) {
   const {
     text,
     backgroundColor,
@@ -54,7 +54,7 @@ const AppButton = (props: any): JSX.Element => {
       {_renderChildren()}
     </TouchableOpacity>
   );
-};
+});
 
 const container = {
   width: '100%',
@@ -106,4 +106,4 @@ AppButton.defaultProps = {
   children: null,
 };
 
-export default AppButton;
+export default React.memo(AppButton);
