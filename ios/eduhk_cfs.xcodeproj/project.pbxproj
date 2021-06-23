@@ -16,6 +16,7 @@
 		6712451961B64EBCBDD797D8 /* NotoSansHKRounded-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94C380E6EAAA46B48A97A584 /* NotoSansHKRounded-Light.ttf */; };
 		7E81A757BF824EFC8394751F /* NotoSansHKRounded-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 608C7FE9D8934C51B2772AE8 /* NotoSansHKRounded-Black.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		8441BBDB2682E1230009E1EC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8441BBDA2682E1220009E1EC /* GoogleService-Info.plist */; };
 		84F86A23F20F498BA53E1BA0 /* NotoSansHKRounded-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FCF9F0F369914F0E9AF1212A /* NotoSansHKRounded-Bold.ttf */; };
 		CB2732FC776742A3B25D5A8B /* NotoSansHKRounded-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7AB474EBCB9E4E5D8F36DECD /* NotoSansHKRounded-Thin.ttf */; };
 		F2B358E0FA4F485F831FC0BF /* NotoSansHKRounded-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A51E4CFFDD324DC2BCCC60FC /* NotoSansHKRounded-Regular.ttf */; };
@@ -57,6 +58,7 @@
 		715DBF7430FF4E7EA98A6EA2 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		7AB474EBCB9E4E5D8F36DECD /* NotoSansHKRounded-Thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "NotoSansHKRounded-Thin.ttf"; path = "../src/assets/fonts/NotoSansHKRounded-Thin.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = eduhk_cfs/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8441BBDA2682E1220009E1EC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "eduhk_cfs/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		854E1419345D4A3EA32CE96A /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		94C380E6EAAA46B48A97A584 /* NotoSansHKRounded-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "NotoSansHKRounded-Light.ttf"; path = "../src/assets/fonts/NotoSansHKRounded-Light.ttf"; sourceTree = "<group>"; };
 		992BDC39ACD9EC5146C77394 /* Pods-eduhk_cfs-eduhk_cfsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-eduhk_cfs-eduhk_cfsTests.debug.xcconfig"; path = "Target Support Files/Pods-eduhk_cfs-eduhk_cfsTests/Pods-eduhk_cfs-eduhk_cfsTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 		13B07FAE1A68108700A75B9A /* eduhk_cfs */ = {
 			isa = PBXGroup;
 			children = (
+				8441BBDA2682E1220009E1EC /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -302,6 +305,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				8441BBDB2682E1230009E1EC /* GoogleService-Info.plist in Resources */,
 				7E81A757BF824EFC8394751F /* NotoSansHKRounded-Black.ttf in Resources */,
 				84F86A23F20F498BA53E1BA0 /* NotoSansHKRounded-Bold.ttf in Resources */,
 				6712451961B64EBCBDD797D8 /* NotoSansHKRounded-Light.ttf in Resources */,

@@ -4,7 +4,7 @@ import {ScaledSheet} from 'react-native-size-matters';
 import PropType from 'prop-types';
 import Colors from '@app/utils/colors';
 import {textStyle} from '@app/utils/TextStyles';
-import {defaultProfilePicture} from '@app/assets/images';
+import {defaultProfilePicture, demoArticleThumbnails} from '@app/assets/images';
 
 const ArticleItem = React.memo(function ArticleItem(props) {
   const {
@@ -105,7 +105,7 @@ ArticleItem.propTypes = {
 };
 
 ArticleItem.defaultProps = {
-  imageSource: defaultProfilePicture,
+  imageSource: demoArticleThumbnails,
   title: 'Article Title',
   description: 'Article Description',
   isShort: false,

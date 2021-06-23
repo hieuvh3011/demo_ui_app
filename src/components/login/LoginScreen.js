@@ -24,6 +24,7 @@ const LoginScreen = props => {
     clearEmail,
     clearPassword,
     onPressLogin,
+    onPressLoginGoogle,
   } = LoginViewModel();
 
   const _renderInput = () => {
@@ -85,7 +86,7 @@ const LoginScreen = props => {
   };
 
   const _buttonLoginGoogle = () => (
-    <AppButton style={styles.loginGoogle}>
+    <AppButton style={styles.loginGoogle} onPress={onPressLoginGoogle}>
       <>
         <Image source={googleLogo} style={styles.logoGoogle} />
         <Text style={styles.signInWithGoogle}>

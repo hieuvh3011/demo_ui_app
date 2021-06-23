@@ -10,6 +10,12 @@ import {
 } from '@app/navigation/ScreenName';
 import I18n from '@app/i18n/i18n';
 import {isEmail} from '@app/utils/validator';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
+
+GoogleSignin.configure({
+  webClientId:
+    '305307018718-v9ahao0r1savr0rj9s429cqnu2iv89jg.apps.googleusercontent.com',
+});
 
 const LoginViewModel = props => {
   const [email, setEmail] = useState('');
@@ -75,6 +81,21 @@ const LoginViewModel = props => {
     }
   };
 
+  const onPressLoginGoogle = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      console.log('userInfo = ', userInfo);
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+        navigateToScreen(TAB_NAVIGATOR);
+      }, 2000);
+    } catch (error) {
+      console.log('onPressLoginGoogle error = ', error);
+    }
+  };
+
   return {
     email,
     password,
@@ -89,6 +110,7 @@ const LoginViewModel = props => {
     clearPassword,
     onPressLogin,
     isLoading,
+    onPressLoginGoogle,
   };
 };
 

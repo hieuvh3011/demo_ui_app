@@ -10,3 +10,5 @@ export const unlikeIcon = require('@app/assets/images/hot_topic/unlike.png');
 export const likeIcon = require('@app/assets/images/hot_topic/like.png');
 export const shareIcon = require('@app/assets/images/hot_topic/share.png');
 export const chatIcon = require('@app/assets/images/hot_topic/chat.png');
+export const demoArticleImage = require('@app/assets/images/hot_topic/demo_article_image.png');
+export const demoArticleThumbnails = require('@app/assets/images/hot_topic/demo_article_thumnails.png');

@@ -15,6 +15,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {
   chatIcon,
   defaultArticleImage,
+  demoArticleImage,
   likeIcon,
   shareIcon,
   unlikeIcon,
@@ -164,7 +165,7 @@ const ArticleDetailsScreen = props => {
     <View style={styles.container}>
       <Header hasBackLeft={true} hasRight={true} centerText={topicName} />
       <ScrollView style={styles.list}>
-        <Image source={defaultArticleImage} style={styles.image} />
+        <Image source={demoArticleImage} style={styles.image} />
         <Text style={styles.title}>{articleTitle}</Text>
         <Text style={styles.content}>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad enim iure
