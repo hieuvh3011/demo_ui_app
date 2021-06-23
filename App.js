@@ -12,10 +12,9 @@ import RootNavigator from '@app/navigation/RootNavigator';
 import {Provider} from 'react-redux';
 import store from '@app/redux/store';
 import Colors from '@app/utils/colors';
+import Toast from 'react-native-toast-message';
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
   return (
     <Provider store={store}>
       <StatusBar
@@ -24,6 +23,7 @@ const App = () => {
         backgroundColor={Colors.transparent}
       />
       <RootNavigator />
+      <Toast ref={ref => Toast.setRef(ref)} />
     </Provider>
   );
 };

@@ -4,9 +4,9 @@ import {ScaledSheet} from 'react-native-size-matters';
 import PropType from 'prop-types';
 import Colors from '@app/utils/colors';
 import {textStyle} from '@app/utils/TextStyles';
-import {defaultProfilePicture} from '@app/assets/images/index';
+import {defaultProfilePicture, demoArticleThumbnails} from '@app/assets/images';
 
-const ArticleItem = props => {
+const ArticleItem = React.memo(function ArticleItem(props) {
   const {
     imageSource,
     title,
@@ -45,7 +45,7 @@ const ArticleItem = props => {
       <Text style={styles.like}>{`${numberOfLikes} likes`}</Text>
     </TouchableOpacity>
   );
-};
+});
 
 const articleContainer = {
   width: '100%',
@@ -105,7 +105,7 @@ ArticleItem.propTypes = {
 };
 
 ArticleItem.defaultProps = {
-  imageSource: defaultProfilePicture,
+  imageSource: demoArticleThumbnails,
   title: 'Article Title',
   description: 'Article Description',
   isShort: false,
@@ -114,4 +114,4 @@ ArticleItem.defaultProps = {
   onPress: () => {},
 };
 
-export default ArticleItem;
+export default React.memo(ArticleItem);

@@ -23,6 +23,7 @@ export default {
     next: 'Next',
     success_message:
       'Great! We sent you a confirmation link to your email. Just click on it and you’re good to go!',
+    creating_your_account: 'Creating your account',
   },
   error: {
     email_cannot_empty: 'Email cannot be empty',
@@ -30,8 +31,12 @@ export default {
     email_is_incorrect_format:
       'Your email is in an incorrect format (xxx@yyy.com)',
     email_password_not_match: 'Either your password or email is incorrect',
-    password_need_at_least_14_character:
-      'Your password needs to be at least 14 characters long',
+    password_need_at_least_8_character:
+      'Your password needs to be at least 8 characters long',
+    confirm_cannot_empty: 'Confirm password cannot be empty',
+    password_confirm_not_match: 'Your password is not match',
+    please_type_your_email: 'Please type your email',
+    otp_cannot_empty: 'Digit code cannot be empty',
   },
   reset_password: {
     reset_password: 'Reset Password',
@@ -45,6 +50,7 @@ export default {
     enter_your_password: 'Enter your password',
     confirm_your_password: 'Confirm your password',
     change_password: 'Change password',
+    sending_otp: 'Sending OTP to your email',
   },
   bottom_tab_bar: {
     classes: 'Classes',

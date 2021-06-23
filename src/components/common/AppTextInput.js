@@ -1,4 +1,4 @@
-import React, {forwardRef, Component} from 'react';
+import React, {forwardRef, PureComponent} from 'react';
 import {
   View,
   TextInput,
@@ -7,19 +7,14 @@ import {
   TouchableOpacity,
   Text,
 } from 'react-native';
-import {
-  ScaledSheet,
-  scale,
-  moderateScale,
-  verticalScale,
-} from 'react-native-size-matters';
+import {ScaledSheet, scale, moderateScale} from 'react-native-size-matters';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Colors from '@app/utils/colors';
 import PropTypes from 'prop-types';
-import {Fonts, textStyle} from '@app/utils/TextStyles';
+import {textStyle} from '@app/utils/TextStyles';
 import {isIphoneX} from 'react-native-iphone-x-helper';
 
-class AppTextInput extends Component {
+class AppTextInput extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

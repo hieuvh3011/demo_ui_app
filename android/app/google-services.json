@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "305307018718",
+    "project_id": "eduhk-cfs",
+    "storage_bucket": "eduhk-cfs.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:305307018718:android:d48442ff9f305a4db6e94f",
+        "android_client_info": {
+          "package_name": "com.eduhk_cfs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "305307018718-rrmg8oiqm5rp4en0hf2r4p667b0icgvt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.eduhk_cfs",
+            "certificate_hash": "5fdd848ce9b52cafa92b570f12bf171694f57d5d"
+          }
+        },
+        {
+          "client_id": "305307018718-v9ahao0r1savr0rj9s429cqnu2iv89jg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFCgdbDZ3_XV1k_Q72jIN4ge5uBhp-7uI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "305307018718-v9ahao0r1savr0rj9s429cqnu2iv89jg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "305307018718-2buqdcnqbn5jsi69moc52km00rip3mlo.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sotatek.eduhk-cfs"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

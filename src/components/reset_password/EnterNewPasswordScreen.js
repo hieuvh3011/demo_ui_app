@@ -22,10 +22,24 @@ const EnterNewPasswordScreen = props => {
 
   const onChangePassword = text => {
     setPassword(text);
+    if (text === '') {
+      setPasswordError(I18n.t('error.password_cannot_empty'));
+    } else if (text.length < 8) {
+      setPasswordError(I18n.t('error.password_need_at_least_8_character'));
+    } else {
+      setPasswordError('');
+    }
   };
 
   const onChangeConfirm = text => {
     setConfirmPassword(text);
+    if (text === '') {
+      setConfirmError(I18n.t('error.confirm_cannot_empty'));
+    } else if (text !== password) {
+      setConfirmError(I18n.t('error.password_confirm_not_match'));
+    } else {
+      setConfirmError('');
+    }
   };
 
   const clearPassword = () => onChangePassword('');
@@ -78,6 +92,7 @@ const EnterNewPasswordScreen = props => {
           clearContent={clearPassword}
           containerStyle={styles.input}
           secureTextEntry={true}
+          errorText={passwordError}
         />
         <AppTextInput
           iconName={'key'}
@@ -87,6 +102,7 @@ const EnterNewPasswordScreen = props => {
           clearContent={clearConfirm}
           containerStyle={styles.input}
           secureTextEntry={true}
+          errorText={confirmError}
         />
         <View style={styles.blank180} />
         <AppButton

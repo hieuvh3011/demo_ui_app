@@ -4,7 +4,6 @@ import {ScaledSheet} from 'react-native-size-matters';
 import Colors from '@app/utils/colors';
 import Header from '@app/components/common/Header';
 import I18n from '@app/i18n/i18n';
-import FloatingTextInput from '@app/components/common/FloatingTextInput';
 import {textStyle} from '@app/utils/TextStyles';
 import AppButton from '@app/components/common/AppButton';
 import {CodeField, Cursor} from 'react-native-confirmation-code-field';
@@ -12,9 +11,10 @@ import Loading from '@app/components/common/Loading';
 import {navigateToScreen} from '@app/navigation/NavigatorHelper';
 import {RESET_PASSWORD_ENTER_NEW_PASSWORD_SCREEN} from '@app/navigation/ScreenName';
 
-const EnterOTPScreen = props => {
+const EnterOTPScreen = React.memo(function EnterOTPScreen(props) {
   const [otp, setOTP] = useState('');
   const [isLoading, setLoading] = useState(false);
+  // const [otpError, setOtpError] = useState('');
   const inputRef = useRef();
 
   const onChangeOTP = text => {
@@ -70,7 +70,7 @@ const EnterOTPScreen = props => {
       )}
     </View>
   );
-};
+});
 
 const styles = ScaledSheet.create({
   container: {
@@ -111,4 +111,4 @@ const styles = ScaledSheet.create({
   },
 });
 
-export default EnterOTPScreen;
+export default React.memo(EnterOTPScreen);

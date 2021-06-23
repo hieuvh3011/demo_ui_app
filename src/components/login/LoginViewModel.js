@@ -4,40 +4,24 @@ import {
   navigateToScreenAndReplace,
 } from '@app/navigation/NavigatorHelper';
 import {
-  HOME_SCREEN,
   RESET_PASSWORD_ENTER_EMAIL_SCREEN,
   SIGN_UP_SCREEN,
   TAB_NAVIGATOR,
 } from '@app/navigation/ScreenName';
-import {inputError} from '@app/utils/error';
 import I18n from '@app/i18n/i18n';
 import {isEmail} from '@app/utils/validator';
-import {Alert} from 'react-native';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
-const emailCannotEmpty = {
-  type: inputError.email.email_cannot_empty,
-  text: I18n.t('error.email_cannot_empty'),
-};
-const incorrectFormat = {
-  type: inputError.email.incorrect_format_email,
-  text: I18n.t('error.email_is_incorrect_format'),
-};
-const passwordCannotEmpty = {
-  type: inputError.password.password_cannot_empty,
-  text: I18n.t('error.password_cannot_empty'),
-};
+GoogleSignin.configure({
+  webClientId:
+    '305307018718-v9ahao0r1savr0rj9s429cqnu2iv89jg.apps.googleusercontent.com',
+});
 
 const LoginViewModel = props => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   const [isLoading, setLoading] = useState(false);
-
-  //errorList để chứa danh sách các lỗi hiển thị lên màn hình
-  const [errorList, setErrorList] = useState([]);
-
-  // emailError và passwordError dùng để cho AppTextInput lắng nghe,
-  // nếu bằng false thì background bình thường,
-  // bằng true thì đổi màu background của Text Input
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
@@ -66,31 +50,6 @@ const LoginViewModel = props => {
     } else {
       setPasswordError('');
     }
-  };
-
-  const addErrorToList = (errorItem, originalErrorList = [...errorList]) => {
-    const errorIndex = originalErrorList.findIndex(
-      item => item.type === errorItem.type,
-    );
-    if (errorIndex === -1) {
-      originalErrorList.push(errorItem);
-    }
-    console.log('errorList = ', originalErrorList);
-    return originalErrorList;
-  };
-
-  const removeErrorFromList = (
-    errorItem,
-    originalErrorList = [...errorList],
-  ) => {
-    // const originalErrorList = [...errorList];
-    const errorIndex = originalErrorList.findIndex(
-      item => item.type === errorItem.type,
-    );
-    if (errorIndex > -1) {
-      originalErrorList.splice(errorIndex, 1);
-    }
-    return originalErrorList;
   };
 
   const clearEmail = () => onChangeEmail('');
@@ -122,6 +81,21 @@ const LoginViewModel = props => {
     }
   };
 
+  const onPressLoginGoogle = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      console.log('userInfo = ', userInfo);
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+        navigateToScreen(TAB_NAVIGATOR);
+      }, 2000);
+    } catch (error) {
+      console.log('onPressLoginGoogle error = ', error);
+    }
+  };
+
   return {
     email,
     password,
@@ -135,8 +109,8 @@ const LoginViewModel = props => {
     clearEmail,
     clearPassword,
     onPressLogin,
-    errorList,
     isLoading,
+    onPressLoginGoogle,
   };
 };
 
