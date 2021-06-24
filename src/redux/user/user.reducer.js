@@ -1,9 +1,15 @@
 import * as types from './user.type';
+import I18n from '@app/i18n/i18n';
 
-const initialState = {
+export const initialState = {
   profile: {},
   language: 'en',
   token: '',
+  genderList: [
+    {id: 1, text: I18n.t('profile.male'), isSelect: false},
+    {id: 2, text: I18n.t('profile.female'), isSelect: false},
+    {id: 3, text: I18n.t('profile.other'), isSelect: false},
+  ],
 };
 
 export default (state = initialState, action) => {
@@ -36,6 +42,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         token: payload,
+      };
+    case types.SELECT_GENDER:
+      return {
+        ...state,
+        genderList: payload.data,
       };
     default:
       return state;

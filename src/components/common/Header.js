@@ -104,6 +104,7 @@ const styles = ScaledSheet.create({
     flexDirection: 'row',
     borderBottomWidth: '0.6@vs',
     borderBottomColor: Colors.borderBottom,
+    backgroundColor: Colors.background,
   },
   text: {
     ...textStyle.h1_primary,

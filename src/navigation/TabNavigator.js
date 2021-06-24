@@ -2,31 +2,25 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {
   ACCOUNT_SCREEN,
-  HOT_TOPIC_SCREEN,
   PHOTO_ALBUM_SCREEN,
   CALENDAR_SCREEN,
-  CLASS_SCREEN,
-  CLASS_PREVIEW_SCREEN,
   CLASS_STACK,
   HOT_TOPIC_STACK,
+  PROFILE_TAB,
 } from './ScreenName';
-import ClassScreen from '@app/components/classes/ClassScreen';
 import ProfileScreen from '@app/components/profile/ProfileScreen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Colors from '@app/utils/colors';
-import HotTopicScreen from '@app/components/hot_topic/HotTopicScreen';
 import PhotoAlbumScreen from '@app/components/photo_album/PhotoAlbumScreen';
 import CalendarScreen from '@app/components/calendar/CalendarScreen';
 import {scale} from 'react-native-size-matters';
 import I18n from 'react-native-i18n';
-import {createStackNavigator} from '@react-navigation/stack';
-import ClassPreviewScreen from '@app/components/classes/ClassPreviewScreen';
 import StackClasses from '@app/navigation/StackClasses';
 import StackHotTopic from './StackHotTopics';
+import TabProfile from '@app/navigation/TabProfile';
 
 const TabNavigator = () => {
   const Tab = createBottomTabNavigator();
-  const Stack = createStackNavigator();
 
   const getIconTab = (route: any, color: string) => {
     let iconName = '';

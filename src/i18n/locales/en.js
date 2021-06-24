@@ -62,4 +62,19 @@ export default {
   classes: {
     parenting_365: 'Parenting 365',
   },
+  profile: {
+    profile: 'Profile',
+    my_profile: 'My Profile',
+    spousal_profile: 'Spousal Profile',
+    children_profile: "Children's Profile",
+    name: 'Name',
+    gender: 'Gender',
+    photo: 'Photo',
+    first_name: 'First Name',
+    last_name: 'Last Name',
+    male: 'Male',
+    female: 'Female',
+    other: 'Other',
+    upload_photo: 'Upload Photo',
+  },
 };

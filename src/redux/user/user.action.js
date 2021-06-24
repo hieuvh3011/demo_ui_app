@@ -6,3 +6,8 @@ export const storeUserInfo = payload => ({
 });
 
 export const deleteUserInfo = () => ({type: types.DELETE_USER_INFO});
+
+export const selectGender = gender => ({
+  type: types.ON_PRESS_GENDER,
+  payload: {data: gender},
+});
