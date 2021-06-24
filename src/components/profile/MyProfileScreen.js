@@ -114,17 +114,19 @@ const MyProfileScreen = props => {
   };
 
   return (
-    <ScrollView style={styles.container}>
-      {_renderName()}
-      {_renderGender()}
-      {_renderUploadPhoto()}
-    </ScrollView>
+    <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scroll}>
+        {_renderName()}
+        {_renderGender()}
+        {_renderUploadPhoto()}
+      </ScrollView>
+    </View>
   );
 };
 
 const genderButton = {
   flex: 1,
-  height: '45@vs',
+  height: '40@vs',
   alignItems: 'center',
   justifyContent: 'center',
   borderWidth: '1@ms',
@@ -136,9 +138,14 @@ const genderButton = {
 
 const styles = ScaledSheet.create({
   container: {
+    flex: 1,
+    backgroundColor: Colors.background,
+  },
+  scroll: {
     width: '100%',
     paddingHorizontal: '15@ms',
     backgroundColor: Colors.background,
+    paddingBottom: '20@vs',
   },
   topLabel: {
     ...textStyle.h3_black,
@@ -157,6 +164,7 @@ const styles = ScaledSheet.create({
   textInput: {
     width: '49%',
     marginVertical: 0,
+    // height: '40@vs',
   },
   genderButton: {
     ...genderButton,
