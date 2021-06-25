@@ -9,6 +9,7 @@ import I18n from '@app/i18n/i18n';
 import AppTextInput from '@app/components/common/AppTextInput';
 import LoginViewModel from '@app/components/login/LoginViewModel';
 import Loading from '@app/components/common/Loading';
+import {textStyle} from '@app/utils/TextStyles';
 
 const LoginScreen = props => {
   const {
@@ -37,6 +38,7 @@ const LoginScreen = props => {
           keyboardType={'email-address'}
           clearContent={clearEmail}
           errorText={emailError}
+          style={styles.inputText}
         />
         <AppTextInput
           value={password}
@@ -45,6 +47,7 @@ const LoginScreen = props => {
           clearContent={clearPassword}
           secureTextEntry={true}
           errorText={passwordError}
+          style={styles.inputText}
         />
       </>
     );
@@ -222,6 +225,10 @@ const styles = ScaledSheet.create({
   signUp: {
     borderWidth: '1@ms',
     borderColor: Colors.primary,
+  },
+  inputText: {
+    ...textStyle.md_bold,
+    color: Colors.text,
   },
 });
 

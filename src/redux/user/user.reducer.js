@@ -5,11 +5,26 @@ export const initialState = {
   profile: {},
   language: 'en',
   token: '',
-  genderList: [
-    {id: 1, text: I18n.t('profile.male'), isSelect: false},
-    {id: 2, text: I18n.t('profile.female'), isSelect: false},
-    {id: 3, text: I18n.t('profile.other'), isSelect: false},
-  ],
+  myProfile: {
+    firstName: '',
+    lastName: '',
+    genderList: [
+      {id: 1, text: I18n.t('profile.male'), isSelect: false},
+      {id: 2, text: I18n.t('profile.female'), isSelect: false},
+      {id: 3, text: I18n.t('profile.other'), isSelect: false},
+    ],
+    photoUri: '',
+  },
+  spousalProfile: {
+    firstName: '',
+    lastName: '',
+    genderList: [
+      {id: 1, text: I18n.t('profile.male'), isSelect: false},
+      {id: 2, text: I18n.t('profile.female'), isSelect: false},
+      {id: 3, text: I18n.t('profile.other'), isSelect: false},
+    ],
+    photoUri: '',
+  },
 };
 
 export default (state = initialState, action) => {
@@ -43,10 +58,69 @@ export default (state = initialState, action) => {
         ...state,
         token: payload,
       };
-    case types.SELECT_GENDER:
+    case types.TYPE_MY_FIRST_NAME:
       return {
         ...state,
-        genderList: payload.data,
+        myProfile: {
+          ...state.myProfile,
+          firstName: payload.data,
+        },
+      };
+    case types.TYPE_MY_LAST_NAME:
+      return {
+        ...state,
+        myProfile: {
+          ...state.myProfile,
+          lastName: payload.data,
+        },
+      };
+    case types.SELECT_MY_GENDER:
+      return {
+        ...state,
+        myProfile: {
+          ...state.myProfile,
+          genderList: payload.data,
+        },
+      };
+    case types.SELECT_MY_PHOTO:
+      return {
+        ...state,
+        myProfile: {
+          ...state.myProfile,
+          photoUri: payload.data,
+        },
+      };
+    case types.TYPE_SPOUSAL_FIRST_NAME:
+      return {
+        ...state,
+        spousalProfile: {
+          ...state.spousalProfile,
+          firstName: payload.data,
+        },
+      };
+    case types.TYPE_SPOUSAL_LAST_NAME:
+      return {
+        ...state,
+        spousalProfile: {
+          ...state.spousalProfile,
+          lastName: payload.data,
+        },
+      };
+    case types.SELECT_SPOUSAL_GENDER:
+      return {
+        ...state,
+        spousalProfile: {
+          ...state.spousalProfile,
+          genderList: payload.data,
+        },
+      };
+    case types.SELECT_SPOUSAL_PHOTO:
+      return {
+        ...state,
+        spousalProfile: {
+          ...state.spousalProfile,
+          photoUri: payload.data,
+        },
       };
     default:
       return state;

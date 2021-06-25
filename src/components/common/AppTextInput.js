@@ -105,7 +105,7 @@ class AppTextInput extends PureComponent {
 
   _getTopOutputRange = () => {
     if (isIphoneX()) {
-      return [moderateScale(21), moderateScale(8)];
+      return [moderateScale(18), moderateScale(8)];
     }
     return [moderateScale(14), moderateScale(4)];
   };
@@ -185,7 +185,7 @@ class AppTextInput extends PureComponent {
 
 const container = {
   width: '100%',
-  height: '50@vs',
+  height: isIphoneX() ? '45@vs' : '50@vs',
   borderRadius: '5@ms',
   borderColor: Colors.borderTextInput,
   borderWidth: '1@ms',
@@ -231,8 +231,8 @@ const styles = ScaledSheet.create({
     paddingVertical: 0,
   },
   inputSecured: {
-    // ...textStyle.md_black,
-    // color: Colors.textInput,
+    ...textStyle.md_black,
+    color: Colors.textInput,
     // fontSize: '11@ms',
     fontSize: '13@ms',
     paddingLeft: 0,

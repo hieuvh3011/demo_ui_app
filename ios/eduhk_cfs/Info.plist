@@ -37,6 +37,10 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Using photo library to select photo</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Using camera to take your photo</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>

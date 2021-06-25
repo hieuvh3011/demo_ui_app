@@ -5,6 +5,7 @@ import {
   ScrollView,
   TouchableOpacity,
   StyleSheet,
+  Image,
 } from 'react-native';
 import {ScaledSheet, scale} from 'react-native-size-matters';
 import Colors from '@app/utils/colors';
@@ -12,28 +13,86 @@ import {textStyle} from '@app/utils/TextStyles';
 import I18n from '@app/i18n/i18n';
 import AppTextInput from '@app/components/common/AppTextInput';
 import {useDispatch, useSelector} from 'react-redux';
-import {selectGender} from '@app/redux/user/user.action';
+import {
+  selectMyGender,
+  selectMyPhoto,
+  typeMyFirstName,
+  typeMyLastName,
+} from '@app/redux/user/user.action';
 import AppButton from '@app/components/common/AppButton';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
+import CameraOrGalleryModal from '@app/components/common/CameraOrGalleryModal';
 
 const MyProfileScreen = props => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const genderList = useSelector(state => state?.user?.genderList);
+  const {genderList, photoUri, firstName, lastName} = useSelector(
+    state => state?.user?.myProfile,
+  );
+  const [showImagePicker, setShowImagePicker] = useState(false);
+
   const dispatch = useDispatch();
 
   const clearFirstName = () => {
-    setFirstName('');
+    dispatch(typeMyFirstName(''));
+  };
+
+  const onChangeFirstName = text => {
+    dispatch(typeMyFirstName(text));
+  };
+
+  const onChangeLastName = text => {
+    dispatch(typeMyLastName(text));
   };
 
   const clearLastName = () => {
-    setLastName('');
+    dispatch(typeMyLastName(''));
   };
 
   const _onPressGender = gender => {
     if (gender.isSelect === false) {
-      dispatch(selectGender(gender));
+      dispatch(selectMyGender(gender));
     }
+  };
+
+  const _onPressUploadPhoto = async () => {
+    setShowImagePicker(true);
+  };
+
+  const _openGallery = async () => {
+    const options = {
+      mediaType: 'photo',
+    };
+    launchImageLibrary(options, response => {
+      if (response.errorMessage !== undefined) {
+        console.log('_openGallery error message = ', response.errorMessage);
+      }
+      if (!response.didCancel) {
+        setShowImagePicker(false);
+        const assets = response?.assets[0];
+        console.log('assets = ', assets);
+        if (assets?.uri) {
+          dispatch(selectMyPhoto(assets?.uri));
+        }
+        // console.log('ImagePickerResponse = ', response);
+      }
+    });
+  };
+
+  const _openCamera = () => {
+    launchCamera({saveToPhotos: true}, response => {
+      if (response.errorMessage !== undefined) {
+        console.log('_openCamera error message = ', response.errorMessage);
+      }
+      if (!response.didCancel) {
+        setShowImagePicker(false);
+        const assets = response?.assets[0];
+        console.log('assets = ', assets);
+        if (assets?.uri) {
+          dispatch(selectMyPhoto(assets?.uri));
+        }
+        // console.log('ImagePickerResponse = ', response);
+      }
+    });
   };
 
   const _renderName = () => {
@@ -45,17 +104,19 @@ const MyProfileScreen = props => {
             containerStyle={styles.textInput}
             iconName={'account-circle'}
             value={firstName}
-            onChange={setFirstName}
+            onChange={onChangeFirstName}
             label={I18n.t('profile.first_name')}
             clearContent={clearFirstName}
+            autoCapitalize={'words'}
           />
           <AppTextInput
             containerStyle={styles.textInput}
             iconName={'account-circle'}
             value={lastName}
-            onChange={setLastName}
+            onChange={onChangeLastName}
             label={I18n.t('profile.last_name')}
             clearContent={clearLastName}
+            autoCapitalize={'words'}
           />
         </View>
       </>
@@ -101,7 +162,10 @@ const MyProfileScreen = props => {
     return (
       <>
         <Text style={styles.topLabel}>{I18n.t('profile.photo')}</Text>
-        <AppButton style={styles.uploadPhoto}>
+        {photoUri !== '' && (
+          <Image source={{uri: photoUri}} style={styles.photo} />
+        )}
+        <AppButton style={styles.uploadPhoto} onPress={_onPressUploadPhoto}>
           <>
             <Icon name={'upload'} color={Colors.white} size={scale(18)} />
             <Text style={styles.uploadPhotoText}>
@@ -115,11 +179,20 @@ const MyProfileScreen = props => {
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scroll}>
+      <ScrollView
+        contentContainerStyle={styles.scroll}
+        showsVerticalScrollIndicator={false}>
         {_renderName()}
         {_renderGender()}
         {_renderUploadPhoto()}
       </ScrollView>
+      {showImagePicker && (
+        <CameraOrGalleryModal
+          closeModal={() => setShowImagePicker(false)}
+          openGallery={_openGallery}
+          openCamera={_openCamera}
+        />
+      )}
     </View>
   );
 };
@@ -176,9 +249,11 @@ const styles = ScaledSheet.create({
   },
   genderButtonText: {
     ...textStyle.md_bold,
+    fontSize: '12@ms',
   },
   selectedGenderButtonText: {
     ...textStyle.md_bold,
+    fontSize: '12@ms',
     color: Colors.white,
   },
   uploadPhoto: {
@@ -190,6 +265,12 @@ const styles = ScaledSheet.create({
     ...textStyle.md_bold,
     color: Colors.white,
     marginLeft: '5@ms',
+  },
+  photo: {
+    width: '100%',
+    height: '200@vs',
+    borderRadius: '15@ms',
+    marginVertical: '10@vs',
   },
 });
 

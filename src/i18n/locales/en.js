@@ -76,5 +76,7 @@ export default {
     female: 'Female',
     other: 'Other',
     upload_photo: 'Upload Photo',
+    open_camera: 'Open camera',
+    select_from_gallery: 'Select from gallery',
   },
 };

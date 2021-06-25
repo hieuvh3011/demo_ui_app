@@ -9,7 +9,7 @@ import Colors from '@app/utils/colors';
 import {ScaledSheet} from 'react-native-size-matters';
 import {textStyle} from '@app/utils/TextStyles';
 
-export default function TabProfile() {
+const TabProfile = () => {
   const layout = Dimensions.get('window');
 
   const [index, setIndex] = React.useState(0);
@@ -54,7 +54,7 @@ export default function TabProfile() {
       renderTabBar={_renderTabBar}
     />
   );
-}
+};
 
 const tabBarContainer = {
   backgroundColor: Colors.background,
@@ -82,6 +82,8 @@ const styles = ScaledSheet.create({
   },
   label: {
     ...textStyle.md_bold,
-    fontSize: '12@ms',
+    fontSize: '11@ms',
   },
 });
+
+export default React.memo(TabProfile);

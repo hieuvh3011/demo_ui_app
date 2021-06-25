@@ -13,11 +13,12 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Colors from '@app/utils/colors';
 import PhotoAlbumScreen from '@app/components/photo_album/PhotoAlbumScreen';
 import CalendarScreen from '@app/components/calendar/CalendarScreen';
-import {scale} from 'react-native-size-matters';
+import {verticalScale, scale} from 'react-native-size-matters';
 import I18n from 'react-native-i18n';
 import StackClasses from '@app/navigation/StackClasses';
 import StackHotTopic from './StackHotTopics';
 import TabProfile from '@app/navigation/TabProfile';
+import { isIphoneX } from "react-native-iphone-x-helper";
 
 const TabNavigator = () => {
   const Tab = createBottomTabNavigator();
@@ -57,7 +58,7 @@ const TabNavigator = () => {
           fontWeight: 'bold',
         },
         style: {
-          height: scale(80),
+          height: isIphoneX() ? verticalScale(70) : verticalScale(60),
           borderTopColor: Colors.borderBottom,
           borderTopWidth: scale(1),
         },
