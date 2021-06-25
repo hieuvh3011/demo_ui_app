@@ -6,7 +6,6 @@ import {
   CALENDAR_SCREEN,
   CLASS_STACK,
   HOT_TOPIC_STACK,
-  PROFILE_TAB,
 } from './ScreenName';
 import ProfileScreen from '@app/components/profile/ProfileScreen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -17,8 +16,7 @@ import {verticalScale, scale} from 'react-native-size-matters';
 import I18n from 'react-native-i18n';
 import StackClasses from '@app/navigation/StackClasses';
 import StackHotTopic from './StackHotTopics';
-import TabProfile from '@app/navigation/TabProfile';
-import { isIphoneX } from "react-native-iphone-x-helper";
+import {isIphoneX} from 'react-native-iphone-x-helper';
 
 const TabNavigator = () => {
   const Tab = createBottomTabNavigator();
@@ -62,7 +60,9 @@ const TabNavigator = () => {
           borderTopColor: Colors.borderBottom,
           borderTopWidth: scale(1),
         },
-      }}>
+        keyboardHidesTabBar: true,
+      }}
+      lazy={true}>
       <Tab.Screen
         name={CLASS_STACK}
         component={StackClasses}
