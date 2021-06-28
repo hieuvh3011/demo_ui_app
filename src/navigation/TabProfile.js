@@ -4,10 +4,10 @@ import {Dimensions} from 'react-native';
 import MyProfileScreen from '@app/components/profile/MyProfileScreen';
 import SpousalProfileScreen from '@app/components/profile/SpousalProfileScreen';
 import I18n from '@app/i18n/i18n';
-import ChildrenProfileScreen from '@app/components/profile/ChildrenProfileScreen';
 import Colors from '@app/utils/colors';
 import {ScaledSheet} from 'react-native-size-matters';
 import {textStyle} from '@app/utils/TextStyles';
+import StackChildrenProfile from '@app/navigation/StackChildrenProfile';
 
 const TabProfile = () => {
   const layout = Dimensions.get('window');
@@ -22,7 +22,7 @@ const TabProfile = () => {
   const renderScene = SceneMap({
     myProfile: MyProfileScreen,
     spousalProfile: SpousalProfileScreen,
-    childrenProfile: ChildrenProfileScreen,
+    childrenProfile: StackChildrenProfile,
   });
 
   const _renderTabBar = props => {

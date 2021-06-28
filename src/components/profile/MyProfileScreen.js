@@ -63,34 +63,42 @@ const MyProfileScreen = props => {
       mediaType: 'photo',
     };
     launchImageLibrary(options, response => {
-      if (response.errorMessage !== undefined) {
-        console.log('_openGallery error message = ', response.errorMessage);
+      if (
+        response.errorMessage !== undefined ||
+        response.errorCode !== undefined
+      ) {
+        console.log('_openCamera error message = ', response.errorMessage);
+        console.log('error Code = ', response.errorCode);
       }
-      if (!response.didCancel) {
+      if (response && !response.didCancel) {
         setShowImagePicker(false);
         const assets = response?.assets[0];
         console.log('assets = ', assets);
         if (assets?.uri) {
           dispatch(selectMyPhoto(assets?.uri));
         }
-        // console.log('ImagePickerResponse = ', response);
+        console.log('ImagePickerResponse = ', response);
       }
     });
   };
 
   const _openCamera = () => {
     launchCamera({saveToPhotos: true}, response => {
-      if (response.errorMessage !== undefined) {
+      if (
+        response.errorMessage !== undefined ||
+        response.errorCode !== undefined
+      ) {
         console.log('_openCamera error message = ', response.errorMessage);
+        console.log('error Code = ', response.errorCode);
       }
-      if (!response.didCancel) {
+      if (response && !response.didCancel) {
         setShowImagePicker(false);
         const assets = response?.assets[0];
         console.log('assets = ', assets);
         if (assets?.uri) {
           dispatch(selectMyPhoto(assets?.uri));
         }
-        // console.log('ImagePickerResponse = ', response);
+        console.log('ImagePickerResponse = ', response);
       }
     });
   };
@@ -181,7 +189,8 @@ const MyProfileScreen = props => {
     <View style={styles.container}>
       <ScrollView
         contentContainerStyle={styles.scroll}
-        showsVerticalScrollIndicator={false}>
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps={'handled'}>
         {_renderName()}
         {_renderGender()}
         {_renderUploadPhoto()}

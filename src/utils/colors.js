@@ -41,6 +41,7 @@ const Colors = {
   secondary500: 'rgba(41, 192, 231, 1)',
   secondary400: 'rgba(55, 202, 237, 1)',
   hotTopic: 'rgba(35, 211, 53, 1)',
+  dark: 'rgba(90, 69, 34, 1)',
 };
 
 export default Colors;

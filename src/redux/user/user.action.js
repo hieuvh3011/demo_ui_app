@@ -46,3 +46,8 @@ export const typeSpousalLastName = name => ({
   type: types.TYPE_SPOUSAL_LAST_NAME,
   payload: {data: name},
 });
+
+export const addChild = child => ({
+  type: types.ADD_CHILD,
+  payload: {data: child},
+});

@@ -5,6 +5,11 @@ export const initialState = {
   profile: {},
   language: 'en',
   token: '',
+  genderList: [
+    {id: 1, text: I18n.t('profile.male')},
+    {id: 2, text: I18n.t('profile.female')},
+    {id: 3, text: I18n.t('profile.other')},
+  ],
   myProfile: {
     firstName: '',
     lastName: '',
@@ -25,6 +30,17 @@ export const initialState = {
     ],
     photoUri: '',
   },
+  childrenProfile: [
+    {
+      id: 1,
+      firstName: 'Vũ',
+      lastName: 'Minnnn',
+      age: 2,
+      weight: '3kg',
+      height: '12cm',
+      gender: {},
+    },
+  ],
 };
 
 export default (state = initialState, action) => {
@@ -121,6 +137,11 @@ export default (state = initialState, action) => {
           ...state.spousalProfile,
           photoUri: payload.data,
         },
+      };
+    case types.ADD_CHILD:
+      return {
+        ...state,
+        childrenProfile: [...state.childrenProfile, payload.data],
       };
     default:
       return state;

@@ -58,10 +58,10 @@ const SpousalProfileScreen = props => {
       mediaType: 'photo',
     };
     launchImageLibrary(options, response => {
-      if (response.errorMessage !== undefined) {
+      if (response?.errorMessage !== undefined) {
         console.log('_openGallery error message = ', response.errorMessage);
       }
-      if (!response.didCancel) {
+      if (response && !response.didCancel) {
         setShowImagePicker(false);
         const assets = response?.assets[0];
         console.log('assets = ', assets);
@@ -75,10 +75,10 @@ const SpousalProfileScreen = props => {
 
   const _openCamera = () => {
     launchCamera({saveToPhotos: true}, response => {
-      if (response.errorMessage !== undefined) {
+      if (response?.errorMessage !== undefined) {
         console.log('_openCamera error message = ', response.errorMessage);
       }
-      if (!response.didCancel) {
+      if (response && !response.didCancel) {
         setShowImagePicker(false);
         const assets = response?.assets[0];
         console.log('assets = ', assets);
@@ -182,7 +182,8 @@ const SpousalProfileScreen = props => {
     <View style={styles.container}>
       <ScrollView
         contentContainerStyle={styles.scroll}
-        showsVerticalScrollIndicator={false}>
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps={'handled'}>
         {_renderName()}
         {_renderGender()}
         {_renderUploadPhoto()}

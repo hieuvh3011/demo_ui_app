@@ -4,7 +4,7 @@ import {ScaledSheet} from 'react-native-size-matters';
 import Colors from '@app/utils/colors';
 import Header from '@app/components/common/Header';
 import {useSelector} from 'react-redux';
-import ClassroomCheckBox from '@app/components/common/ClassroomCheckBox';
+import ClassroomCheckBox from '@app/components/classes/ClassroomCheckBox';
 import {
   liveTvIcon,
   menuBookIcon,

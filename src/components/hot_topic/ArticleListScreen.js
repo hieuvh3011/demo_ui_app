@@ -4,7 +4,7 @@ import {ScaledSheet} from 'react-native-size-matters';
 import Colors from '@app/utils/colors';
 import Header from '@app/components/common/Header';
 import {useDispatch, useSelector} from 'react-redux';
-import ArticleItem from '@app/components/common/ArticleItem';
+import ArticleItem from '@app/components/hot_topic/ArticleItem';
 import {selectArticle} from '@app/redux/hot_topic/HotTopic.action';
 import {navigateToScreen} from '@app/navigation/NavigatorHelper';
 import {ARTICLE_DETAILS_SCREEN} from '@app/navigation/ScreenName';
