@@ -19,7 +19,7 @@ import SignUpScreen from '@app/components/sign_up/SignUpScreen';
 import EnterEmailScreen from '@app/components/reset_password/EnterEmailScreen';
 import EnterOTPScreen from '@app/components/reset_password/EnterOTPScreen';
 import EnterNewPasswordScreen from '@app/components/reset_password/EnterNewPasswordScreen';
-import MyProfileScreen from '@app/components/profile/MyProfileScreen';
+import MyProfileScreen from '@app/components/profile/screens/MyProfileScreen';
 
 const RootNavigator = () => {
   const Stack = createStackNavigator();

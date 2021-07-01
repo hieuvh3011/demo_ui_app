@@ -1,11 +1,11 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-import ChildrenProfileListScreen from '@app/components/profile/ChildrenProfileListScreen';
+import ChildrenProfileListScreen from '@app/components/profile/screens/ChildrenProfileListScreen';
 import {
   ADD_CHILD_SCREEN,
   CHILDREN_PROFILE_LIST_SCREEN,
 } from '@app/navigation/ScreenName';
-import AddChildScreen from '@app/components/profile/AddChildScreen';
+import AddChildScreen from '@app/components/profile/screens/AddChildScreen';
 
 const Stack = createStackNavigator();
 

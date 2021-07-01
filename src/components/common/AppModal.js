@@ -113,7 +113,7 @@ const styles = ScaledSheet.create({
 AppModal.propTypes = {
   visible: PropTypes.bool,
   onPressCloseModal: PropTypes.func,
-  children: PropTypes.element,
+  children: PropTypes.node,
   successMessage: PropTypes.string,
   animationType: PropTypes.oneOf(['none', 'slide', 'fade']),
 };

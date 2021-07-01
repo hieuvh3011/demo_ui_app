@@ -1,4 +1,4 @@
-import React, {forwardRef, PureComponent} from 'react';
+import React, {forwardRef, Component} from 'react';
 import {
   View,
   TextInput,
@@ -14,7 +14,7 @@ import PropTypes from 'prop-types';
 import {textStyle} from '@app/utils/TextStyles';
 import {isIphoneX} from 'react-native-iphone-x-helper';
 
-class AppTextInput extends PureComponent {
+class AppTextInput extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -72,7 +72,7 @@ class AppTextInput extends PureComponent {
       <TouchableOpacity
         style={styles.clearButtonArea}
         onPress={this._clearContent}>
-        <Icon name={'close'} size={scale(20)} color={this._getIconColor()} />
+        <Icon name={'close'} size={scale(18)} color={this._getIconColor()} />
       </TouchableOpacity>
     );
   };
@@ -111,38 +111,53 @@ class AppTextInput extends PureComponent {
   };
 
   render() {
-    const labelTextStyle = {
-      position: 'absolute',
-      left: 0,
-      top: this._animatedIsFocused?.interpolate({
-        inputRange: [0, 1],
-        outputRange: this._getTopOutputRange(),
-      }),
-      fontSize: this._animatedIsFocused?.interpolate({
-        inputRange: [0, 1],
-        outputRange: [moderateScale(14), moderateScale(12)],
-      }),
-      fontWeight: 'bold',
-      color: Colors.labelInput,
-    };
     const {
+      value,
       label,
       onChange,
       hasError,
       iconName,
+      iconSize,
       style,
       containerStyle,
       secureTextEntry,
       errorText,
+      keyboardType,
       ...rest
     } = this.props;
+
+    const labelTextStyle =
+      value === ''
+        ? {
+            position: 'absolute',
+            left: 0,
+            top: this._animatedIsFocused?.interpolate({
+              inputRange: [0, 1],
+              outputRange: this._getTopOutputRange(),
+            }),
+            fontSize: this._animatedIsFocused?.interpolate({
+              inputRange: [0, 1],
+              outputRange: [moderateScale(14), moderateScale(12)],
+            }),
+            fontWeight: 'bold',
+            color: Colors.labelInput,
+          }
+        : {
+            position: 'absolute',
+            left: 0,
+            top: isIphoneX() ? moderateScale(8) : moderateScale(4),
+            fontSize: moderateScale(12),
+            fontWeight: 'bold',
+            color: Colors.labelInput,
+          };
+
     return (
       <View style={[styles.wrapperContainer, containerStyle]}>
         <View style={this._getContainerStyle()}>
           <Icon
             name={iconName}
             color={this._getIconColor()}
-            size={scale(22)}
+            size={iconSize}
             style={styles.icon}
           />
           <TouchableOpacity
@@ -163,10 +178,12 @@ class AppTextInput extends PureComponent {
             </Animated.Text>
             <TextInput
               ref={ref => (this.inputRef = ref)}
+              value={value}
               onFocus={this._handleFocus}
               onBlur={this._handleBlur}
               secureTextEntry={secureTextEntry}
               onChangeText={onChange}
+              keyboardType={keyboardType}
               textAlignVertical={'bottom'}
               style={[
                 !secureTextEntry ? styles.input : styles.inputSecured,
@@ -258,6 +275,8 @@ AppTextInput.propTypes = {
   hasError: PropTypes.bool,
   errorText: PropTypes.string,
   secureTextEntry: PropTypes.bool,
+  keyboardType: PropTypes.string,
+  iconSize: PropTypes.number,
 };
 
 AppTextInput.defaultProps = {
@@ -270,6 +289,8 @@ AppTextInput.defaultProps = {
   hasError: false,
   secureTextEntry: false,
   errorText: '',
+  keyboardType: 'default',
+  iconSize: scale(20),
 };
 
 export default forwardRef((props, ref) => (

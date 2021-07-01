@@ -1,8 +1,8 @@
 import React from 'react';
 import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
 import {Dimensions} from 'react-native';
-import MyProfileScreen from '@app/components/profile/MyProfileScreen';
-import SpousalProfileScreen from '@app/components/profile/SpousalProfileScreen';
+import MyProfileScreen from '@app/components/profile/screens/MyProfileScreen';
+import SpousalProfileScreen from '@app/components/profile/screens/SpousalProfileScreen';
 import I18n from '@app/i18n/i18n';
 import Colors from '@app/utils/colors';
 import {ScaledSheet} from 'react-native-size-matters';

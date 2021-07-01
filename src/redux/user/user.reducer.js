@@ -1,5 +1,6 @@
 import * as types from './user.type';
 import I18n from '@app/i18n/i18n';
+import {min, min2} from '@app/assets/images';
 
 export const initialState = {
   profile: {},
@@ -39,6 +40,7 @@ export const initialState = {
       weight: '3kg',
       height: '12cm',
       gender: {},
+      imageUrl: min2,
     },
   ],
 };

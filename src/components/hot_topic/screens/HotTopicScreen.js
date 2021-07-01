@@ -3,7 +3,7 @@ import {View, Text, ScrollView} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import Colors from '@app/utils/colors';
 import Header from '@app/components/common/Header';
-import ArticleItem from './ArticleItem';
+import ArticleItem from '../ArticleItem';
 import {textStyle} from '@app/utils/TextStyles';
 import AppButton from '@app/components/common/AppButton';
 import {useDispatch, useSelector} from 'react-redux';

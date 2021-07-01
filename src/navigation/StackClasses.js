@@ -8,14 +8,14 @@ import {
   QUIZ_SCREEN,
   VIDEO_SCREEN,
 } from '@app/navigation/ScreenName';
-import ClassScreen from '@app/components/classes/ClassScreen';
-import ClassPreviewScreen from '@app/components/classes/ClassPreviewScreen';
+import ClassScreen from '@app/components/classes/screens/ClassScreen';
+import ClassPreviewScreen from '@app/components/classes/screens/ClassPreviewScreen';
 import {createStackNavigator} from '@react-navigation/stack';
-import ArticleScreen from '@app/components/classes/ArticleScreen';
-import AnimationScreen from '@app/components/classes/AnimationScreen';
-import PracticeRoomScreen from '@app/components/classes/PracticeRoomScreen';
-import VideoScreen from '@app/components/classes/VideoScreen';
-import QuizScreen from '@app/components/classes/QuizScreen';
+import ArticleScreen from '@app/components/classes/screens/ArticleScreen';
+import AnimationScreen from '@app/components/classes/screens/AnimationScreen';
+import PracticeRoomScreen from '@app/components/classes/screens/PracticeRoomScreen';
+import VideoScreen from '@app/components/classes/screens/VideoScreen';
+import QuizScreen from '@app/components/classes/screens/QuizScreen';
 
 export default function StackClasses() {
   const Stack = createStackNavigator();

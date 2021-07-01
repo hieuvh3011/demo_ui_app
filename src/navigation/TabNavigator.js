@@ -7,7 +7,7 @@ import {
   CLASS_STACK,
   HOT_TOPIC_STACK,
 } from './ScreenName';
-import ProfileScreen from '@app/components/profile/ProfileScreen';
+import ProfileScreen from '@app/components/profile/screens/ProfileScreen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Colors from '@app/utils/colors';
 import PhotoAlbumScreen from '@app/components/photo_album/PhotoAlbumScreen';
