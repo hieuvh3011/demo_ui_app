@@ -299,14 +299,20 @@ const ChildInfoScreen = props => {
             />
           </View>
           <TouchableOpacity
+            hitSlop={{
+              top: 20,
+              bottom: 20,
+              right: 20,
+              left: 20,
+            }}
             style={styles.addTimelineButton}
             onPress={_onPressAddTimestamp}>
             <Icon name={'plus'} size={moderateScale(25)} color={Colors.white} />
           </TouchableOpacity>
           <View style={styles.blank} />
-          <Text style={styles.addTimestamp}>
-            {I18n.t('profile.add_timestamp')}
-          </Text>
+          {/*<Text style={styles.addTimestamp}>*/}
+          {/*  {I18n.t('profile.add_timestamp')}*/}
+          {/*</Text>*/}
         </View>
       </>
     );
