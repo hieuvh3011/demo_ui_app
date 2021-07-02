@@ -1,8 +1,8 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {
-  CLASS_PREVIEW_SCREEN,
   LOGIN_SCREEN,
+  MY_PROFILE_SCREEN,
   RESET_PASSWORD_ENTER_EMAIL_SCREEN,
   RESET_PASSWORD_ENTER_NEW_PASSWORD_SCREEN,
   RESET_PASSWORD_ENTER_OTP_SCREEN,
@@ -19,7 +19,7 @@ import SignUpScreen from '@app/components/sign_up/SignUpScreen';
 import EnterEmailScreen from '@app/components/reset_password/EnterEmailScreen';
 import EnterOTPScreen from '@app/components/reset_password/EnterOTPScreen';
 import EnterNewPasswordScreen from '@app/components/reset_password/EnterNewPasswordScreen';
-import ClassPreviewScreen from '@app/components/classes/ClassPreviewScreen';
+import MyProfileScreen from '@app/components/profile/screens/MyProfileScreen';
 
 const RootNavigator = () => {
   const Stack = createStackNavigator();
@@ -45,6 +45,7 @@ const RootNavigator = () => {
           name={RESET_PASSWORD_ENTER_NEW_PASSWORD_SCREEN}
           component={EnterNewPasswordScreen}
         />
+        <Stack.Screen name={MY_PROFILE_SCREEN} component={MyProfileScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

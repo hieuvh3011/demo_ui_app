@@ -11,7 +11,7 @@ import {
 import {ScaledSheet, verticalScale, scale} from 'react-native-size-matters';
 import Header from '@app/components/common/Header';
 import I18n from '@app/i18n/i18n';
-import ClassroomButton from '@app/components/common/ClassroomButton';
+import ClassroomButton from '@app/components/classes/ClassroomButton';
 import Colors from '@app/utils/colors';
 import {defaultProfilePicture} from '@app/assets/images';
 import {textStyle} from '@app/utils/TextStyles';

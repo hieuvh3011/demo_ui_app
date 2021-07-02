@@ -25,7 +25,7 @@ const persistConfig = {
   storage: AsyncStorage,
   stateReconciler: autoMergeLevel2,
   transforms: [encryptor],
-  // whitelist: ['user'],
+  whitelist: ['user', 'classes', 'hotTopic'],
   blacklist: ['system'],
 };
 

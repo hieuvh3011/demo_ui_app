@@ -12,3 +12,6 @@ export const shareIcon = require('@app/assets/images/hot_topic/share.png');
 export const chatIcon = require('@app/assets/images/hot_topic/chat.png');
 export const demoArticleImage = require('@app/assets/images/hot_topic/demo_article_image.png');
 export const demoArticleThumbnails = require('@app/assets/images/hot_topic/demo_article_thumnails.png');
+export const min = require('@app/assets/images/common/min.jpg');
+export const min2 = require('@app/assets/images/common/min-2.jpg');
+export const placeholderImage = require('@app/assets/images/common/default_image.jpeg');

@@ -92,11 +92,11 @@ AppButton.propTypes = {
   style: PropType.object,
   textStyle: PropType.object,
   activeOpacity: PropType.number,
-  children: PropType.element,
+  children: PropType.node,
   disabled: PropType.bool,
   disabledStyle: PropType.object,
   disabledTextStyle: PropType.object,
-  badgeComponent: PropType.element,
+  badgeComponent: PropType.node,
 };
 
 AppButton.defaultProps = {

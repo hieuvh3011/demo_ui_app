@@ -2,31 +2,24 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {
   ACCOUNT_SCREEN,
-  HOT_TOPIC_SCREEN,
   PHOTO_ALBUM_SCREEN,
   CALENDAR_SCREEN,
-  CLASS_SCREEN,
-  CLASS_PREVIEW_SCREEN,
   CLASS_STACK,
   HOT_TOPIC_STACK,
 } from './ScreenName';
-import ClassScreen from '@app/components/classes/ClassScreen';
-import ProfileScreen from '@app/components/profile/ProfileScreen';
+import ProfileScreen from '@app/components/profile/screens/ProfileScreen';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Colors from '@app/utils/colors';
-import HotTopicScreen from '@app/components/hot_topic/HotTopicScreen';
 import PhotoAlbumScreen from '@app/components/photo_album/PhotoAlbumScreen';
 import CalendarScreen from '@app/components/calendar/CalendarScreen';
-import {scale} from 'react-native-size-matters';
+import {verticalScale, scale} from 'react-native-size-matters';
 import I18n from 'react-native-i18n';
-import {createStackNavigator} from '@react-navigation/stack';
-import ClassPreviewScreen from '@app/components/classes/ClassPreviewScreen';
 import StackClasses from '@app/navigation/StackClasses';
 import StackHotTopic from './StackHotTopics';
+import {isIphoneX} from 'react-native-iphone-x-helper';
 
 const TabNavigator = () => {
   const Tab = createBottomTabNavigator();
-  const Stack = createStackNavigator();
 
   const getIconTab = (route: any, color: string) => {
     let iconName = '';
@@ -63,11 +56,13 @@ const TabNavigator = () => {
           fontWeight: 'bold',
         },
         style: {
-          height: scale(80),
+          height: isIphoneX() ? verticalScale(70) : verticalScale(60),
           borderTopColor: Colors.borderBottom,
           borderTopWidth: scale(1),
         },
-      }}>
+        keyboardHidesTabBar: true,
+      }}
+      lazy={true}>
       <Tab.Screen
         name={CLASS_STACK}
         component={StackClasses}

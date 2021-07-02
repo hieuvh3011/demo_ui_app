@@ -5,9 +5,9 @@ import {
   ARTICLE_LIST_SCREEN,
   HOT_TOPIC_SCREEN,
 } from './ScreenName';
-import HotTopicScreen from '@app/components/hot_topic/HotTopicScreen';
-import ArticleListScreen from '@app/components/hot_topic/ArticleListScreen';
-import ArticleDetailsScreen from '@app/components/hot_topic/ArticleDetailsScreen';
+import HotTopicScreen from '@app/components/hot_topic/screens/HotTopicScreen';
+import ArticleListScreen from '@app/components/hot_topic/screens/ArticleListScreen';
+import ArticleDetailsScreen from '@app/components/hot_topic/screens/ArticleDetailsScreen';
 
 export default function StackHotTopic() {
   const Stack = createStackNavigator();
