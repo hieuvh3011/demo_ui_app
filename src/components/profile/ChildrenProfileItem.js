@@ -3,12 +3,20 @@ import {View, Text, Image, TouchableOpacity} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 
 import PropTypes from 'prop-types';
-import {defaultProfilePicture} from '@app/assets/images';
+import {placeholderImage} from '@app/assets/images';
 import Colors from '@app/utils/colors';
 import {textStyle} from '@app/utils/TextStyles';
 
 const ChildrenProfileItem = props => {
   const {firstName, lastName, age, weight, height, imageUrl, onPress} = props;
+
+  const _getImageSource = () => {
+    if (imageUrl !== '') {
+      return {uri: imageUrl};
+    }
+    return placeholderImage;
+  };
+
   return (
     <TouchableOpacity
       style={styles.container}
@@ -17,10 +25,10 @@ const ChildrenProfileItem = props => {
       <View style={styles.info}>
         <Text style={styles.name}>{`${firstName} ${lastName}`}</Text>
         <Text style={styles.infoText}>{`${age} years old`}</Text>
-        <Text style={styles.infoText}>{weight}</Text>
-        <Text style={styles.infoText}>{height}</Text>
+        <Text style={styles.infoText}>{`${weight} kg`}</Text>
+        <Text style={styles.infoText}>{`${height} cm`}</Text>
       </View>
-      <Image source={imageUrl} style={styles.image} />
+      <Image source={_getImageSource()} style={styles.image} />
     </TouchableOpacity>
   );
 };
@@ -32,6 +40,7 @@ const styles = ScaledSheet.create({
     flexDirection: 'row',
     backgroundColor: Colors.topic.background,
     borderRadius: '10@ms',
+    marginVertical: '5@vs',
   },
   image: {
     flex: 1,
@@ -65,12 +74,17 @@ ChildrenProfileItem.propTypes = {
   age: PropTypes.number,
   weight: PropTypes.string,
   height: PropTypes.string,
-  imageUrl: PropTypes.number,
+  imageUrl: PropTypes.string,
   onPress: PropTypes.func,
 };
 
 ChildrenProfileItem.defaultProps = {
-  imageUrl: defaultProfilePicture,
+  imageUrl: '',
+  firstName: '',
+  lastName: '',
+  age: 0,
+  weight: 0,
+  height: 0,
   onPress: () => {},
 };
 

@@ -31,18 +31,6 @@ export const initialState = {
     ],
     photoUri: '',
   },
-  childrenProfile: [
-    {
-      id: 1,
-      firstName: 'Vũ',
-      lastName: 'Minnnn',
-      age: 2,
-      weight: '3kg',
-      height: '12cm',
-      gender: {},
-      imageUrl: min2,
-    },
-  ],
 };
 
 export default (state = initialState, action) => {
@@ -139,11 +127,6 @@ export default (state = initialState, action) => {
           ...state.spousalProfile,
           photoUri: payload.data,
         },
-      };
-    case types.ADD_CHILD:
-      return {
-        ...state,
-        childrenProfile: [...state.childrenProfile, payload.data],
       };
     default:
       return state;

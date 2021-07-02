@@ -17,45 +17,56 @@ import Colors from '@app/utils/colors';
 import I18n from '@app/i18n/i18n';
 import AppTextInput from '@app/components/common/AppTextInput';
 import {textStyle} from '@app/utils/TextStyles';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import Dash from 'react-native-dash';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {defaultProfilePicture, min2} from '@app/assets/images';
-import AppModal from '@app/components/common/AppModal';
+import {min2} from '@app/assets/images';
 import ModalTimestamp from '@app/components/profile/ModalTimestamp';
+import AppButton from '@app/components/common/AppButton';
+import {
+  addCurrentChildToListChildren,
+  changeWeightAndHeightDiary,
+  selectBirthday,
+  selectGender,
+  typeFirstName,
+  typeLastName,
+  updateChildrenList,
+  updateSelectedChildToListChildren,
+} from '@app/redux/children/children.action';
 
-const AddChildScreen = props => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const {genderList} = useSelector(state => state?.user);
-  const [birthday, setBirthday] = useState(new Date());
+const ChildInfoScreen = props => {
+  const {genderList, selectedChild, mode, childrenProfile} = useSelector(
+    state => state?.children,
+  );
+  const {id, firstName, lastName, birthday, gender, weightAndHeightDiary} =
+    selectedChild;
+  const dispatch = useDispatch();
+
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [gender, setGender] = useState({});
-  const [weightAndHeightDiary, setWeightAndHeightDiary] = useState([]);
   const [showModalAddTimestamp, setModalAddTimestamp] = useState(false);
   const [showModalEditTimestamp, setModalEditTimestamp] = useState(false);
   const [selectedTimestamp, setSelectedTimestamp] = useState({});
 
   const onChangeFirstName = text => {
-    setFirstName(text);
+    dispatch(typeFirstName(text));
   };
 
   const onChangeLastName = text => {
-    setLastName(text);
+    dispatch(typeLastName(text));
   };
 
-  const clearFirstName = () => setFirstName('');
+  const clearFirstName = () => dispatch(typeFirstName(''));
 
-  const clearLastName = () => setLastName('');
+  const clearLastName = () => dispatch(typeLastName(''));
 
   const _onPressGender = item => {
-    setGender(item);
+    dispatch(selectGender(item));
   };
 
   const onConfirmDate = result => {
     hideDatePicker();
-    setBirthday(result);
+    dispatch(selectBirthday(result));
   };
 
   const onCancelPicker = () => setDatePickerVisibility(false);
@@ -83,27 +94,28 @@ const AddChildScreen = props => {
   const onSubmitAddTimestamp = result => {
     setModalAddTimestamp(false);
     const {weight, height, image, date} = result;
-    let id = 0;
+    let timestampId = 0;
     if (JSON.stringify(weightAndHeightDiary) !== JSON.stringify([])) {
-      id = weightAndHeightDiary.length;
+      timestampId = weightAndHeightDiary.length;
     }
     const newWeightAndHeight = [...weightAndHeightDiary];
     newWeightAndHeight.push({
-      id,
+      id: timestampId,
       weight,
       height,
       image,
       date,
     });
-    setWeightAndHeightDiary(newWeightAndHeight);
+    dispatch(changeWeightAndHeightDiary(newWeightAndHeight));
   };
 
   const _renderEditTimestampModal = () => {
-    const {weight, height, image, id} = selectedTimestamp;
+    const {weight, height, image} = selectedTimestamp;
+    const timestampId = selectedTimestamp?.id;
     if (showModalEditTimestamp) {
       return (
         <ModalTimestamp
-          id={id}
+          id={timestampId}
           mode={'edit'}
           initHeight={height}
           initImage={image}
@@ -116,17 +128,17 @@ const AddChildScreen = props => {
     }
   };
 
-  const deleteTimestamp = id => {
-    console.log('vao day, id = ', id);
+  const deleteTimestamp = timestampId => {
     setModalEditTimestamp(false);
-    const index = weightAndHeightDiary.findIndex(item => item.id === id);
+    const index = weightAndHeightDiary.findIndex(
+      item => item.id === timestampId,
+    );
     const newList = [...weightAndHeightDiary];
     newList.splice(index, 1);
-    setWeightAndHeightDiary(newList);
+    dispatch(changeWeightAndHeightDiary(newList));
   };
 
   const editTimestamp = selectedItem => {
-    console.log('selected item = ', selectedItem);
     setModalEditTimestamp(false);
     const newList = [];
     const newIndex = weightAndHeightDiary.findIndex(
@@ -139,7 +151,7 @@ const AddChildScreen = props => {
         newList.push(item);
       }
     });
-    setWeightAndHeightDiary(newList);
+    dispatch(changeWeightAndHeightDiary(newList));
   };
 
   const _renderName = () => {
@@ -227,6 +239,14 @@ const AddChildScreen = props => {
     const month = getMonthString();
     const date = birthday.getDate();
     const year = birthday.getFullYear();
+    const monthContainer = StyleSheet.flatten([
+      styles.genderButton,
+      {marginLeft: 0},
+    ]);
+    const yearContainer = StyleSheet.flatten([
+      styles.genderButton,
+      {marginRight: 0},
+    ]);
     return (
       <>
         <Text style={styles.topLabel}>{I18n.t('profile.date_of_birth')}</Text>
@@ -234,13 +254,13 @@ const AddChildScreen = props => {
           style={styles.row}
           activeOpacity={0.8}
           onPress={showDatePicker}>
-          <View style={styles.genderButton}>
+          <View style={monthContainer}>
             <Text style={styles.genderButtonText}>{month}</Text>
           </View>
           <View style={styles.genderButton}>
             <Text style={styles.genderButtonText}>{date}</Text>
           </View>
-          <View style={styles.genderButton}>
+          <View style={yearContainer}>
             <Text style={styles.genderButtonText}>{year}</Text>
           </View>
         </TouchableOpacity>
@@ -347,6 +367,57 @@ const AddChildScreen = props => {
     setModalAddTimestamp(true);
   };
 
+  const _renderSubmitButton = () => {
+    return (
+      <AppButton
+        style={styles.submitButton}
+        text={I18n.t('profile.submit')}
+        onPress={_onPressSubmitChild}
+      />
+    );
+  };
+
+  const _onPressSubmitChild = () => {
+    let newItem = {
+      firstName,
+      lastName,
+      gender,
+      weightAndHeightDiary,
+      birthday,
+      age: _calculateAge(),
+    };
+    if (weightAndHeightDiary.length > 0) {
+      newItem.weight = weightAndHeightDiary[0].weight;
+      newItem.height = weightAndHeightDiary[0].height;
+      newItem.imageUrl = weightAndHeightDiary[0].image;
+    }
+    if (mode === 'add') {
+      newItem.id = childrenProfile.length + 1;
+      dispatch(addCurrentChildToListChildren(newItem));
+    } else {
+      newItem.id = id;
+      _updateList(newItem);
+    }
+    props.navigation.pop();
+  };
+
+  const _updateList = newItem => {
+    const updatedList = [];
+    childrenProfile.map((item, index) => {
+      if (item.id === newItem.id) {
+        updatedList.push(newItem);
+      } else {
+        updatedList.push(item);
+      }
+    });
+    dispatch(updateChildrenList(updatedList));
+  };
+
+  const _calculateAge = () => {
+    const now = new Date();
+    return now.getFullYear() - birthday.getFullYear();
+  };
+
   const isDarkMode = useColorScheme() === 'dark';
 
   const dateTimePickerStyle = StyleSheet.flatten([
@@ -359,11 +430,13 @@ const AddChildScreen = props => {
         keyboardShouldPersistTaps={'handled'}
         showsVerticalScrollIndicator={false}
         horizontal={false}
-        contentContainerStyle={styles.scroll}>
+        style={styles.scroll}
+        contentContainerStyle={styles.padding}>
         {_renderName()}
         {_renderGender()}
         {_renderBirthday()}
         {_renderWeightAndHeight()}
+        {_renderSubmitButton()}
       </ScrollView>
       <DateTimePicker
         pickerContainerStyleIOS={dateTimePickerStyle}
@@ -400,7 +473,9 @@ const styles = ScaledSheet.create({
   },
   scroll: {
     width: '100%',
-    paddingHorizontal: '20@ms',
+  },
+  padding: {
+    paddingHorizontal: '15@ms',
     paddingVertical: '10@vs',
   },
   topLabel: {
@@ -521,6 +596,15 @@ const styles = ScaledSheet.create({
     right: '-5@ms',
     bottom: '35@vs',
   },
+  submitButton: {
+    width: '100%',
+    flexDirection: 'row',
+    flex: 1,
+  },
+  submit: {
+    ...textStyle.md_bold,
+    color: Colors.white,
+  },
 });
 
-export default AddChildScreen;
+export default ChildInfoScreen;
