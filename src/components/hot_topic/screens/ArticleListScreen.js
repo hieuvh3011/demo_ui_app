@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, FlatList} from 'react-native';
+import {View, FlatList} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import Colors from '@app/utils/colors';
 import Header from '@app/components/common/Header';

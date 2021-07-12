@@ -35,8 +35,12 @@ const ClassScreen = (): JSX.Element => {
           <Image source={defaultProfilePicture} style={styles.avatar} />
           <View style={styles.levelArea}>
             <View style={styles.level}>
-              <Text style={styles.levelText}>LV. 65</Text>
-              <Text style={styles.levelText}>RANK: MASTER</Text>
+              <Text style={styles.levelText}>
+                {`${I18n.t('classes.level')}. 65`}
+              </Text>
+              <Text style={styles.levelText}>
+                {`${I18n.t('classes.rank')}: MASTER`}
+              </Text>
             </View>
             <Bar
               progress={0.8}
@@ -96,7 +100,9 @@ const ClassScreen = (): JSX.Element => {
     return (
       <Animated.View style={animatedViewStyle}>
         <View style={styles.moreClassBelow}>
-          <Text style={styles.moreClassBelowText}>More classes below</Text>
+          <Text style={styles.moreClassBelowText}>
+            {I18n.t('classes.more_classes_below')}
+          </Text>
         </View>
         <Icon
           name={'chevron-double-down'}

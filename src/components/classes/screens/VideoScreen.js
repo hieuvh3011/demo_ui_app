@@ -13,6 +13,7 @@ import Header from '@app/components/common/Header';
 import {textStyle} from '@app/utils/TextStyles';
 import Video from 'react-native-video';
 import {useSelector} from 'react-redux';
+import I18n from 'react-native-i18n';
 
 const {width} = Dimensions.get('window');
 
@@ -72,7 +73,7 @@ const VideoScreen = props => {
       <Header
         hasBackLeft={true}
         hasRight={true}
-        centerText={'Video'}
+        centerText={I18n.t('classes.video')}
         textColor={color}
       />
       <ScrollView style={styles.scroll}>

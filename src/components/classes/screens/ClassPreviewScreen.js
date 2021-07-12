@@ -21,6 +21,7 @@ import {
   VIDEO_SCREEN,
 } from '@app/navigation/ScreenName';
 import {textStyle} from '@app/utils/TextStyles';
+import I18n from 'react-native-i18n';
 
 const ClassPreviewScreen = () => {
   const classesReducer = useSelector(state => state?.classes);
@@ -30,35 +31,35 @@ const ClassPreviewScreen = () => {
   const statusList = [
     {
       id: 1,
-      name: 'Article',
+      name: I18n.t('classes.article'),
       iconSource: menuBookIcon,
       isDone: true,
       onPress: () => navigateToScreen(ARTICLE_SCREEN),
     },
     {
       id: 2,
-      name: 'Animation',
+      name: I18n.t('classes.animation'),
       iconSource: petsIcon,
       isDone: true,
       onPress: () => navigateToScreen(ANIMATION_SCREEN),
     },
     {
       id: 3,
-      name: 'Video',
+      name: I18n.t('classes.video'),
       iconSource: liveTvIcon,
       isDone: true,
       onPress: () => navigateToScreen(VIDEO_SCREEN),
     },
     {
       id: 4,
-      name: 'Quiz',
+      name: I18n.t('classes.quiz'),
       iconSource: quickReplyIcon,
       isDone: false,
       onPress: () => navigateToScreen(QUIZ_SCREEN),
     },
     {
       id: 5,
-      name: 'Practice Room',
+      name: I18n.t('classes.practice_room'),
       iconSource: videoGameIcon,
       isDone: false,
       onPress: () => navigateToScreen(PRACTICE_ROOM_SCREEN),

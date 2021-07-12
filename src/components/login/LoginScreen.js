@@ -101,7 +101,7 @@ const LoginScreen = props => {
 
   return (
     <View style={styles.container}>
-      <Header centerText={'Login'} hasBackLeft={false} />
+      <Header centerText={I18n.t('login.login')} hasBackLeft={false} />
       <ScrollView
         style={styles.list}
         keyboardShouldPersistTaps={'handled'}

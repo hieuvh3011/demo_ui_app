@@ -5,6 +5,7 @@ import Colors from '@app/utils/colors';
 import Header from '@app/components/common/Header';
 import {textStyle} from '@app/utils/TextStyles';
 import {useSelector} from 'react-redux';
+import I18n from 'react-native-i18n';
 
 const AnimationScreen = props => {
   const currentClass = useSelector(state => state?.classes?.selectedClass);
@@ -13,7 +14,11 @@ const AnimationScreen = props => {
   const titleStyle = StyleSheet.flatten([styles.title, {color}]);
   return (
     <View style={styles.container}>
-      <Header hasBackLeft={true} hasRight={true} centerText={'Animation'} />
+      <Header
+        hasBackLeft={true}
+        hasRight={true}
+        centerText={I18n.t('classes.animation')}
+      />
       <ScrollView style={styles.scroll}>
         <Text style={titleStyle}>Example Title</Text>
         <Text style={styles.content}>

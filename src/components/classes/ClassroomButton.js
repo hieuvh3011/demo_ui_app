@@ -12,6 +12,7 @@ import {AnimatedCircularProgress} from 'react-native-circular-progress';
 import {textStyle} from '@app/utils/TextStyles';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import I18n from 'react-native-i18n';
 
 const ClassroomButton = React.memo(function ClassroomButton(props) {
   const {
@@ -32,6 +33,15 @@ const ClassroomButton = React.memo(function ClassroomButton(props) {
   const isIOS = () => Platform.OS === 'ios';
   const isLocked = () => status === 'locked';
 
+  const _getTextUnlock = () => {
+    const week =
+      weeksToUnlock > 1 ? I18n.t('classes.weeks') : I18n.t('classes.week');
+    const day =
+      daysToUnlock > 1 ? I18n.t('classes.days') : I18n.t('classes.day');
+    const unlockIn = I18n.t('classes.unlock_in');
+    return `${unlockIn} ${weeksToUnlock} ${week}, ${daysToUnlock} ${day}`;
+  };
+
   const _renderBadge = () => {
     let backgroundColor;
     let text;
@@ -39,7 +49,7 @@ const ClassroomButton = React.memo(function ClassroomButton(props) {
     switch (status) {
       case 'complete':
         backgroundColor = Colors.topic.complete;
-        text = 'Complete!';
+        text = `${I18n.t('classes.complete')}!`;
         style = {
           left: moderateScale(20),
           right: moderateScale(20),
@@ -49,7 +59,7 @@ const ClassroomButton = React.memo(function ClassroomButton(props) {
         break;
       case 'update-content':
         backgroundColor = Colors.topic.updateContent;
-        text = 'Update Content!';
+        text = `${I18n.t('classes.update_content')}!`;
         style = {
           left: moderateScale(0),
           right: moderateScale(0),
@@ -59,7 +69,8 @@ const ClassroomButton = React.memo(function ClassroomButton(props) {
         break;
       case 'locked':
         backgroundColor = Colors.topic.background;
-        text = `unlocks in ${weeksToUnlock} weeks, ${daysToUnlock} days`;
+
+        text = _getTextUnlock();
         style = {
           left: moderateScale(-15),
           right: moderateScale(-15),

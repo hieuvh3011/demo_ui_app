@@ -28,6 +28,7 @@ import Share from 'react-native-share';
 import {pressLikeArticle} from '@app/redux/hot_topic/HotTopic.action';
 import Loading from '@app/components/common/Loading';
 import Toast from 'react-native-toast-message';
+import I18n from 'react-native-i18n';
 
 const ArticleDetailsScreen = props => {
   const hotTopicReducer = useSelector(state => state?.hotTopic);
@@ -86,21 +87,27 @@ const ArticleDetailsScreen = props => {
         <AppModal animationType={'fade'}>
           <View style={styles.chatModal}>
             <ScrollView style={styles.list}>
-              <Text style={styles.contactUs}>Contact Us</Text>
+              <Text style={styles.contactUs}>
+                {I18n.t('hot_topic.contact_us')}
+              </Text>
               <Text
                 style={
                   styles.largeText
                 }>{`Feel free to comment on "${topicName}"!`}</Text>
               <View style={styles.form}>
-                <Text style={styles.subjectTitle}>Subject Title</Text>
+                <Text style={styles.subjectTitle}>
+                  {I18n.t('hot_topic.subject_title')}
+                </Text>
                 <Text style={styles.topicName}>{selectedArticle.title}</Text>
               </View>
               <Pressable style={styles.largeForm} onPress={focusOnContactForm}>
-                <Text style={styles.subjectTitle}>Body</Text>
+                <Text style={styles.subjectTitle}>
+                  {I18n.t('hot_topic.body')}
+                </Text>
                 <TextInput
                   ref={ref => (contactFormRef.current = ref)}
                   multiline={true}
-                  placeholder={'Type Here...'}
+                  placeholder={I18n.t('hot_topic.type_here')}
                   placeholderTextColor={Colors.textInput}
                   style={styles.topicName}
                 />
@@ -109,7 +116,9 @@ const ArticleDetailsScreen = props => {
                 style={styles.sendMessageButton}
                 onPress={_onPressSendComment}>
                 <Icon name={'send'} size={scale(20)} color={Colors.white} />
-                <Text style={styles.sendMessageText}>Send Message</Text>
+                <Text style={styles.sendMessageText}>
+                  {I18n.t('hot_topic.send_message')}
+                </Text>
               </AppButton>
               <View style={styles.blank} />
               <AppButton
@@ -131,7 +140,9 @@ const ArticleDetailsScreen = props => {
               <Icon name={'close'} size={scale(25)} color={Colors.primary} />
             </TouchableOpacity>
           </View>
-          {isLoadingSendComment && <Loading loadingText={'Sending message'} />}
+          {isLoadingSendComment && (
+            <Loading loadingText={I18n.t('hot_topic.sending_message')} />
+          )}
         </AppModal>
       );
     }
@@ -158,8 +169,9 @@ const ArticleDetailsScreen = props => {
             />
           </TouchableOpacity>
 
-          <Text
-            style={styles.likeText}>{`${selectedArticle.likes} likes`}</Text>
+          <Text style={styles.likeText}>
+            {`${selectedArticle.likes} ${I18n.t('hot_topics.likes')}`}
+          </Text>
         </View>
         <View style={styles.row}>
           {_renderInteractButton(chatIcon, onPressChat)}
