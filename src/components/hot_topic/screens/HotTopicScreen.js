@@ -10,6 +10,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {selectTopic} from '@app/redux/hot_topic/HotTopic.action';
 import {navigateToScreen} from '@app/navigation/NavigatorHelper';
 import {ARTICLE_LIST_SCREEN} from '@app/navigation/ScreenName';
+import I18n from 'react-native-i18n';
 
 const HotTopicScreen = (): JSX.Element => {
   const hotTopicReducer = useSelector(state => state?.hotTopic);
@@ -38,9 +39,14 @@ const HotTopicScreen = (): JSX.Element => {
 
   return (
     <View style={styles.container}>
-      <Header hasBackLeft={false} centerText={'Parenting 365'} />
+      <Header
+        hasBackLeft={false}
+        centerText={I18n.t('hot_topic.parenting_365')}
+      />
       <ScrollView style={styles.scroll}>
-        <Text style={styles.featureArticle}>Featured Article</Text>
+        <Text style={styles.featureArticle}>
+          {I18n.t('hot_topic.feature_article')}
+        </Text>
         {articles.map((item, index) => {
           return (
             <ArticleItem
@@ -53,7 +59,7 @@ const HotTopicScreen = (): JSX.Element => {
             />
           );
         })}
-        <Text style={styles.topics}>Topics</Text>
+        <Text style={styles.topics}>{I18n.t('hot_topic.topics')}</Text>
         {topics.map((item, index) => {
           if (item.isUpdated) {
             return (
@@ -64,7 +70,9 @@ const HotTopicScreen = (): JSX.Element => {
                 textStyle={styles.topicButtonText}
                 badgeComponent={
                   <View style={styles.badgeUpdatedContainer}>
-                    <Text style={styles.badgeUpdateText}>updated!</Text>
+                    <Text style={styles.badgeUpdateText}>
+                      {`${I18n.t('hot_topic.updated')}!`}
+                    </Text>
                   </View>
                 }
                 onPress={() => _selectTopic(item)}

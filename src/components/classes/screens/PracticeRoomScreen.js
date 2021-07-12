@@ -5,6 +5,7 @@ import Colors from '@app/utils/colors';
 import Header from '@app/components/common/Header';
 import {textStyle} from '@app/utils/TextStyles';
 import {useSelector} from 'react-redux';
+import I18n from 'react-native-i18n';
 
 const PracticeRoomScreen = props => {
   const currentClass = useSelector(state => state?.classes?.selectedClass);
@@ -17,7 +18,7 @@ const PracticeRoomScreen = props => {
       <Header
         hasBackLeft={true}
         hasRight={true}
-        centerText={'Practice Room'}
+        centerText={I18n.t('classes.article')}
         textColor={color}
       />
       <ScrollView style={styles.scroll}>

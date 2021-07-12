@@ -1,11 +1,12 @@
 import React from 'react';
-import {View, Text, ScrollView, FlatList, StyleSheet} from 'react-native';
+import {View, Text, FlatList, StyleSheet} from 'react-native';
 import {ScaledSheet} from 'react-native-size-matters';
 import Colors from '@app/utils/colors';
 import Header from '@app/components/common/Header';
 import {textStyle} from '@app/utils/TextStyles';
 import AppButton from '@app/components/common/AppButton';
 import {useSelector} from 'react-redux';
+import I18n from '@app/i18n/i18n';
 
 const QuizScreen = props => {
   const currentClass = useSelector(state => state?.classes?.selectedClass);
@@ -51,7 +52,7 @@ const QuizScreen = props => {
       <Header
         hasBackLeft={true}
         hasRight={true}
-        centerText={'Article Quiz'}
+        centerText={I18n.t('classes.quiz')}
         textColor={color}
       />
       <FlatList

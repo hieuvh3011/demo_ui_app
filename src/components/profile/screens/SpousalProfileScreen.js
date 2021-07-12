@@ -23,6 +23,9 @@ import AppButton from '@app/components/common/AppButton';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import CameraOrGalleryModal from '@app/components/common/CameraOrGalleryModal';
+import * as Sentry from '@sentry/react-native';
+
+Sentry.nativeCrash();
 
 const SpousalProfileScreen = props => {
   const [showImagePicker, setShowImagePicker] = useState(false);

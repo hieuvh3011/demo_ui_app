@@ -250,7 +250,8 @@ const styles = ScaledSheet.create({
     height: '95%',
     width: '100%',
     backgroundColor: Colors.background,
-    borderRadius: '25@ms',
+    borderTopRightRadius: '25@ms',
+    borderTopLeftRadius: '25@ms',
   },
   list: {
     width: '100%',

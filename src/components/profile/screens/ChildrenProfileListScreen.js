@@ -14,6 +14,9 @@ import {
   onPressAddChild,
   selectChild,
 } from '@app/redux/children/children.action';
+import * as Sentry from '@sentry/react-native';
+
+Sentry.nativeCrash();
 
 const ChildrenProfileListScreen = props => {
   const childrenProfile = useSelector(
