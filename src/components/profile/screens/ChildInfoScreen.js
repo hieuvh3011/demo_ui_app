@@ -32,8 +32,10 @@ import {
   typeFirstName,
   typeLastName,
   updateChildrenList,
-  updateSelectedChildToListChildren,
 } from '@app/redux/children/children.action';
+import * as Sentry from '@sentry/react-native';
+
+Sentry.nativeCrash();
 
 const ChildInfoScreen = props => {
   const {genderList, selectedChild, mode, childrenProfile} = useSelector(
