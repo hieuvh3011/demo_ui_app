@@ -38,6 +38,9 @@ export default {
     password_confirm_not_match: 'Your password is not match',
     please_type_your_email: 'Please type your email',
     otp_cannot_empty: 'Digit code cannot be empty',
+    network_error: 'Network Error',
+    network_error_description:
+      'Please check your internet connection and try again',
   },
   reset_password: {
     reset_password: 'Reset Password',

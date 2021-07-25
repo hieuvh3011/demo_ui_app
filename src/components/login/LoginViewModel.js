@@ -11,6 +11,7 @@ import {
 import I18n from '@app/i18n/i18n';
 import {isEmail} from '@app/utils/validator';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {loginRequest} from '@app/api/AuthRequest';
 
 GoogleSignin.configure({
   webClientId:
@@ -73,11 +74,11 @@ const LoginViewModel = props => {
       passwordError === ''
     ) {
       setLoading(true);
-      await setTimeout(() => {
-        setLoading(false);
-        // Alert.alert('Error', 'Your email and password is not match');
+      const response = await loginRequest(email, password);
+      setLoading(false);
+      if (response?.status === 200) {
         navigateToScreenAndReplace(TAB_NAVIGATOR);
-      }, 2000);
+      }
     }
   };
 

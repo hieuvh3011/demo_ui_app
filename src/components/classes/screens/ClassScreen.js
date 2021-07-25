@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   View,
   Text,
@@ -20,14 +20,23 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {navigateToScreen} from '@app/navigation/NavigatorHelper';
 import {CLASS_PREVIEW_SCREEN} from '@app/navigation/ScreenName';
 import {useSelector, useDispatch} from 'react-redux';
-import {selectClass} from '@app/redux/classes/classes.action';
+import {
+  fetchClasses,
+  refreshClasses,
+  selectClass,
+} from '@app/redux/classes/classes.action';
 
 const ClassScreen = (): JSX.Element => {
-  const [refreshing, setRefreshing] = useState(false);
   const fadeAnimation = useRef(new Animated.Value(0.99)).current;
   const classReducer = useSelector(state => state?.classes);
-  const list = classReducer.listClasses;
+  const refreshing = classReducer?.isRefresh;
+  const list = classReducer?.listClasses;
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchClasses());
+  }, [dispatch]);
+
   const _renderRank = () => {
     return (
       <View style={styles.rankContainer}>
@@ -122,10 +131,7 @@ const ClassScreen = (): JSX.Element => {
   };
 
   const _onRefresh = () => {
-    setRefreshing(true);
-    setTimeout(() => {
-      setRefreshing(false);
-    }, 2000);
+    dispatch(refreshClasses());
   };
 
   const _onPressClassroom = classID => {
