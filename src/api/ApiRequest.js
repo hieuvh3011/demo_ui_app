@@ -8,9 +8,10 @@ import * as StorageKey from '@app/utils/StorageKeys';
 import {callLoginDefault} from '@app/api/AuthRequest';
 import {SESSION_ID} from '@app/utils/StorageKeys';
 import I18n from 'react-native-i18n';
+import Config from "react-native-config";
 
 const instance = axios.create({
-  baseURL: 'http://parenteduup.kazootechnology.com',
+  baseURL: Config.API_URL,
   timeout: 30000,
 });
 
@@ -75,7 +76,7 @@ const handleExpiredToken = async () => {
 
 export const callApi = async (
   method = 'GET',
-  url = 'http://parenteduup.kazootechnology.com',
+  url = Config.API_URL;,
   params,
   noToken = false,
 ) => {

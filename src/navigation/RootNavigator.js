@@ -28,8 +28,8 @@ const RootNavigator = () => {
     <NavigationContainer ref={navigationRef}>
       <Stack.Navigator
         screenOptions={{headerShown: false}}
-        initialRouteName={SPLASH_SCREEN}>
-        <Stack.Screen name={SPLASH_SCREEN} component={SplashScreen} />
+        initialRouteName={LOGIN_SCREEN}>
+        {/*<Stack.Screen name={SPLASH_SCREEN} component={SplashScreen} />*/}
         <Stack.Screen name={LOGIN_SCREEN} component={LoginScreen} />
         <Stack.Screen name={SIGN_UP_SCREEN} component={SignUpScreen} />
         <Stack.Screen
