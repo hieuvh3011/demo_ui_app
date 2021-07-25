@@ -1,7 +1,7 @@
 import * as types from './classes.type';
 import Colors from '@app/utils/colors';
 
-const initialState = {
+export const initialState = {
   listClasses: [
     {
       id: 1,
@@ -95,6 +95,7 @@ const initialState = {
     },
   ],
   selectedClass: {},
+  isRefresh: false,
 };
 
 export default (state = initialState, action) => {
@@ -105,6 +106,16 @@ export default (state = initialState, action) => {
       return {
         ...state,
         selectedClass: payload.data,
+      };
+    case types.SET_REFRESHER:
+      return {
+        ...state,
+        isRefresh: payload.data,
+      };
+    case types.RECEIVE_CLASSES_LIST:
+      return {
+        ...state,
+        listClasses: payload.data,
       };
     default:
       return state;

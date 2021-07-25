@@ -278,7 +278,13 @@ const styles = ScaledSheet.create({
 ClassroomButton.propTypes = {
   percent: PropTypes.number,
   color: PropTypes.string,
-  status: PropTypes.oneOf(['complete', 'update-content', 'locked', 'unlocked']),
+  status: PropTypes.oneOf([
+    'complete',
+    'update-content',
+    'locked',
+    'unlocked',
+    'published',
+  ]),
   containerStyle: PropTypes.object,
   title: PropTypes.string,
   content: PropTypes.string,

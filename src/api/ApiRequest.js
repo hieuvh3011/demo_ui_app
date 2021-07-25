@@ -4,9 +4,13 @@ import {backToLogin} from '@app/navigation/NavigatorHelper';
 import {Alert} from 'react-native';
 import store from '@app/redux/store';
 import {DELETE_USER_INFO} from '@app/redux/user/user.type';
+import * as StorageKey from '@app/utils/StorageKeys';
+import {callLoginDefault} from '@app/api/AuthRequest';
+import {SESSION_ID} from '@app/utils/StorageKeys';
+import I18n from 'react-native-i18n';
 
 const instance = axios.create({
-  baseURL: 'https://github.com/Sotatek-HieuVu',
+  baseURL: 'http://parenteduup.kazootechnology.com',
   timeout: 30000,
 });
 
@@ -34,14 +38,21 @@ instance.interceptors.response.use(
   },
   async function (error) {
     if (__DEV__) {
+      console.log('error = ', error);
       console.log('response error = ', error.response);
       console.log('response error string = ', JSON.stringify(error.response));
+    }
+    if (error.message === 'Network Error') {
+      Alert.alert(
+        I18n.t('error.network_error'),
+        I18n.t('error.network_error_description'),
+      );
+      return;
     }
     if (
       error?.response?.status === 401 &&
       error?.response?.data?.message === 'Unauthorized'
     ) {
-      console.log('vao day');
       await handleExpiredToken();
     }
     return await error.response;
@@ -49,39 +60,47 @@ instance.interceptors.response.use(
 );
 
 const handleExpiredToken = async () => {
-  await AsyncStorage.clear();
-  Alert.alert('Error', 'Your token is expired, please login again', [
-    {
-      text: 'OK',
-      onPress: () => {
-        store.dispatch({type: DELETE_USER_INFO});
-        backToLogin();
-      },
-    },
-  ]);
+  // await AsyncStorage.clear();
+  // Alert.alert('Error', 'Your token is expired, please login again', [
+  //   {
+  //     text: 'OK',
+  //     onPress: () => {
+  //       store.dispatch({type: DELETE_USER_INFO});
+  //       backToLogin();
+  //     },
+  //   },
+  // ]);
+  await callLoginDefault();
 };
 
 export const callApi = async (
   method = 'GET',
+  url = 'http://parenteduup.kazootechnology.com',
   params,
-  url = 'https://github.com/Sotatek-HieuVu',
+  noToken = false,
 ) => {
   let result;
-  const headers = await _getHeader();
+  const headers = await _getHeader(noToken);
+  const session_id = (await AsyncStorage.getItem(SESSION_ID)) || '';
   let config;
+  // params = JSON.stringify(params);
+  const alteredParam = JSON.stringify({
+    ...params,
+    session_id,
+  });
   if (method === 'GET') {
     config = {
       method,
       url,
       headers,
-      params: params,
+      params: alteredParam,
     };
   } else {
     config = {
       method,
       url,
       headers,
-      data: params,
+      data: alteredParam,
     };
   }
   result = await instance(config);
@@ -110,8 +129,16 @@ export const deleteApi = async (url, data = {}) => {
   return callApi('DELETE', url, data);
 };
 
-const _getHeader = async () => {
-  const accessToken = (await AsyncStorage.getItem('access_token')) || '';
+const _getHeader = async noToken => {
+  if (noToken) {
+    return {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+    };
+  }
+  const accessToken =
+    (await AsyncStorage.getItem(StorageKey.ACCESS_TOKEN)) || '';
+  console.log('access token = ', accessToken);
   return {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${accessToken}`,
